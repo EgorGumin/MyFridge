@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drawer_item_settings">Настройки</string>
+    <string name="drawer_item_contact">Разработчик</string>
+    <string name="drawer_item_food">Мои продукты</string>
+    <string name="drawer_item_help">Помощь</string>
+    <string name="drawer_item_menu">Меню на неделю</string>
+    <string name="drawer_item_recipes">Мои рецепты</string>
+    <string name="drawer_item_recommended_recipies">Рекомендованные рецепты</string>
+    <string name="hello_world">Приветик!</string>
+</resources>
