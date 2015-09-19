@@ -6,6 +6,7 @@
     <string name="drawer_item_help">Помощь</string>
     <string name="drawer_item_menu">Меню на неделю</string>
     <string name="drawer_item_recipes">Мои рецепты</string>
-    <string name="drawer_item_recommended_recipies">Рекомендованные рецепты</string>
     <string name="hello_world">Приветик!</string>
+    <string name="action_settings">Настройки</string>
+    <string name="drawer_item_recommended_recipes">Рекомендованные рецепты</string>
 </resources>
