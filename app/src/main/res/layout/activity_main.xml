@@ -10,20 +10,25 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp" />
 
-    <FrameLayout
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_below="@id/toolbar"
-        android:id="@+id/frame_container"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txtLabel"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Test"
-            android:textSize="16sp" />
-    </FrameLayout>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/food_list_swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/food_list_recycler_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </RelativeLayout>
 
 

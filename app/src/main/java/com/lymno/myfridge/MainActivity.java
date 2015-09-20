@@ -1,15 +1,21 @@
 package com.lymno.myfridge;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -28,19 +34,27 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialize.util.UIUtils;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private static final int PROFILE_SETTING = 1;
     private static final int MY_FOOD = 1;
-    private static final int MY_RECIPES = 1;
+    private static final int MY_RECIPES = 2;
 
     //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
 
+    private FoodAdapter mAdapter;
+    private SwipeRefreshLayout refreshLayout;
+    Context context;
+    public RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
 
         // Handle Toolbar
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -85,9 +99,25 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_FOOD) {
-
+                            ArrayList<Food> foodList = new ArrayList<>();
+                            foodList.add(new Food("Колбаса", "Сальчичон"));
+                            foodList.add(new Food("Молоко", "С Котиком"));
+                            FoodAdapter mAdapter = new FoodAdapter(foodList);
+                            // 4. set adapter
+                            recyclerView.setAdapter(mAdapter);
+                            // 5. set item animator to DefaultAnimator
                         }
+                        if (drawerItem != null && drawerItem.getIdentifier() == MY_RECIPES) {
+                            ArrayList<Food> foodList1 = new ArrayList<>();
+                            foodList1.add(new Food("Картофель в мундире", "Картофель, соль"));
+                            foodList1.add(new Food("Отбивные из свинины", "Свинина, сыр, томаты"));
 
+                            // 1. get a reference to recyclerView
+                            FoodAdapter newAdapter = new FoodAdapter(foodList1);
+                            // 4. set adapter
+                            recyclerView.setAdapter(newAdapter);
+                            // 5. set item animator to DefaultAnimator
+                        }
                         if (drawerItem instanceof Nameable) {
                             toolbar.setTitle(((Nameable) drawerItem).getName().getText(MainActivity.this));
                         }
@@ -99,6 +129,33 @@ public class MainActivity extends AppCompatActivity {
 
         // set the selection to the item with the identifier 1
         result.setSelection(MY_FOOD, true);
+
+
+        ///**********************
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.food_list_swipe_refresh_layout);
+        refreshLayout.setColorSchemeColors(Color.parseColor("#4caf50"));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //new updateQuestList().execute("home/api/gui/quest/all");
+            }
+        });
+        ArrayList<Food> foodList = new ArrayList<>();
+        foodList.add(new Food("Колбаса", "Сальчичон"));
+        foodList.add(new Food("Молоко", "С Котиком"));
+
+        // 1. get a reference to recyclerView
+        recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
+        // 2. set layoutManger
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        // 3. create an adapter
+        mAdapter = new FoodAdapter(foodList);
+        // 4. set adapter
+        recyclerView.setAdapter(mAdapter);
+        // 5. set item animator to DefaultAnimator
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        //
 
     }
 
