@@ -7,6 +7,27 @@ public class Recipe {
     private String Description;
     private ArrayList<Food> foodList;
 
+    public String getFoodListString(){
+        if (foodList.size() == 0){
+            return "";
+        }
+        String allFood = "";
+        for (int i = 0; i < foodList.size(); i++) {
+            if (i == foodList.size() - 1){
+                allFood = allFood + foodList.get(i).getName().toLowerCase() + ".";
+            }
+            else{
+                if (i == 0){
+                    allFood = allFood + foodList.get(i).getName() + ", ";
+                }
+                else {
+                    allFood = allFood + foodList.get(i).getName().toLowerCase() + ", ";
+                }
+            }
+        }
+        return allFood;
+    }
+
     public Recipe(String name, String description, ArrayList<Food> foodList) {
         Name = name;
         Description = description;

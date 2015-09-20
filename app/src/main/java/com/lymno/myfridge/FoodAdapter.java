@@ -37,7 +37,6 @@ Context context;
         // - replace the contents of the view with that itemsData
 
         Food foodsDataPos = foodData.get(position);
-
         viewHolder.FoodName.setText(foodsDataPos.getName());
         viewHolder.FoodDescription.setText(foodsDataPos.getDescription());
         //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());

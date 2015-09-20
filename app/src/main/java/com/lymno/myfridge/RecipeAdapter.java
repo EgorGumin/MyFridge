@@ -39,6 +39,7 @@ Context context;
 
         viewHolder.RecipeName.setText(recipeDataPos.getName());
         viewHolder.RecipeDescription.setText(recipeDataPos.getDescription());
+        viewHolder.RecipeFoodList.setText(recipeDataPos.getFoodListString());
         //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());
     }
 
@@ -52,12 +53,14 @@ Context context;
 
         public TextView RecipeName;
         public TextView RecipeDescription;
+        public TextView RecipeFoodList;
         //public ImageView imgViewIcon;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             RecipeName = (TextView) itemLayoutView.findViewById(R.id.tvCardRecipeName);
             RecipeDescription = (TextView) itemLayoutView.findViewById(R.id.tvRecipeDescription);
+            RecipeFoodList = (TextView)itemLayoutView.findViewById(R.id.tvRecipeFoodList);
             //imgViewIcon = (ImageView) itemLayoutView.findViewById(R.id.item_icon);
             itemLayoutView.setOnClickListener(this);
         }
