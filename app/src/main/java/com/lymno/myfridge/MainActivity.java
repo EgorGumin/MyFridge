@@ -108,12 +108,14 @@ public class MainActivity extends AppCompatActivity {
                             // 5. set item animator to DefaultAnimator
                         }
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_RECIPES) {
-                            ArrayList<Food> foodList1 = new ArrayList<>();
-                            foodList1.add(new Food("Картофель в мундире", "Картофель, соль"));
-                            foodList1.add(new Food("Отбивные из свинины", "Свинина, сыр, томаты"));
+                            ArrayList<Recipe> foodList1 = new ArrayList<>();
+                            ArrayList<Food> forRecipe1 = new ArrayList<Food>();
+                            forRecipe1.add(new Food("Картофель", "Сырой"));
+                            forRecipe1.add(new Food("Соль", ""));
+                            foodList1.add(new Recipe("Картофель в мундире", "Сварить картофель, посыпать солью.", forRecipe1));
 
                             // 1. get a reference to recyclerView
-                            FoodAdapter newAdapter = new FoodAdapter(foodList1);
+                            RecipeAdapter newAdapter = new RecipeAdapter(foodList1);
                             // 4. set adapter
                             recyclerView.setAdapter(newAdapter);
                             // 5. set item animator to DefaultAnimator

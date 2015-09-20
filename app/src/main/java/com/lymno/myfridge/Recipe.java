@@ -1,12 +1,16 @@
 package com.lymno.myfridge;
 
-public class Food {
+import java.util.ArrayList;
+
+public class Recipe {
     private String Name;
     private String Description;
+    private ArrayList<Food> foodList;
 
-    public Food(String name, String description) {
+    public Recipe(String name, String description, ArrayList<Food> foodList) {
         Name = name;
         Description = description;
+        this.foodList = foodList;
     }
 
     public String getName() {
@@ -17,4 +21,7 @@ public class Food {
         return Description;
     }
 
+    public ArrayList<Food> getFoodList() {
+        return foodList;
+    }
 }
