@@ -2,6 +2,7 @@ package com.lymno.myfridge.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lymno.myfridge.Adapter.FoodAdapter;
 import com.lymno.myfridge.Adapter.RecipeAdapter;
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_FOOD = 1;
     private static final int MY_RECIPES = 2;
 
-    //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
 
@@ -52,12 +53,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
 
+        // Управление Floating Action Button
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "OK!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // Handle Toolbar
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("title");
 
-        // Create a few sample profile
+        // Добавим профиль пользователя
         final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.profile));
 
         // Create the AccountHeader
@@ -97,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_FOOD) {
                             ArrayList<Food> foodList = Examples.getAllFood();
+                            foodList.addAll(Examples.getAllFood()); // для количества
                             FoodAdapter mAdapter = new FoodAdapter(foodList);
                             recyclerView.setAdapter(mAdapter);
                         }
@@ -116,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         result.setSelection(MY_FOOD, true);
         ArrayList<Food> foodList = Examples.getAllFood();
-
+        foodList.addAll(Examples.getAllFood()); // для количества
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new FoodAdapter(foodList);
