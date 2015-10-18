@@ -1,4 +1,4 @@
-package com.lymno.myfridge.zadapter;
+package com.lymno.myfridge.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,24 +8,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.Recipe;
+import com.lymno.myfridge.model.Food;
 
 import java.util.ArrayList;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
-    private ArrayList<Recipe> recipeData; // these are the things we want to display
+    private ArrayList<Food> foodData; // these are the things we want to display
 
-    public RecipeAdapter(ArrayList<Recipe> recipes) {
-        this.recipeData = recipes;
+    public FoodAdapter(ArrayList<Food> foods) {
+        this.foodData = foods; //sorry for my English)))000))
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public RecipeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FoodAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_adapter, parent, false);
+                .inflate(R.layout.food_adapter, parent, false);
 
         // create ViewHolder
         return new ViewHolder(itemLayoutView);
@@ -38,32 +38,28 @@ Context context;
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
 
-        Recipe recipeDataPos = recipeData.get(position);
-
-        viewHolder.RecipeName.setText(recipeDataPos.getName());
-        viewHolder.RecipeDescription.setText(recipeDataPos.getDescription());
-        viewHolder.RecipeFoodList.setText(recipeDataPos.getFoodListString());
+        Food foodsDataPos = foodData.get(position);
+        viewHolder.FoodName.setText(foodsDataPos.getName());
+        viewHolder.FoodDescription.setText(foodsDataPos.getDescription());
         //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());
     }
 
-    public void updateItems (ArrayList<Recipe> items) {
-        this.recipeData = items;
+    public void updateItems (ArrayList<Food> items) {
+        this.foodData = items;
         notifyDataSetChanged();
     }
 
     // inner class to hold a reference to each item of RecyclerView
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView RecipeName;
-        public TextView RecipeDescription;
-        public TextView RecipeFoodList;
+        public TextView FoodName;
+        public TextView FoodDescription;
         //public ImageView imgViewIcon;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            RecipeName = (TextView) itemLayoutView.findViewById(R.id.tvCardRecipeName);
-            RecipeDescription = (TextView) itemLayoutView.findViewById(R.id.tvRecipeDescription);
-            RecipeFoodList = (TextView)itemLayoutView.findViewById(R.id.tvRecipeFoodList);
+            FoodName = (TextView) itemLayoutView.findViewById(R.id.tvCardFoodName);
+            FoodDescription = (TextView) itemLayoutView.findViewById(R.id.tvFoodDescription);
             //imgViewIcon = (ImageView) itemLayoutView.findViewById(R.id.item_icon);
             itemLayoutView.setOnClickListener(this);
         }
@@ -84,6 +80,6 @@ Context context;
     // Return the size of your itemsData (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return recipeData.size();
+        return foodData.size();
     }
 }

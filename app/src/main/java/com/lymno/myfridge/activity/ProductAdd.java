@@ -1,4 +1,4 @@
-package com.lymno.myfridge.zactivity;
+package com.lymno.myfridge.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

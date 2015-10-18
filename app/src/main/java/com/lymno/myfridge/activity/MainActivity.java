@@ -1,4 +1,4 @@
-package com.lymno.myfridge.zactivity;
+package com.lymno.myfridge.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.lymno.myfridge.zadapter.FoodAdapter;
-import com.lymno.myfridge.zadapter.RecipeAdapter;
+import com.lymno.myfridge.adapter.FoodAdapter;
+import com.lymno.myfridge.adapter.RecipeAdapter;
 import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
 import com.lymno.myfridge.Examples;
 import com.lymno.myfridge.R;
