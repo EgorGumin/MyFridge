@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:name="com.lymno.myfridge.BarcodeScanner.ScannerFragment"
+        android:name="com.lymno.myfridge.barcode_scanner.ScannerFragment"
         android:id="@+id/scanner_fragment"
         android:layout_weight="1"
         android:layout_width="match_parent"

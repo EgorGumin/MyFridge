@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/BarcodeScanner/CameraSelectorDialogFragment.java" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/BarcodeScanner/FormatSelectorDialogFragment.java" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/BarcodeScanner/MessageDialogFragment.java" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/BarcodeScanner/ScannerFragment.java" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/BarcodeScanner/ScannerFragmentActivity.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/barcode_scanner/CameraSelectorDialogFragment.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/barcode_scanner/FormatSelectorDialogFragment.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/barcode_scanner/MessageDialogFragment.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/barcode_scanner/ScannerFragment.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/barcode_scanner/ScannerFragmentActivity.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/network/BaseSampleSpiceActivity.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/network/SampleRetrofitSpiceService.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/values-ru/ids.xml" charset="windows-1251" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

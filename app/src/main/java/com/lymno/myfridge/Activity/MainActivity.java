@@ -1,4 +1,4 @@
-package com.lymno.myfridge.Activity;
+package com.lymno.myfridge.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,15 +11,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
-import com.lymno.myfridge.Adapter.FoodAdapter;
-import com.lymno.myfridge.Adapter.RecipeAdapter;
-import com.lymno.myfridge.BarcodeScanner.ScannerFragmentActivity;
+import com.lymno.myfridge.adapter.FoodAdapter;
+import com.lymno.myfridge.adapter.RecipeAdapter;
+import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
 import com.lymno.myfridge.Examples;
-import com.lymno.myfridge.Food;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.Recipe;
+import com.lymno.myfridge.model.Food;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;

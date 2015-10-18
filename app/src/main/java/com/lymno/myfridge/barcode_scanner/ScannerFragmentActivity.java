@@ -1,4 +1,4 @@
-package com.lymno.myfridge.BarcodeScanner;
+package com.lymno.myfridge.barcode_scanner;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

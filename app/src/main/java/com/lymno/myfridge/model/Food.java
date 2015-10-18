@@ -1,8 +1,13 @@
-package com.lymno.myfridge;
+package com.lymno.myfridge.model;
 
+import java.util.ArrayList;
+
+/**
+ * Created by Colored on 07.10.2015.
+ */
 public class Food {
-    private String Name;
-    private String Description;
+    public String Name;
+    public String Description;
 
     public Food(String name, String description) {
         Name = name;
@@ -17,4 +22,7 @@ public class Food {
         return Description;
     }
 
+    @SuppressWarnings("serial")
+    public static class List extends ArrayList<Food> {
+    }
 }

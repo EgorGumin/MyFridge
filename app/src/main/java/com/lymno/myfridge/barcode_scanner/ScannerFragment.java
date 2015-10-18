@@ -1,4 +1,4 @@
-package com.lymno.myfridge.BarcodeScanner;
+package com.lymno.myfridge.barcode_scanner;
 
 import android.content.Intent;
 import android.media.Ringtone;
@@ -18,8 +18,7 @@ import android.view.ViewGroup;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.lymno.myfridge.Activity.MainActivity;
-import com.lymno.myfridge.Activity.ProductAdd;
+import com.lymno.myfridge.activity.ProductAdd;
 import com.lymno.myfridge.R;
 
 import java.util.ArrayList;

@@ -1,5 +1,7 @@
 package com.lymno.myfridge;
 
+import com.lymno.myfridge.model.Food;
+
 import java.util.ArrayList;
 
 public class Recipe {

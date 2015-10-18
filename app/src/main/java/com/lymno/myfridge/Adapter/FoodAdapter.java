@@ -1,4 +1,4 @@
-package com.lymno.myfridge.Adapter;
+package com.lymno.myfridge.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.lymno.myfridge.Food;
 import com.lymno.myfridge.R;
+import com.lymno.myfridge.model.Food;
 
 import java.util.ArrayList;
 

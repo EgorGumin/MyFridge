@@ -1,4 +1,4 @@
-package com.lymno.myfridge.BarcodeScanner;
+package com.lymno.myfridge.barcode_scanner;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
