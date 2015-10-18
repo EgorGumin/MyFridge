@@ -1,6 +1,7 @@
 package com.lymno.myfridge.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.lymno.myfridge.Adapter.FoodAdapter;
 import com.lymno.myfridge.Adapter.RecipeAdapter;
+import com.lymno.myfridge.BarcodeScanner.ScannerFragmentActivity;
 import com.lymno.myfridge.Examples;
 import com.lymno.myfridge.Food;
 import com.lymno.myfridge.R;
@@ -57,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "OK!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ScannerFragmentActivity.class);
+                startActivity(intent);
             }
         });
 
