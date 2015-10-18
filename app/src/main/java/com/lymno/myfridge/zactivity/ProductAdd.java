@@ -1,7 +1,6 @@
-package com.lymno.myfridge.activity;
+package com.lymno.myfridge.zactivity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.TextView;

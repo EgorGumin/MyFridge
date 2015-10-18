@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.lymno.myfridge.activity.ProductAdd;
+import com.lymno.myfridge.zactivity.ProductAdd;
 import com.lymno.myfridge.R;
 
 import java.util.ArrayList;
