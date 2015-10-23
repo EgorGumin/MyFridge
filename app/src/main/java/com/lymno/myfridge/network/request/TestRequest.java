@@ -19,4 +19,5 @@ public class TestRequest extends RetrofitSpiceRequest<Food, Essen> {
         Ln.d("Call web service ");
         return getService().food(code);
     }
+
 }

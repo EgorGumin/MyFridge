@@ -15,6 +15,7 @@ public class GetFood extends RetrofitSpiceRequest<Food.List, Essen> {
     @Override
     public Food.List loadDataFromNetwork() {
         Ln.d("Call web service ");
+
         return getService().foodList();
     }
 }

@@ -41,14 +41,14 @@ public class ProductAdd extends BaseSampleSpiceActivity {
     }
 
     public final class ListContributorRequestListener implements RequestListener<Food> {
-
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(ProductAdd.this, "failure", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductAdd.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onRequestSuccess(final Food result) {
+
             Toast.makeText(ProductAdd.this, "success", Toast.LENGTH_SHORT).show();
             if (result != null){
                 updateContributors(result);
