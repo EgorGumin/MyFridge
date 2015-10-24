@@ -19,6 +19,13 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
+
+        <!--<ListView-->
+            <!--android:id="@+id/food_listview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
+
+        <!--</ListView>-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/food_list_recycler_list"
             android:layout_width="match_parent"
