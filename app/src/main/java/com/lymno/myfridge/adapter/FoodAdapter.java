@@ -1,6 +1,7 @@
 package com.lymno.myfridge.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
+import com.lymno.myfridge.activity.FoodInfoActivity;
 import com.lymno.myfridge.model.Food;
 
 import java.util.ArrayList;
@@ -66,14 +68,15 @@ Context context;
 
         @Override
         public void onClick(View view) {
-//            Context context = view.getContext();
-//            Intent questInfoIntent = new Intent(context, QuestInfo.class);
+            //TODO insert request activity
+            Context context = view.getContext();
+            Intent questInfoIntent = new Intent(context, FoodInfoActivity.class);
 //            questInfoIntent.putExtra("questId", questsData.get(getAdapterPosition()).getId());
 //            questInfoIntent.putExtra("amountStages", questsData.get(getAdapterPosition()).getAmountStages());
 //            questInfoIntent.putExtra("questDescription", questsData.get(getAdapterPosition()).getDescription());
 //            questInfoIntent.putExtra("questLength", questsData.get(getAdapterPosition()).getLength());
 //            questInfoIntent.putExtra("questName", questsData.get(getAdapterPosition()).getName());
-//            context.startActivity(questInfoIntent);
+            context.startActivity(questInfoIntent);
         }
     }
 
