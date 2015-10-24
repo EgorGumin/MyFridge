@@ -84,7 +84,7 @@ public class FragmentInPutCode extends BaseSampleSpiceFragment {
                 updateContributors(result);
             } else {
                 Toast.makeText(getActivity(), "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
-                //TODO make open input data product
+
             }
 
         }
@@ -107,7 +107,8 @@ public class FragmentInPutCode extends BaseSampleSpiceFragment {
     private void trySendRequest(){
         if (mBarCode != null) {
             mSearchBarcodeRequest = new ProductSearch(mBarCode, "777");
-            getSpiceManager().execute(mSearchBarcodeRequest, "searchBarcode", DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
+            getSpiceManager().execute(mSearchBarcodeRequest, "searchBarcode",
+                    DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
         }
     }
 

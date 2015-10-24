@@ -12,6 +12,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
  */
 public class MySlidingView extends SlidingUpPanelLayout {
 
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (ev.getActionMasked()!=MotionEvent.ACTION_MOVE){

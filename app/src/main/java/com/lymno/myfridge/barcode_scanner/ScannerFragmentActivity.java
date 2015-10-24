@@ -63,6 +63,7 @@ public class ScannerFragmentActivity extends ActionBarActivity {
         super.onCreate(state);
         setContentView(R.layout.barcode_scanner);
         ButterKnife.bind(this);
+
         closeFragment();
     }
 }

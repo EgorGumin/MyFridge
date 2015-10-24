@@ -27,7 +27,7 @@ public class TwoButtonsFragment extends Fragment {
         inflated.findViewById(R.id.no_code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ScannerFragmentActivity) getActivity()).openFragment(new FragmentInPutDataCount());
+                ((ScannerFragmentActivity) getActivity()).openFragment(new FragmentInputProduct());
             }
         });
 
