@@ -5,7 +5,7 @@ import com.lymno.myfridge.network.Essen;
 import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
 
 import roboguice.util.temp.Ln;
-
+/*
 public class TestRequest extends RetrofitSpiceRequest<UserProduct, Essen> {
     private String code;
 
@@ -21,3 +21,4 @@ public class TestRequest extends RetrofitSpiceRequest<UserProduct, Essen> {
     }
 
 }
+*/

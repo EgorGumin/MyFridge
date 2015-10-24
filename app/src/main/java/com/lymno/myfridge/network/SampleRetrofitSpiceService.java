@@ -6,7 +6,13 @@ import retrofit.RestAdapter;
 
 public class SampleRetrofitSpiceService extends RetrofitGsonSpiceService {
 
-    private final static String BASE_URL = "http://essen.azurewebsites.net/";
+    private final static String BASE_URL = "http://s123s.azurewebsites.net/";
+
+    public static String getSessionId() {
+        return SESSION_ID;
+    }
+
+    private final static String SESSION_ID = "777";
 
     @Override
     public void onCreate() {

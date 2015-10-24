@@ -35,7 +35,7 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.8.3'
     compile 'com.octo.android.robospice:robospice:1.4.14'
     compile 'com.octo.android.robospice:robospice-retrofit:1.4.14'
+    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
 }

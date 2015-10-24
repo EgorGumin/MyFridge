@@ -7,15 +7,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.network.BaseSampleSpiceActivity;
-import com.lymno.myfridge.network.request.TestRequest;
+import com.lymno.myfridge.network.request.ProductSearch;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 public class ProductAdd extends BaseSampleSpiceActivity {
-    TestRequest test;
+    ProductSearch searchBarcodeRequest;
+
     TextView barcode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,27 +28,29 @@ public class ProductAdd extends BaseSampleSpiceActivity {
         barcode = (TextView) findViewById(R.id.barcode);
         barcode.setText(code);
 
-        test = new TestRequest(code);
+        searchBarcodeRequest = new ProductSearch(code, "777");
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getSpiceManager().execute(test, "test", DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
+        getSpiceManager().execute(searchBarcodeRequest, "searchBarcode", DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
     }
 
-    private void updateContributors(final UserProduct result) {
+    private void updateContributors(final ProductSearchResult result) {
         barcode.setText(result.getName()/* + result.getDescription()*/);
     }
 
-    public final class ListContributorRequestListener implements RequestListener<UserProduct> {
+    public final class ListContributorRequestListener implements RequestListener<ProductSearchResult> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(ProductAdd.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
-        public void onRequestSuccess(final UserProduct result) {
+        public void onRequestSuccess(final ProductSearchResult result) {
             Toast.makeText(ProductAdd.this, "success", Toast.LENGTH_SHORT).show();
             if (result != null){
                 updateContributors(result);
