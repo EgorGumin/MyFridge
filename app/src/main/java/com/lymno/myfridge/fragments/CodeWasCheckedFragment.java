@@ -18,13 +18,13 @@ public class CodeWasCheckedFragment extends Fragment {
 
     private final static String IS_SUCCESS= "is_suc";
 
-    public static CheckCodeFragment create(boolean isSuccess){
-        Bundle bundle=new Bundle();
-        bundle.putBoolean(IS_SUCCESS,isSuccess);
-        CheckCodeFragment checkCodeFragment=new CheckCodeFragment();
-        checkCodeFragment.setArguments(bundle);
-        return  checkCodeFragment;
-    }
+//    public static CheckCodeFragment create(boolean isSuccess){
+//        Bundle bundle=new Bundle();
+//        bundle.putBoolean(IS_SUCCESS,isSuccess);
+//        CheckCodeFragment checkCodeFragment=new FragmentInPutCode();
+//        checkCodeFragment.setArguments(bundle);
+//        return  checkCodeFragment;
+//    }
 
 
     @Nullable

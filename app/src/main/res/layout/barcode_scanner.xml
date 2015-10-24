@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
+<com.lymno.myfridge.views.MySlidingView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bar_code_sliding_layout"
@@ -11,6 +11,10 @@
      android:clickable="false"
     sothree:umanoShadowHeight="4dp">
 
+    <RelativeLayout
+        android:id="@+id/container_for_fragments1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <fragment
         android:id="@+id/scanner_fragment"
         android:name="com.lymno.myfridge.barcode_scanner.ScannerFragment"
@@ -18,6 +22,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="1" />
 
+    </RelativeLayout>
    <RelativeLayout
        android:id="@+id/container_for_fragments"
        android:layout_width="match_parent"
@@ -25,4 +30,4 @@
 
    </RelativeLayout>
 
-</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+</com.lymno.myfridge.views.MySlidingView>

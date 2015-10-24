@@ -3,20 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/input_barcode"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button3"
-        android:layout_below="@+id/editText"
+        android:text="отправить"
+        android:id="@+id/input_barcode_push"
+        android:layout_below="@id/input_barcode"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

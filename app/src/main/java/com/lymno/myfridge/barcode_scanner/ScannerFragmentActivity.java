@@ -7,11 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.zxing.Result;
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.activity.ProductAdd;
+import com.lymno.myfridge.fragments.FragmentInPutCode;
 import com.lymno.myfridge.fragments.TwoButtonsFragment;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
@@ -41,9 +43,7 @@ public class ScannerFragmentActivity extends ActionBarActivity {
             Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
             r.play();
         } catch (Exception e) {}
-        Intent intent = new Intent(this, ProductAdd.class);
-        intent.putExtra("barcode", rawResult.getText());
-        startActivity(intent);
+        openFragment(FragmentInPutCode.create(rawResult.getText()));
     }
 
     public void openFragment(Fragment fragment){
@@ -63,7 +63,6 @@ public class ScannerFragmentActivity extends ActionBarActivity {
         super.onCreate(state);
         setContentView(R.layout.barcode_scanner);
         ButterKnife.bind(this);
-        mSlidingUpPanelLayout.setTouchEnabled(false);
         closeFragment();
     }
 }

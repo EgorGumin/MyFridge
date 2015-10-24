@@ -16,6 +16,15 @@ import butterknife.ButterKnife;
  */
 public class FragmentInPutDataCount extends Fragment {
 
+    private String mBarCode = null;
+
+    public static FragmentInPutDataCount create(String barCode) {
+        FragmentInPutDataCount fragmentInPutDataCount = new FragmentInPutDataCount();
+        fragmentInPutDataCount.mBarCode = barCode;
+        return fragmentInPutDataCount;
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
