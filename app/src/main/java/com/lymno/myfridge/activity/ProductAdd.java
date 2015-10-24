@@ -7,7 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.model.Food;
+import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.network.BaseSampleSpiceActivity;
 import com.lymno.myfridge.network.request.TestRequest;
 import com.octo.android.robospice.persistence.DurationInMillis;
@@ -36,18 +36,18 @@ public class ProductAdd extends BaseSampleSpiceActivity {
         getSpiceManager().execute(test, "test", DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
     }
 
-    private void updateContributors(final Food result) {
-        barcode.setText(result.getName() + result.getDescription());
+    private void updateContributors(final UserProduct result) {
+        barcode.setText(result.getName()/* + result.getDescription()*/);
     }
 
-    public final class ListContributorRequestListener implements RequestListener<Food> {
+    public final class ListContributorRequestListener implements RequestListener<UserProduct> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(ProductAdd.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
-        public void onRequestSuccess(final Food result) {
+        public void onRequestSuccess(final UserProduct result) {
 
             Toast.makeText(ProductAdd.this, "success", Toast.LENGTH_SHORT).show();
             if (result != null){

@@ -20,7 +20,6 @@ import com.lymno.myfridge.Examples;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.Recipe;
 import com.lymno.myfridge.database.UserProductsDatabase;
-import com.lymno.myfridge.model.Food;
 import com.lymno.myfridge.model.UserProduct;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_FOOD) {
-                            ArrayList<Food> foodList = Examples.getAllFood();
+                            ArrayList<UserProduct> foodList = Examples.getAllFood();
                             foodList.addAll(Examples.getAllFood()); // для количества
                             FoodAdapter mAdapter = new FoodAdapter(foodList);
                             recyclerView.setAdapter(mAdapter);
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         result.setSelection(MY_FOOD, true);
-        ArrayList<Food> foodList = Examples.getAllFood();
+        ArrayList<UserProduct> foodList = Examples.getAllFood();
         foodList.addAll(Examples.getAllFood()); // для количества
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));

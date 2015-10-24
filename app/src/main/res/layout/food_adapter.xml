@@ -1,42 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardViewFood"
-    android:layout_gravity="center_horizontal"
     android:layout_width="fill_parent"
     android:layout_height="100dp"
+    android:layout_gravity="center_horizontal"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="0dp"
     card_view:cardElevation="1dp"
-    card_view:cardUseCompatPadding="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    card_view:cardUseCompatPadding="true">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvCardFoodName"
+        <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textSize="17sp"
-            android:maxLines="2" />
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp">
 
-        <TextView
-            android:id="@+id/tvFoodDescription"
-            android:layout_weight="1"
+            <TextView
+                android:id="@+id/food_adapter_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/food_adapter_left_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:maxLines="2"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <com.lymno.myfridge.views.BucketView
+            android:layout_margin="20dp"
+            android:id="@+id/food_adapter_bucket"
+            android:layout_weight="3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:maxLines="2" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

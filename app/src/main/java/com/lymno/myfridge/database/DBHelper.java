@@ -22,7 +22,6 @@ public class DBHelper extends SQLiteOpenHelper
         {
             case UserProductsDatabase.NAME:
                 database.execSQL("create table " + UserProductsDatabase.NAME + "("
-
                         + UserProductsDatabase.ID + " int,"
                         + UserProductsDatabase.BASE_PRODUCT_ID + " int,"
                         + UserProductsDatabase.CATEGORY + " int,"

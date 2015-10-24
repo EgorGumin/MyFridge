@@ -9,18 +9,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.activity.FoodInfoActivit;
-import com.lymno.myfridge.model.Food;
+import com.lymno.myfridge.activity.zFoodInfoActivity;
+import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.views.BucketView;
 
 import java.util.ArrayList;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
-    private ArrayList<Food> foodData; // these are the things we want to display
+    private ArrayList<UserProduct> foodsData; // these are the things we want to display
 
-    public FoodAdapter(ArrayList<Food> foods) {
-        this.foodData = foods; //sorry for my English)))000))
+    public FoodAdapter(ArrayList<UserProduct> foods) {
+        this.foodsData = foods; //sorry for my English)))000))
     }
+
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -36,18 +38,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-Context context;
-        // - get data from your itemsData at this position
-        // - replace the contents of the view with that itemsData
 
-        Food foodsDataPos = foodData.get(position);
-        viewHolder.FoodName.setText(foodsDataPos.getName());
-        viewHolder.FoodDescription.setText(foodsDataPos.getDescription());
+        UserProduct foodData = foodsData.get(position);
+        viewHolder.FoodName.setText(foodData.getName());
+        viewHolder.FoodEatBefore.setText(foodData.getDate().toString());
+        viewHolder.FoodLeft.setProgress(foodData.getQuantity() / (float) foodData.getQuantityByDefault());
+
+//        viewHolder.FoodEatBefore.setText(foodsDataPos.getDescription());
         //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());
     }
 
-    public void updateItems (ArrayList<Food> items) {
-        this.foodData = items;
+    public void updateItems(ArrayList<UserProduct> items) {
+        this.foodsData = items;
         notifyDataSetChanged();
     }
 
@@ -55,14 +57,14 @@ Context context;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView FoodName;
-        public TextView FoodDescription;
-        //public ImageView imgViewIcon;
+        public TextView FoodEatBefore;
+        public BucketView FoodLeft;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            FoodName = (TextView) itemLayoutView.findViewById(R.id.tvCardFoodName);
-            FoodDescription = (TextView) itemLayoutView.findViewById(R.id.tvFoodDescription);
-            //imgViewIcon = (ImageView) itemLayoutView.findViewById(R.id.item_icon);
+            FoodName = (TextView) itemLayoutView.findViewById(R.id.food_adapter_name);
+            FoodEatBefore = (TextView) itemLayoutView.findViewById(R.id.food_adapter_left_time);
+            FoodLeft = (BucketView)itemLayoutView.findViewById(R.id.food_adapter_bucket);
             itemLayoutView.setOnClickListener(this);
         }
 
@@ -70,7 +72,7 @@ Context context;
         public void onClick(View view) {
             //TODO insert request activity
             Context context = view.getContext();
-            Intent questInfoIntent = new Intent(context, FoodInfoActivit.class);
+            Intent questInfoIntent = new Intent(context, zFoodInfoActivity.class);
 //            questInfoIntent.putExtra("questId", questsData.get(getAdapterPosition()).getId());
 //            questInfoIntent.putExtra("amountStages", questsData.get(getAdapterPosition()).getAmountStages());
 //            questInfoIntent.putExtra("questDescription", questsData.get(getAdapterPosition()).getDescription());
@@ -83,6 +85,6 @@ Context context;
     // Return the size of your itemsData (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return foodData.size();
+        return foodsData.size();
     }
 }

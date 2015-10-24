@@ -1,13 +1,14 @@
 package com.lymno.myfridge;
 
-import com.lymno.myfridge.model.Food;
+
+import com.lymno.myfridge.model.UserProduct;
 
 import java.util.ArrayList;
 
 public class Recipe {
     private String Name;
     private String Description;
-    private ArrayList<Food> foodList;
+    private ArrayList<UserProduct> foodList;
 
     public String getFoodListString(){
         if (foodList.size() == 0){
@@ -30,7 +31,7 @@ public class Recipe {
         return allFood;
     }
 
-    public Recipe(String name, String description, ArrayList<Food> foodList) {
+    public Recipe(String name, String description, ArrayList<UserProduct> foodList) {
         Name = name;
         Description = description;
         this.foodList = foodList;
@@ -44,7 +45,7 @@ public class Recipe {
         return Description;
     }
 
-    public ArrayList<Food> getFoodList() {
+    public ArrayList<UserProduct> getFoodList() {
         return foodList;
     }
 }

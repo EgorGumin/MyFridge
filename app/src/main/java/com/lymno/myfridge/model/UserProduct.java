@@ -14,7 +14,8 @@ public class UserProduct {
     private Date date;
 
 
-    public UserProduct(int id, int baseProductID, int category, String name, int measure, int quantity, int quantityByDefault, Date date) {
+    public UserProduct(int id, int baseProductID, int category, String name, int measure, int quantity,
+                       int quantityByDefault, Date date) {
         this.id = id;
         this.baseProductID = baseProductID;
         this.category = category;
