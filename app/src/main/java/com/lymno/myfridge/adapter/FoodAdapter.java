@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.activity.FoodInfoActivity;
+import com.lymno.myfridge.activity.FoodInfoActivit;
 import com.lymno.myfridge.model.Food;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ Context context;
         public void onClick(View view) {
             //TODO insert request activity
             Context context = view.getContext();
-            Intent questInfoIntent = new Intent(context, FoodInfoActivity.class);
+            Intent questInfoIntent = new Intent(context, FoodInfoActivit.class);
 //            questInfoIntent.putExtra("questId", questsData.get(getAdapterPosition()).getId());
 //            questInfoIntent.putExtra("amountStages", questsData.get(getAdapterPosition()).getAmountStages());
 //            questInfoIntent.putExtra("questDescription", questsData.get(getAdapterPosition()).getDescription());
