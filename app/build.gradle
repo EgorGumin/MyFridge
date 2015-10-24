@@ -37,4 +37,5 @@ dependencies {
     compile 'com.octo.android.robospice:robospice-retrofit:1.4.14'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }
