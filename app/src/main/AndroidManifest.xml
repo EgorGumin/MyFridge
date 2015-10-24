@@ -32,6 +32,9 @@
         <activity android:name=".activity.ProductAdd" >
         </activity>
 
+        <activity android:name=".activity.FoodInfoActivity" >
+        </activity>
+
         <service
             android:enabled="true"
             android:name=".network.SampleRetrofitSpiceService">
