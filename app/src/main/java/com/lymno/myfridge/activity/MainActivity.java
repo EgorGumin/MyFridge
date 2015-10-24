@@ -19,6 +19,7 @@ import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
 import com.lymno.myfridge.Examples;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.Recipe;
+import com.lymno.myfridge.database.DBHelper;
 import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.UserProduct;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private AccountHeader headerResult = null;
     private Drawer result = null;
 
-    private UserProductsDatabase db = new UserProductsDatabase(this);
+//    private UserProductsDatabase db = new UserProductsDatabase();
 
     private FoodAdapter mAdapter;
     Context context;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new DBHelper(context);
+
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
 
@@ -130,12 +133,12 @@ public class MainActivity extends AppCompatActivity {
                         if (drawerItem != null && drawerItem.getIdentifier() == 3) {
                             //добавим в базу
                             UserProduct test = new UserProduct(1,1,1,"Prod name", 1, 1,1, Date.valueOf("12-12-2013"));
-                            db.addUserProduct(test);
+                            UserProductsDatabase.addUserProduct(test);
                         }
 
                         if (drawerItem != null && drawerItem.getIdentifier() == 4) {
                             //добавим в базу
-                            ArrayList<UserProduct> list = db.getUserProducts();
+                            ArrayList<UserProduct> list = UserProductsDatabase.getUserProducts();
                             UserProduct up = list.get(0);
                             Toast.makeText(MainActivity.this, up.getName(), Toast.LENGTH_LONG).show();
                         }

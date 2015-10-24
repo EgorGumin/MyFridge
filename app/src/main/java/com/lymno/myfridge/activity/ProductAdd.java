@@ -48,7 +48,6 @@ public class ProductAdd extends BaseSampleSpiceActivity {
 
         @Override
         public void onRequestSuccess(final UserProduct result) {
-
             Toast.makeText(ProductAdd.this, "success", Toast.LENGTH_SHORT).show();
             if (result != null){
                 updateContributors(result);
