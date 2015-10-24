@@ -146,15 +146,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
     @Override
     public void handleResult(Result rawResult) {
-        try {
-            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
-            r.play();
-        } catch (Exception e) {}
-        //
-        Intent intent = new Intent(getContext(), ProductAdd.class);
-        intent.putExtra("barcode", rawResult.getText());
-        startActivity(intent);
+        ((ScannerFragmentActivity) getActivity()).handleResult(rawResult);
         //showMessageDialog("Contents = " + rawResult.getText() + ", Format = " + rawResult.getBarcodeFormat().toString());
     }
 
@@ -204,7 +196,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
     public void setupFormats() {
         List<BarcodeFormat> formats = new ArrayList<BarcodeFormat>();
         if(mSelectedIndices == null || mSelectedIndices.isEmpty()) {
-            mSelectedIndices = new ArrayList<Integer>();
+            mSelectedIndices = new ArrayList<>();
             for(int i = 0; i < ZXingScannerView.ALL_FORMATS.size(); i++) {
                 mSelectedIndices.add(i);
             }
