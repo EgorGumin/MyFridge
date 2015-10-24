@@ -3,6 +3,7 @@ package com.lymno.myfridge.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Andre on 24.10.2015.
  */
-public class FoodInfoActivit extends AppCompatActivity {
+public class FoodInfoActivity extends AppCompatActivity {
 
     public final String INTENT_CATEGORY_STRING="cat";
     public final String INTENT_NAME_STRING="nam";
@@ -47,6 +48,13 @@ public class FoodInfoActivit extends AppCompatActivity {
 
         loadFromIntent();
         mEatLeft.setOnSeekBarChangeListener(new SeekListener());
+
+
+        // Handle Toolbar
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("title");
+
     }
 
 

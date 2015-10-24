@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.activity.zFoodInfoActivity;
+import com.lymno.myfridge.activity.FoodInfoActivity;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.views.BucketView;
 
@@ -72,7 +72,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         public void onClick(View view) {
             //TODO insert request activity
             Context context = view.getContext();
-            Intent questInfoIntent = new Intent(context, zFoodInfoActivity.class);
+            Intent questInfoIntent = new Intent(context, FoodInfoActivity.class);
 //            questInfoIntent.putExtra("questId", questsData.get(getAdapterPosition()).getId());
 //            questInfoIntent.putExtra("amountStages", questsData.get(getAdapterPosition()).getAmountStages());
 //            questInfoIntent.putExtra("questDescription", questsData.get(getAdapterPosition()).getDescription());
