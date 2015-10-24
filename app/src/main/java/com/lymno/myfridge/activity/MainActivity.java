@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lymno.myfridge.adapter.FoodAdapter;
 import com.lymno.myfridge.adapter.RecipeAdapter;
@@ -18,7 +19,9 @@ import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
 import com.lymno.myfridge.Examples;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.Recipe;
+import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.Food;
+import com.lymno.myfridge.model.UserProduct;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -35,6 +38,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AccountHeader headerResult = null;
     private Drawer result = null;
+
+    private UserProductsDatabase db = new UserProductsDatabase(this);
 
     private FoodAdapter mAdapter;
     Context context;
@@ -96,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recipes).withIcon(FontAwesome.Icon.faw_book).withIdentifier(MY_RECIPES),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recommended_recipes).withIcon(FontAwesome.Icon.faw_commenting).withEnabled(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_menu).withIcon(FontAwesome.Icon.faw_calendar).withEnabled(false),
+                        //отладка бд
+                        new PrimaryDrawerItem().withName("Добавить в базу").withIdentifier(3),
+                        new PrimaryDrawerItem().withName("Прочитать из базы").withIdentifier(4),
+
                         new SectionDrawerItem(),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withEnabled(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
@@ -116,6 +126,19 @@ public class MainActivity extends AppCompatActivity {
                             ArrayList<Recipe> recipesList = Examples.getAllRecipes();
                             RecipeAdapter newAdapter = new RecipeAdapter(recipesList);
                             recyclerView.setAdapter(newAdapter);
+                        }
+
+                        if (drawerItem != null && drawerItem.getIdentifier() == 3) {
+                            //добавим в базу
+                            UserProduct test = new UserProduct(1,1,1,"Prod name", 1, 1,1, Date.valueOf("12-12-2013"));
+                            db.addUserProduct(test);
+                        }
+
+                        if (drawerItem != null && drawerItem.getIdentifier() == 4) {
+                            //добавим в базу
+                            ArrayList<UserProduct> list = db.getUserProducts();
+                            UserProduct up = list.get(0);
+                            Toast.makeText(MainActivity.this, up.getName(), Toast.LENGTH_LONG).show();
                         }
                         if (drawerItem instanceof Nameable) {
                             toolbar.setTitle(((Nameable) drawerItem).getName().getText(MainActivity.this));

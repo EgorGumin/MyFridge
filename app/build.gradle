@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.lymno.barcide_scanner"
+        applicationId "com.lymno.myfridge"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
