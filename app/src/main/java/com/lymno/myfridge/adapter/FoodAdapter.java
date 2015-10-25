@@ -42,7 +42,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         //TODO учесть ситуацию, когда quantity == quantitybydefault
         UserProduct foodData = foodsData.get(position);
-        viewHolder.FoodName.setText(foodData.getName());
+        viewHolder.FoodName.setText(Categories.getItem(foodData.getCategory()) + " " + foodData.getName());
         viewHolder.FoodEatBefore.setText(foodData.getDate().toString());
         viewHolder.FoodLeft.setProgress(foodData.getQuantity() / (float) foodData.getQuantityByDefault());
 
@@ -67,7 +67,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             super(itemLayoutView);
             FoodName = (TextView) itemLayoutView.findViewById(R.id.food_adapter_name);
             FoodEatBefore = (TextView) itemLayoutView.findViewById(R.id.food_adapter_left_time);
-            FoodLeft = (BucketView) itemLayoutView.findViewById(R.id.food_adapter_bucket);
+            FoodLeft = (BucketView)itemLayoutView.findViewById(R.id.food_adapter_bucket);
             itemLayoutView.setOnClickListener(this);
         }
 
@@ -79,7 +79,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             UserProduct product = foodsData.get(getAdapterPosition());
 
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_NAME_STRING,(product.getName()));
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_CATEGORY_STRING,Categories.getItem(product.getCategory()));
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_CATEGORY_STRING, Categories.getItem(product.getCategory()));
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_INT, product.getQuantity());
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_IN_PACKET_INT, product.getQuantityByDefault());
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_UNITS_STRING, Measures.getItem(product.getMeasure()));
