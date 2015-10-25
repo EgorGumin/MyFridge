@@ -84,7 +84,6 @@ public class UserProduct {
         this.date = date;
     }
 
-
     public static class List extends ArrayList<UserProduct> {
     }
 }

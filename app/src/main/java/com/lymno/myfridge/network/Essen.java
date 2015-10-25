@@ -2,6 +2,7 @@ package com.lymno.myfridge.network;
 
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.model.UserProductId;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -15,4 +16,8 @@ public interface Essen {
 
     @GET("/products/GetUserProducts")
     UserProduct.List syncProducts(@Query("id") String id);
+
+    @GET("/products/ProductAdd")
+    UserProductId addProd(@Query("ProductID") String prodId,@Query("Amount") String amount,@Query("ExspirationDate") String expDate,
+                        @Query("UserId") String userId);
 }
