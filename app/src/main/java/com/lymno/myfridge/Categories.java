@@ -10,7 +10,7 @@ public class Categories extends ArrayList<String> {
 
     public static void create(){
         instance=new Categories();
-        instance.add("HARDCODE FOR GODS!!!");
+//        instance.add("HARDCODE FOR GODS!!!");
         instance.add("Сок");
         instance.add("Йогурт");
         instance.add("Мята");
@@ -35,7 +35,9 @@ public class Categories extends ArrayList<String> {
     }
 
     static public String getItem(int i){
-        return get().get(i);
+//        if (i>=get().size()-1)
+//            i=get().size()-2;
+        return get().get(i-1);
     }
 
 }

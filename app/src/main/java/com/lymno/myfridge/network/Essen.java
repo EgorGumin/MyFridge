@@ -20,4 +20,14 @@ public interface Essen {
     @GET("/products/ProductAdd")
     UserProductId addProd(@Query("ProductID") String prodId,@Query("Amount") String amount,@Query("ExspirationDate") String expDate,
                         @Query("UserId") String userId);
+
+    @GET("/products/NewProductAdd")
+    UserProductId addNewProduct(@Query("UserId") String userId
+                                ,@Query("BarCode") String barCode
+                                ,@Query("CategoryId") String categoryId
+                                ,@Query("Name") String name
+                                ,@Query("AmountDefault") String AmountDef
+                                ,@Query("UnitMeasuredId") String UtilMeasuredId
+                                ,@Query("Amount") String Amount
+                                ,@Query("ExpirationDate") String ExpirationDate);
 }

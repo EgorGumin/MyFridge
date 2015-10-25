@@ -85,7 +85,16 @@ public class FragmentInPutDataCount extends BaseSampleSpiceFragment {
         @Override
         public void onRequestSuccess(UserProductId userProduct) {
             Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+//            String date=DateFormatUtils.format(new Date(mInputDidLine.getDate()), "yyyyMMdd");
+            UserProduct userProduct1=new UserProduct(userProduct.getId(),
+                    1,userProduct.getBaseProductID(),mProdGote.getCategoryID(),mProdGote.getName()
+                    ,mProdGote.getUnitMeasureID(),Integer.valueOf(mInputCount.getText().toString())
+                    ,mProdGote.getAmountDefault()
+                    ,new Date(mInputDidLine.getDate()));
+            UserProductsDatabase.addUserProduct(userProduct1);
             getActivity().finish();
+
+
         }
 
     }

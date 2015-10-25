@@ -75,7 +75,8 @@ public class FragmentInPutCode extends BaseSampleSpiceFragment {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(getActivity(), "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            inputBarCode();
+            ((ScannerFragmentActivity)getActivity()).openFragment(FragmentInputProduct.create(mBarCode));
+
         }
 
         @Override

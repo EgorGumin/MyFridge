@@ -21,7 +21,8 @@ public class Measures extends ArrayList<String> {
     }
 
     static public String getItem(int i){
-       return get().get(i);
+//        if (i>=get().size()-1)i=get().size()-2;
+       return get().get(i-1);
     }
 
 
