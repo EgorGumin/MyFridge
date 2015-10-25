@@ -38,7 +38,7 @@ public class MyDate extends Date {
             return s;
 
         }
-        if (time == 1 * MILLIS_IN_DATE) {
+        if (time < 2 * MILLIS_IN_DATE) {
             s = before + time / MILLIS_IN_DATE + " день";
             return s;
         }

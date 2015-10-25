@@ -185,6 +185,12 @@ public class MainActivity extends BaseSampleSpiceActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSpiceManager().execute(new SyncProducts(), "sync", DurationInMillis.ONE_MINUTE, new ProductsUpdateListener());
+    }
+
     public final class ProductsUpdateListener implements RequestListener<UserProduct.List> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
