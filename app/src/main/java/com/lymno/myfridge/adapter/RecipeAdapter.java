@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
+import com.lymno.myfridge.activity.RecipeActivity;
 import com.lymno.myfridge.model.Recipe;
 import com.squareup.picasso.Picasso;
 
@@ -77,14 +78,7 @@ Context context;
 
         @Override
         public void onClick(View view) {
-//            Context context = view.getContext();
-//            Intent questInfoIntent = new Intent(context, QuestInfo.class);
-//            questInfoIntent.putExtra("questId", questsData.get(getAdapterPosition()).getId());
-//            questInfoIntent.putExtra("amountStages", questsData.get(getAdapterPosition()).getAmountStages());
-//            questInfoIntent.putExtra("questDescription", questsData.get(getAdapterPosition()).getDescription());
-//            questInfoIntent.putExtra("questLength", questsData.get(getAdapterPosition()).getLength());
-//            questInfoIntent.putExtra("questName", questsData.get(getAdapterPosition()).getName());
-//            context.startActivity(questInfoIntent);
+            RecipeActivity.open(view.getContext(),recipeData.get(getAdapterPosition()));
         }
     }
 

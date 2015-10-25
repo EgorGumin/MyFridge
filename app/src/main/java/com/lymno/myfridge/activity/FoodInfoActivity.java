@@ -65,7 +65,7 @@ public class FoodInfoActivity extends BaseSampleSpiceActivity {
         // Handle Toolbar
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("title");
+        getSupportActionBar().setTitle("Описание Продукта");
 
     }
 

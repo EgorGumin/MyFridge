@@ -54,7 +54,8 @@ public class MainActivity extends BaseSampleSpiceActivity {
 
 //    private UserProductsDatabase db = new UserProductsDatabase();
 
-    private FoodAdapter mAdapter;
+    private FoodAdapter mFoodAdapter;
+    private RecipeAdapter mRecipeAdapter;
     private SwipeRefreshLayout refreshLayout;
     public RecyclerView recyclerView;
 
@@ -157,8 +158,8 @@ public class MainActivity extends BaseSampleSpiceActivity {
         //foodList.addAll(Examples.getAllFood()); // для количества
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        mAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
-        recyclerView.setAdapter(mAdapter);
+        mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+        recyclerView.setAdapter(mFoodAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
@@ -184,8 +185,8 @@ public class MainActivity extends BaseSampleSpiceActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
-        recyclerView.setAdapter(newAdapter);
+        mFoodAdapter= new FoodAdapter(UserProductsDatabase.getUserProducts());
+        recyclerView.setAdapter(mRecipeAdapter);
     }
 
     public final class ProductsUpdateListener implements RequestListener<UserProduct.List> {
