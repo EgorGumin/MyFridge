@@ -23,7 +23,7 @@ public class FoodInfoActivity extends AppCompatActivity {
     public static final String INTENT_COUNT_INT="count";
     public static final String INTENT_COUNT_IN_PACKET_INT="count_in_packet";
     public static final String INTENT_UNITS_STRING="units";
-    public static final String INTENT_USE_BEFORE_STRING="use_before";
+    public static final String INTENT_USE_LEFT_STRING ="use_before";
     public static final String INTENT_BAR_CODE_STRING ="bar_code";
 
     @Bind(R.id.food_info_icon)
@@ -65,7 +65,7 @@ public class FoodInfoActivity extends AppCompatActivity {
                     + loadedIntent.getStringExtra(INTENT_NAME_STRING));
 
             loadedIntent.getStringExtra(INTENT_UNITS_STRING);
-            mEatBefore.setText("сьесть до: "+  loadedIntent.getStringExtra(INTENT_USE_BEFORE_STRING));
+            mEatBefore.setText(loadedIntent.getStringExtra(INTENT_USE_LEFT_STRING));
             loadedIntent.getStringExtra(INTENT_BAR_CODE_STRING);
 
             mEatLeft.setMax(loadedIntent.getIntExtra(INTENT_COUNT_IN_PACKET_INT, 100));

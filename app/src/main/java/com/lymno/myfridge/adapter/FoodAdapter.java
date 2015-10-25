@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.lymno.myfridge.Categories;
 import com.lymno.myfridge.Measures;
+import com.lymno.myfridge.MyDate;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.activity.FoodInfoActivity;
 import com.lymno.myfridge.model.UserProduct;
@@ -43,10 +44,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         //TODO учесть ситуацию, когда quantity == quantitybydefault
         UserProduct foodData = foodsData.get(position);
         viewHolder.FoodName.setText(foodData.getName());
-        viewHolder.FoodEatBefore.setText(foodData.getDate().toString());
+        viewHolder.FoodEatLetfTime.setText((new MyDate(foodData.getDate())).stayedTime().presentToString("сьесть за: "));
         viewHolder.FoodLeft.setProgress(foodData.getQuantity() / (float) foodData.getQuantityByDefault());
 
-//        viewHolder.FoodEatBefore.setText(foodsDataPos.getDescription());
+//        viewHolder.FoodEatLetfTime.setText(foodsDataPos.getDescription());
         //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());
     }
 
@@ -60,13 +61,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView FoodName;
-        public TextView FoodEatBefore;
+        public TextView FoodEatLetfTime;
         public BucketView FoodLeft;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             FoodName = (TextView) itemLayoutView.findViewById(R.id.food_adapter_name);
-            FoodEatBefore = (TextView) itemLayoutView.findViewById(R.id.food_adapter_left_time);
+            FoodEatLetfTime = (TextView) itemLayoutView.findViewById(R.id.food_adapter_left_time);
             FoodLeft = (BucketView) itemLayoutView.findViewById(R.id.food_adapter_bucket);
             itemLayoutView.setOnClickListener(this);
         }
@@ -83,7 +84,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_INT, product.getQuantity());
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_IN_PACKET_INT, product.getQuantityByDefault());
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_UNITS_STRING, Measures.getItem(product.getMeasure()));
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_USE_BEFORE_STRING, (product.getDate().toString()));
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_USE_LEFT_STRING,
+                    (new MyDate(product.getDate())).stayedTime().presentToString("сьесть за: "));
             context.startActivity(questInfoIntent);
         }
     }
