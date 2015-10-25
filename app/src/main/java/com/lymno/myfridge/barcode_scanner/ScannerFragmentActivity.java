@@ -56,6 +56,9 @@ public class ScannerFragmentActivity extends ActionBarActivity {
         mSlidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         getSupportFragmentManager().beginTransaction().replace(R.id.container_for_fragments,new TwoButtonsFragment())
                 .commit();
+
+        Fragment fragment=getSupportFragmentManager().findFragmentById(R.id.scanner_fragment);
+        getSupportFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
     }
 
     @Override
@@ -63,7 +66,6 @@ public class ScannerFragmentActivity extends ActionBarActivity {
         super.onCreate(state);
         setContentView(R.layout.barcode_scanner);
         ButterKnife.bind(this);
-
         closeFragment();
     }
 }

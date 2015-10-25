@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lymno.myfridge.R;
+import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.network.BaseSampleSpiceFragment;
 import com.lymno.myfridge.network.request.ProductSearch;
@@ -81,6 +82,7 @@ public class FragmentInPutCode extends BaseSampleSpiceFragment {
         public void onRequestSuccess(final ProductSearchResult result) {
             Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
             if (result != null) {
+                ((ScannerFragmentActivity)getActivity()).openFragment(FragmentInPutDataCount.create(mBarCode));
                 updateContributors(result);
             } else {
                 Toast.makeText(getActivity(), "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
