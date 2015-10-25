@@ -2,9 +2,11 @@ package com.lymno.myfridge.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,6 +58,7 @@ public class MainActivity extends BaseSampleSpiceActivity {
 //    private UserProductsDatabase db = new UserProductsDatabase();
 
     private FoodAdapter mAdapter;
+    private SwipeRefreshLayout refreshLayout;
     public RecyclerView recyclerView;
 
     @Override
@@ -64,6 +67,21 @@ public class MainActivity extends BaseSampleSpiceActivity {
         new DBHelper(this);
 
         setContentView(R.layout.activity_main);
+
+
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        refreshLayout.setColorSchemeColors(Color.parseColor("#4caf50"));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(result.getCurrentSelectedPosition() == MY_FOOD){
+                    SyncProducts sync = new SyncProducts();
+                    getSpiceManager().execute(sync, "sync", DurationInMillis.ONE_MINUTE, new ProductsUpdateListener());
+                }
+
+            }
+        });
+
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
 
         // Управление Floating Action Button
@@ -108,9 +126,7 @@ public class MainActivity extends BaseSampleSpiceActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recipes).withIcon(FontAwesome.Icon.faw_book).withIdentifier(MY_RECIPES),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recommended_recipes).withIcon(FontAwesome.Icon.faw_commenting).withEnabled(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_menu).withIcon(FontAwesome.Icon.faw_calendar).withEnabled(false),
-                        //отладка бд
-                        new PrimaryDrawerItem().withName("Добавить в базу").withIdentifier(3),
-                        new PrimaryDrawerItem().withName("Прочитать из базы").withIdentifier(4),
+                        //отладка обновления
                         new PrimaryDrawerItem().withName("Обновить продукты").withIdentifier(5),
 
                         new SectionDrawerItem(),
@@ -124,29 +140,13 @@ public class MainActivity extends BaseSampleSpiceActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_FOOD) {
-                            ArrayList<UserProduct> foodList = Examples.getAllFood();
-                            foodList.addAll(Examples.getAllFood()); // для количества
-                            FoodAdapter mAdapter = new FoodAdapter(foodList);
-                            recyclerView.setAdapter(mAdapter);
+                            FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+                            recyclerView.setAdapter(newAdapter);
                         }
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_RECIPES) {
                             ArrayList<Recipe> recipesList = Examples.getAllRecipes();
                             RecipeAdapter newAdapter = new RecipeAdapter(recipesList);
                             recyclerView.setAdapter(newAdapter);
-                        }
-
-                        if (drawerItem != null && drawerItem.getIdentifier() == 3) {
-                            //добавим в базу
-                            UserProduct test = new UserProduct(1,1, 1,1,"Prod name", 1, 1,1, Date.valueOf("12-12-2013"));
-
-                            UserProductsDatabase.addUserProduct(test);
-                        }
-
-                        if (drawerItem != null && drawerItem.getIdentifier() == 4) {
-                            //добавим в базу
-                            ArrayList<UserProduct> list = UserProductsDatabase.getUserProducts();
-                            UserProduct up = list.get(0);
-                            Toast.makeText(MainActivity.this, up.getName(), Toast.LENGTH_LONG).show();
                         }
 
                         if (drawerItem != null && drawerItem.getIdentifier() == 5) {
@@ -198,15 +198,17 @@ public class MainActivity extends BaseSampleSpiceActivity {
     public final class ProductsUpdateListener implements RequestListener<UserProduct.List> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
+            refreshLayout.setRefreshing(false);
             Toast.makeText(MainActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onRequestSuccess(final UserProduct.List result) {
+            refreshLayout.setRefreshing(false);
             Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
             if (result != null){
                 UserProductsDatabase.recreateDataBase(result);
-                FoodAdapter newAdapter = new FoodAdapter(result);
+                FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
                 recyclerView.setAdapter(newAdapter);
             }
             else{
