@@ -1,22 +1,36 @@
 package com.lymno.myfridge.model;
 
-import java.sql.Date;
+import com.google.gson.annotations.SerializedName;
+
+
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UserProduct {
+    @SerializedName("UserProductID")
     private int id;
+    @SerializedName("FridgeID")
+    private int fridgeID;
+    @SerializedName("ProductID")
     private int baseProductID;
+    @SerializedName("CategoryID")
     private int category;
+    @SerializedName("Name")
     private String name;
+    @SerializedName("UnitMeasureID")
     private int measure;
+    @SerializedName("Amount")
     private int quantity;
+    @SerializedName("AmountDefault")
     private int quantityByDefault;
+    @SerializedName("ExpirationDate")
     private Date date;
 
 
-    public UserProduct(int id, int baseProductID, int category, String name, int measure, int quantity,
-                       int quantityByDefault, Date date) {
+    public UserProduct(int id, int fridgeID, int baseProductID, int category, String name,
+                       int measure, int quantity, int quantityByDefault, Date date) {
         this.id = id;
+        this.fridgeID = fridgeID;
         this.baseProductID = baseProductID;
         this.category = category;
         this.name = name;
@@ -32,6 +46,10 @@ public class UserProduct {
 
     public int getBaseProductID() {
         return baseProductID;
+    }
+
+    public int getFridgeID() {
+        return fridgeID;
     }
 
     public int getCategory() {
@@ -66,7 +84,7 @@ public class UserProduct {
         this.date = date;
     }
 
-    @SuppressWarnings("serial")
+
     public static class List extends ArrayList<UserProduct> {
     }
 }

@@ -52,7 +52,7 @@ public class FragmentInPutCode extends BaseSampleSpiceFragment {
             }
         });
         if (mBarCode != null) {
-            pushBarCode();
+            trySendRequest();
         }
         return inflated;
     }

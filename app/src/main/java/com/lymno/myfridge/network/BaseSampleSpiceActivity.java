@@ -1,6 +1,7 @@
 package com.lymno.myfridge.network;
 
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.octo.android.robospice.SpiceManager;
 
@@ -11,7 +12,7 @@ import com.octo.android.robospice.SpiceManager;
  * copy the content of the {@link BaseSampleSpiceActivity} into your own class.
  * @author sni
  */
-public abstract class BaseSampleSpiceActivity extends Activity {
+public abstract class BaseSampleSpiceActivity extends AppCompatActivity {
     private SpiceManager spiceManager = new SpiceManager(SampleRetrofitSpiceService.class);
 
     @Override

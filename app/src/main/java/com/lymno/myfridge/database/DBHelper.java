@@ -23,13 +23,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL("create table " + UserProductsDatabase.NAME + "("
                 + UserProductsDatabase.ID + " int,"
+                + UserProductsDatabase.FRIDGE_ID + " int,"
                 + UserProductsDatabase.BASE_PRODUCT_ID + " int,"
                 + UserProductsDatabase.CATEGORY + " int,"
                 + UserProductsDatabase.USER_PRODUCT_NAME + " text,"
                 + UserProductsDatabase.MEASURE + " int,"
                 + UserProductsDatabase.QUANTITY + " int,"
                 + UserProductsDatabase.QUANTITY_BY_DEFAULT + " int,"
-                + UserProductsDatabase.DATE + " text" + ");");
+                + UserProductsDatabase.DATE + " long" + ");");
 
 
     }

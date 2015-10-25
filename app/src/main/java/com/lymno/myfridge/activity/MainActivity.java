@@ -22,6 +22,8 @@ import com.lymno.myfridge.Recipe;
 import com.lymno.myfridge.database.DBHelper;
 import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.network.BaseSampleSpiceActivity;
+import com.lymno.myfridge.network.request.SyncProducts;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -37,11 +39,14 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseSampleSpiceActivity {
     private static final int MY_FOOD = 1;
     private static final int MY_RECIPES = 2;
 
@@ -51,13 +56,12 @@ public class MainActivity extends AppCompatActivity {
 //    private UserProductsDatabase db = new UserProductsDatabase();
 
     private FoodAdapter mAdapter;
-    Context context;
     public RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new DBHelper(context);
+        new DBHelper(this);
 
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                         //отладка бд
                         new PrimaryDrawerItem().withName("Добавить в базу").withIdentifier(3),
                         new PrimaryDrawerItem().withName("Прочитать из базы").withIdentifier(4),
+                        new PrimaryDrawerItem().withName("Обновить продукты").withIdentifier(5),
 
                         new SectionDrawerItem(),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withEnabled(false),
@@ -132,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if (drawerItem != null && drawerItem.getIdentifier() == 3) {
                             //добавим в базу
-                            UserProduct test = new UserProduct(1,1,1,"Prod name", 1, 1,1, Date.valueOf("12-12-2013"));
+                            UserProduct test = new UserProduct(1,1, 1,1,"Prod name", 1, 1,1, Date.valueOf("12-12-2013"));
+
                             UserProductsDatabase.addUserProduct(test);
                         }
 
@@ -141,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
                             ArrayList<UserProduct> list = UserProductsDatabase.getUserProducts();
                             UserProduct up = list.get(0);
                             Toast.makeText(MainActivity.this, up.getName(), Toast.LENGTH_LONG).show();
+                        }
+
+                        if (drawerItem != null && drawerItem.getIdentifier() == 5) {
+                            //синхронизируем список продуктов с сервером
+                            SyncProducts sync = new SyncProducts();
+                            getSpiceManager().execute(sync, "sync", DurationInMillis.ONE_MINUTE, new ProductsUpdateListener());
                         }
                         if (drawerItem instanceof Nameable) {
                             toolbar.setTitle(((Nameable) drawerItem).getName().getText(MainActivity.this));
@@ -152,11 +164,11 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         result.setSelection(MY_FOOD, true);
-        ArrayList<UserProduct> foodList = Examples.getAllFood();
-        foodList.addAll(Examples.getAllFood()); // для количества
+        //ArrayList<UserProduct> foodList = Examples.getAllFood();
+        //foodList.addAll(Examples.getAllFood()); // для количества
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new FoodAdapter(foodList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        mAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
@@ -177,6 +189,30 @@ public class MainActivity extends AppCompatActivity {
             result.closeDrawer();
         } else {
             super.onBackPressed();
+        }
+
+
+
+    }
+
+    public final class ProductsUpdateListener implements RequestListener<UserProduct.List> {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Toast.makeText(MainActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onRequestSuccess(final UserProduct.List result) {
+            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+            if (result != null){
+                UserProductsDatabase.recreateDataBase(result);
+                FoodAdapter newAdapter = new FoodAdapter(result);
+                recyclerView.setAdapter(newAdapter);
+            }
+            else{
+                Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 }

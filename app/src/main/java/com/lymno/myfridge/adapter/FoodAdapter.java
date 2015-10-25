@@ -38,7 +38,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-
+        //TODO учесть ситуацию, когда quantity == quantitybydefault
         UserProduct foodData = foodsData.get(position);
         viewHolder.FoodName.setText(foodData.getName());
         viewHolder.FoodEatBefore.setText(foodData.getDate().toString());
@@ -73,6 +73,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             //TODO insert request activity
             Context context = view.getContext();
             Intent questInfoIntent = new Intent(context, FoodInfoActivity.class);
+
 //            questInfoIntent.putExtra("questId", questsData.get(getAdapterPosition()).getId());
 //            questInfoIntent.putExtra("amountStages", questsData.get(getAdapterPosition()).getAmountStages());
 //            questInfoIntent.putExtra("questDescription", questsData.get(getAdapterPosition()).getDescription());
