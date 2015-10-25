@@ -1,13 +1,11 @@
 package com.lymno.myfridge.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,13 +16,13 @@ import android.widget.Toast;
 import com.lymno.myfridge.adapter.FoodAdapter;
 import com.lymno.myfridge.adapter.RecipeAdapter;
 import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
-import com.lymno.myfridge.Examples;
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.Recipe;
 import com.lymno.myfridge.database.DBHelper;
 import com.lymno.myfridge.database.UserProductsDatabase;
+import com.lymno.myfridge.model.Recipe;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.network.BaseSampleSpiceActivity;
+import com.lymno.myfridge.network.request.GetRecipesSimple;
 import com.lymno.myfridge.network.request.SyncProducts;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -45,7 +43,6 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseSampleSpiceActivity {
@@ -142,9 +139,8 @@ public class MainActivity extends BaseSampleSpiceActivity {
                             recyclerView.setAdapter(newAdapter);
                         }
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_RECIPES) {
-                            ArrayList<Recipe> recipesList = Examples.getAllRecipes();
-                            RecipeAdapter newAdapter = new RecipeAdapter(recipesList);
-                            recyclerView.setAdapter(newAdapter);
+                            getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
+
                         }
 
                         if (drawerItem instanceof Nameable) {
@@ -206,6 +202,29 @@ public class MainActivity extends BaseSampleSpiceActivity {
             if (result != null){
                 UserProductsDatabase.recreateDataBase(result);
                 FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+                recyclerView.setAdapter(newAdapter);
+            }
+            else{
+                Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+
+    public final class RecipesUpdateListener implements RequestListener<Recipe.List> {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            refreshLayout.setRefreshing(false);
+            Toast.makeText(MainActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onRequestSuccess(final Recipe.List result) {
+            refreshLayout.setRefreshing(false);
+            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+            if (result != null){
+
+                RecipeAdapter newAdapter = new RecipeAdapter(result);
                 recyclerView.setAdapter(newAdapter);
             }
             else{

@@ -4,19 +4,22 @@ package com.lymno.myfridge.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Ingredient {
-    @SerializedName("")
+    @SerializedName("UserProductID")
     private int userProductID;
-    @SerializedName("")
+    @SerializedName("IngredientID")
+    private int ingredientID;
+    @SerializedName("CategoryID")
     private int category;
-    @SerializedName("")
+    @SerializedName("RecipeID")
     private int recipeID;
-    @SerializedName("")
+    @SerializedName("ImportanceLevelID")
     private int importance;
-    @SerializedName("")
+    @SerializedName("Amount")
     private int quantity;
 
-    public Ingredient(int userProductID, int category, int recipeID, int importance, int quantity) {
+    public Ingredient(int userProductID, int ingredientID, int category, int recipeID, int importance, int quantity) {
         this.userProductID = userProductID;
+        this.ingredientID = ingredientID;
         this.category = category;
         this.recipeID = recipeID;
         this.importance = importance;
@@ -25,6 +28,10 @@ public class Ingredient {
 
     public int getUserProductID() {
         return userProductID;
+    }
+
+    public int getIngredientID() {
+        return ingredientID;
     }
 
     public int getCategory() {

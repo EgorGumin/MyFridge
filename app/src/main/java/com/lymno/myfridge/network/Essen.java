@@ -1,6 +1,7 @@
 package com.lymno.myfridge.network;
 
 import com.lymno.myfridge.model.ProductSearchResult;
+import com.lymno.myfridge.model.Recipe;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.model.UserProductId;
 
@@ -20,6 +21,9 @@ public interface Essen {
     @GET("/products/ProductAdd")
     UserProductId addProd(@Query("ProductID") String prodId,@Query("Amount") String amount,@Query("ExspirationDate") String expDate,
                         @Query("UserId") String userId);
+
+    @GET("/recipes/GetRecipesSimple")
+    Recipe.List getRecipesSimple(@Query("idUser") String idUser);
 
     @GET("/products/NewProductAdd")
     UserProductId addNewProduct(@Query("UserId") String userId

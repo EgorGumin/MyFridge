@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.Recipe;
+import com.lymno.myfridge.model.Recipe;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,8 +44,13 @@ Context context;
 
         viewHolder.RecipeName.setText(recipeDataPos.getName());
         viewHolder.RecipeDescription.setText(recipeDataPos.getDescription());
-        viewHolder.RecipeFoodList.setText(recipeDataPos.getFoodListString());
-        //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());
+        //viewHolder.RecipeFoodList.setText(recipeDataPos.getId());
+
+        Picasso.with( viewHolder.imageView.getContext()).load(recipeDataPos.getImageUrl()).error(R.drawable.rec1).into(viewHolder.imageView);
+//        viewHolder.imageView.setImageResource(R.drawable.rec1);
+//        Drawable drawable=viewHolder.imageView.getContext().getResources().getDrawable(R.drawable.rec1);
+//        drawable.setBounds(0,0,viewHolder.imageView.getWidth(), viewHolder.imageView.getHeight());
+//                viewHolder.imageView.setImageDrawable(drawable);
     }
 
     public void updateItems (ArrayList<Recipe> items) {
@@ -57,14 +64,14 @@ Context context;
         public TextView RecipeName;
         public TextView RecipeDescription;
         public TextView RecipeFoodList;
-        //public ImageView imgViewIcon;
+        public ImageView imageView;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             RecipeName = (TextView) itemLayoutView.findViewById(R.id.tvCardRecipeName);
             RecipeDescription = (TextView) itemLayoutView.findViewById(R.id.tvRecipeDescription);
             RecipeFoodList = (TextView)itemLayoutView.findViewById(R.id.tvRecipeFoodList);
-            //imgViewIcon = (ImageView) itemLayoutView.findViewById(R.id.item_icon);
+            imageView = (ImageView) itemLayoutView.findViewById(R.id.imageView);
             itemLayoutView.setOnClickListener(this);
         }
 

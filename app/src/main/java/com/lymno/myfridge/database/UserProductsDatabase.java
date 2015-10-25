@@ -60,36 +60,6 @@ public class UserProductsDatabase {
         dbHelper.close();
         return UserProducts;
     }
-/////
-    static public ArrayList<UserProduct> getProductsByIngr() {
-        dbHelper = DBHelper.get();
-        ArrayList<UserProduct> UserProducts = new ArrayList<>();
-        db = dbHelper.getReadableDatabase();
-        columns = new String[]{ID, FRIDGE_ID, BASE_PRODUCT_ID, CATEGORY, USER_PRODUCT_NAME, MEASURE, QUANTITY, QUANTITY_BY_DEFAULT, DATE};
-        cursor = db.query(NAME,columns, null, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex(ID));
-                int fridgeID = cursor.getInt(cursor.getColumnIndex(FRIDGE_ID));
-                int baseProductID = cursor.getInt(cursor.getColumnIndex(BASE_PRODUCT_ID));
-                int category = cursor.getInt(cursor.getColumnIndex(CATEGORY));
-                String userProductName = cursor.getString(cursor.getColumnIndex(USER_PRODUCT_NAME));
-                int measure = cursor.getInt(cursor.getColumnIndex(MEASURE));
-                int quantity = cursor.getInt(cursor.getColumnIndex(QUANTITY));
-                int quantityByDefault = cursor.getInt(cursor.getColumnIndex(QUANTITY_BY_DEFAULT));
-                Date date = new Date(cursor.getLong(cursor.getColumnIndex(DATE)));//может упасть
-
-                UserProducts.add(new UserProduct(id, fridgeID, baseProductID, category,userProductName, measure,
-                        quantity, quantityByDefault, date));
-                cursor.moveToNext();
-            }
-        }
-
-        cursor.close();
-        dbHelper.close();
-        return UserProducts;
-    }
 
     static public void addUserProduct(UserProduct userProduct) {
         dbHelper =DBHelper.get();
@@ -112,7 +82,7 @@ public class UserProductsDatabase {
 
     static  public void recreateDataBase(ArrayList<UserProduct> userProducts) {
         deleteDataBase();
-        dbHelper =DBHelper.get();
+        dbHelper = DBHelper.get();
         for (int i = 0; i < userProducts.size(); ++i)
         {
             addUserProduct(userProducts.get(i));

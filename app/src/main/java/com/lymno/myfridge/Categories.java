@@ -35,7 +35,7 @@ public class Categories extends ArrayList<String> {
     }
 
     static public String getItem(int i){
-//        if (i>=get().size()-1)
+//        if (i>=get().size()-rec1)
 //            i=get().size()-2;
         return get().get(i-1);
     }
