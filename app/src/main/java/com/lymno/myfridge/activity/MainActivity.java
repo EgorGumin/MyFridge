@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.lymno.myfridge.adapter.FoodAdapter;
@@ -59,9 +61,13 @@ public class MainActivity extends BaseSampleSpiceActivity {
     private SwipeRefreshLayout refreshLayout;
     public RecyclerView recyclerView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+;
+
         new DBHelper(this);
 
         setContentView(R.layout.activity_main);
@@ -76,6 +82,9 @@ public class MainActivity extends BaseSampleSpiceActivity {
                     SyncProducts sync = new SyncProducts();
                     getSpiceManager().execute(sync, "sync", DurationInMillis.ONE_MINUTE, new ProductsUpdateListener());
                 }
+                if(result.getCurrentSelectedPosition() == MY_RECIPES){
+                    getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
+                }
 
             }
         });
@@ -84,6 +93,7 @@ public class MainActivity extends BaseSampleSpiceActivity {
 
         // Управление Floating Action Button
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
+        myFab.setRippleColor(Color.parseColor("#4caf50"));
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ScannerFragmentActivity.class);
@@ -95,6 +105,7 @@ public class MainActivity extends BaseSampleSpiceActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("title");
+        toolbar.setSubtitleTextColor(Color.parseColor("#ffffff"));
 
         // Добавим профиль пользователя
         final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.profile));
@@ -185,21 +196,24 @@ public class MainActivity extends BaseSampleSpiceActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mFoodAdapter= new FoodAdapter(UserProductsDatabase.getUserProducts());
-        recyclerView.setAdapter(mRecipeAdapter);
+        if(result.getCurrentSelectedPosition() == MY_FOOD){
+            mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+            recyclerView.setAdapter(mFoodAdapter);
+        }
+
     }
 
     public final class ProductsUpdateListener implements RequestListener<UserProduct.List> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             refreshLayout.setRefreshing(false);
-            Toast.makeText(MainActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(MainActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onRequestSuccess(final UserProduct.List result) {
             refreshLayout.setRefreshing(false);
-            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
             if (result != null){
                 UserProductsDatabase.recreateDataBase(result);
                 FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
@@ -222,7 +236,7 @@ public class MainActivity extends BaseSampleSpiceActivity {
         @Override
         public void onRequestSuccess(final Recipe.List result) {
             refreshLayout.setRefreshing(false);
-            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
             if (result != null){
 
                 RecipeAdapter newAdapter = new RecipeAdapter(result);

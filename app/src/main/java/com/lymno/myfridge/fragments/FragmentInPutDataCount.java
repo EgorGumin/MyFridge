@@ -79,12 +79,12 @@ public class FragmentInPutDataCount extends BaseSampleSpiceFragment {
     public final class ListContributorRequestListener implements RequestListener<UserProductId> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(getActivity(), "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onRequestSuccess(UserProductId userProduct) {
-            Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
 //            String date=DateFormatUtils.format(new Date(mInputDidLine.getDate()), "yyyyMMdd");
             UserProduct userProduct1=new UserProduct(userProduct.getId(),
                     1,userProduct.getBaseProductID(),mProdGote.getCategoryID(),mProdGote.getName()

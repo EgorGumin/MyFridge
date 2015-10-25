@@ -81,12 +81,12 @@ public class FragmentInPutCode extends BaseSampleSpiceFragment {
 
         @Override
         public void onRequestSuccess(final ProductSearchResult result) {
-            Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
             if (result != null) {
                 ((ScannerFragmentActivity)getActivity()).openFragment(FragmentInPutDataCount.create(mBarCode,result));
                 updateContributors(result);
             } else {
-                Toast.makeText(getActivity(), "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
 
             }
 

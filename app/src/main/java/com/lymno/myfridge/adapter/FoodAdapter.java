@@ -44,8 +44,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         //TODO учесть ситуацию, когда quantity == quantitybydefault
         UserProduct foodData = foodsData.get(position);
         viewHolder.FoodName.setText(Categories.getItem(foodData.getCategory()) + " " + foodData.getName());
-        viewHolder.FoodEatLetfTime.setText((new MyDate(foodData.getDate())).stayedTime().presentToString("сьесть за: "));
-        viewHolder.FoodLeft.setProgress(foodData.getQuantity() / (float) foodData.getQuantityByDefault());
+        viewHolder.tvDate.setText((new MyDate(foodData.getDate())).stayedTime().presentToString(""));
+
 
 //        viewHolder.FoodEatBefore.setText(foodsDataPos.getDescription());
         //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());
@@ -62,13 +62,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
         public TextView FoodName;
         public TextView FoodEatLetfTime;
-        public BucketView FoodLeft;
+        public TextView tvDate;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             FoodName = (TextView) itemLayoutView.findViewById(R.id.food_adapter_name);
             FoodEatLetfTime = (TextView) itemLayoutView.findViewById(R.id.food_adapter_left_time);
-            FoodLeft = (BucketView) itemLayoutView.findViewById(R.id.food_adapter_bucket);
+            tvDate = (TextView) itemLayoutView.findViewById(R.id.textView4);
             itemLayoutView.setOnClickListener(this);
         }
 

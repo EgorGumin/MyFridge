@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardViewFood"
     android:layout_width="fill_parent"
-    android:layout_height="100dp"
+    android:layout_height="70dp"
     android:layout_gravity="center_horizontal"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -19,14 +19,14 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="5dp">
+            android:paddingTop="5dp"
+            android:layout_weight="7">
 
             <TextView
                 android:id="@+id/food_adapter_name"
@@ -43,15 +43,32 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="left"
+                android:visibility="gone"
                 android:maxLines="2"
                 android:textSize="13sp" />
+
         </LinearLayout>
 
-        <com.lymno.myfridge.views.BucketView
-            android:layout_margin="20dp"
-            android:id="@+id/food_adapter_bucket"
-            android:layout_weight="3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:layout_weight="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Осталось:"
+                android:id="@+id/textView3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView4" />
+        </LinearLayout>
+
     </LinearLayout>
 </android.support.v7.widget.CardView>

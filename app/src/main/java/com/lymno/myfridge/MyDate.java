@@ -58,7 +58,7 @@ public class MyDate extends Date {
             s = before + time / (30L * MILLIS_IN_DATE) + " месяц";
             return s;
         }
-        if (time < 135 * MILLIS_IN_DATE) {
+        if ((time < 135 * MILLIS_IN_DATE) & (time > 45 * MILLIS_IN_DATE)) {
             s = before + time / (30L * MILLIS_IN_DATE) + " месяца";
             return s;
         }

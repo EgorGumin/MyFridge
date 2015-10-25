@@ -2,9 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorAccent">@color/blue</item>
+        <item name="colorAccent">@color/green</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <!-- Customize your theme here. -->
     </style>
-<color name="colorPrimary">#43A047</color>
+    <color name="colorPrimary">#43A047</color>
 </resources>
