@@ -43,7 +43,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         //TODO учесть ситуацию, когда quantity == quantitybydefault
         UserProduct foodData = foodsData.get(position);
-        viewHolder.FoodName.setText(foodData.getName());
+        viewHolder.FoodName.setText(Categories.getItem(foodData.getCategory()) + " " + foodData.getName());
         viewHolder.FoodEatLetfTime.setText((new MyDate(foodData.getDate())).stayedTime().presentToString("сьесть за: "));
         viewHolder.FoodLeft.setProgress(foodData.getQuantity() / (float) foodData.getQuantityByDefault());
 

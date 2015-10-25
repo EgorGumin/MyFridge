@@ -126,8 +126,6 @@ public class MainActivity extends BaseSampleSpiceActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recipes).withIcon(FontAwesome.Icon.faw_book).withIdentifier(MY_RECIPES),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recommended_recipes).withIcon(FontAwesome.Icon.faw_commenting).withEnabled(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_menu).withIcon(FontAwesome.Icon.faw_calendar).withEnabled(false),
-                        //отладка обновления
-                        new PrimaryDrawerItem().withName("Обновить продукты").withIdentifier(5),
 
                         new SectionDrawerItem(),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withEnabled(false),
@@ -149,11 +147,6 @@ public class MainActivity extends BaseSampleSpiceActivity {
                             recyclerView.setAdapter(newAdapter);
                         }
 
-                        if (drawerItem != null && drawerItem.getIdentifier() == 5) {
-                            //синхронизируем список продуктов с сервером
-                            SyncProducts sync = new SyncProducts();
-                            getSpiceManager().execute(sync, "sync", DurationInMillis.ONE_MINUTE, new ProductsUpdateListener());
-                        }
                         if (drawerItem instanceof Nameable) {
                             toolbar.setTitle(((Nameable) drawerItem).getName().getText(MainActivity.this));
                         }
@@ -190,9 +183,6 @@ public class MainActivity extends BaseSampleSpiceActivity {
         } else {
             super.onBackPressed();
         }
-
-
-
     }
 
     public final class ProductsUpdateListener implements RequestListener<UserProduct.List> {
