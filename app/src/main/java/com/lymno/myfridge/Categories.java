@@ -10,22 +10,23 @@ public class Categories extends ArrayList<String> {
 
     public static void create(){
         instance=new Categories();
-        instance.add("сок");
-        instance.add("йогурт");
-        instance.add("мята");
-        instance.add("чеснок");
-        instance.add("оливковое масло");
-        instance.add("соль");
-        instance.add("черный молотый перец");
-        instance.add("лимон");
-        instance.add("сахар");
-        instance.add("вода");
-        instance.add("сыр");
-        instance.add("мука");
-        instance.add("яйцо");
-        instance.add("масло");
-        instance.add("молоко");
-        instance.add("маслины");
+        instance.add("HARDCODE FOR GODS!!!");
+        instance.add("Сок");
+        instance.add("Йогурт");
+        instance.add("Мята");
+        instance.add("Чеснок");
+        instance.add("Масло оливковое");
+        instance.add("Соль");
+        instance.add("Черный молотый перец");
+        instance.add("Лимон");
+        instance.add("Сахар");
+        instance.add("Вода");
+        instance.add("Сыр");
+        instance.add("Мука");
+        instance.add("Яйцо");
+        instance.add("Масло");
+        instance.add("Молоко");
+        instance.add("Маслины");
     }
 
     public static Categories get(){

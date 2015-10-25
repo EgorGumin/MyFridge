@@ -21,17 +21,18 @@
         android:layout_below="@+id/toolbar">
 
 
-        <!--<ListView-->
-            <!--android:id="@+id/food_listview"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"/>-->
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!--</ListView>-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/food_list_recycler_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"

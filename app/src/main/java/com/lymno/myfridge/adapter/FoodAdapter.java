@@ -47,7 +47,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         viewHolder.FoodEatLetfTime.setText((new MyDate(foodData.getDate())).stayedTime().presentToString("сьесть за: "));
         viewHolder.FoodLeft.setProgress(foodData.getQuantity() / (float) foodData.getQuantityByDefault());
 
-//        viewHolder.FoodEatLetfTime.setText(foodsDataPos.getDescription());
+//        viewHolder.FoodEatBefore.setText(foodsDataPos.getDescription());
         //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());
     }
 
