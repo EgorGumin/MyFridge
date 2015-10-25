@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lymno.myfridge.Categories;
+import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.activity.FoodInfoActivity;
 import com.lymno.myfridge.model.UserProduct;
@@ -53,6 +55,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+
     // inner class to hold a reference to each item of RecyclerView
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -64,7 +67,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             super(itemLayoutView);
             FoodName = (TextView) itemLayoutView.findViewById(R.id.food_adapter_name);
             FoodEatBefore = (TextView) itemLayoutView.findViewById(R.id.food_adapter_left_time);
-            FoodLeft = (BucketView)itemLayoutView.findViewById(R.id.food_adapter_bucket);
+            FoodLeft = (BucketView) itemLayoutView.findViewById(R.id.food_adapter_bucket);
             itemLayoutView.setOnClickListener(this);
         }
 
@@ -73,12 +76,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             //TODO insert request activity
             Context context = view.getContext();
             Intent questInfoIntent = new Intent(context, FoodInfoActivity.class);
+            UserProduct product = foodsData.get(getAdapterPosition());
 
-//            questInfoIntent.putExtra("questId", questsData.get(getAdapterPosition()).getId());
-//            questInfoIntent.putExtra("amountStages", questsData.get(getAdapterPosition()).getAmountStages());
-//            questInfoIntent.putExtra("questDescription", questsData.get(getAdapterPosition()).getDescription());
-//            questInfoIntent.putExtra("questLength", questsData.get(getAdapterPosition()).getLength());
-//            questInfoIntent.putExtra("questName", questsData.get(getAdapterPosition()).getName());
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_NAME_STRING,(product.getName()));
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_CATEGORY_STRING,Categories.getItem(product.getCategory()));
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_INT, product.getQuantity());
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_IN_PACKET_INT, product.getQuantityByDefault());
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_UNITS_STRING, Measures.getItem(product.getMeasure()));
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_USE_BEFORE_STRING, (product.getDate().toString()));
             context.startActivity(questInfoIntent);
         }
     }

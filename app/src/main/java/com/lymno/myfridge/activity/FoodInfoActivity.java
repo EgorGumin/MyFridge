@@ -18,13 +18,13 @@ import butterknife.ButterKnife;
  */
 public class FoodInfoActivity extends AppCompatActivity {
 
-    public final String INTENT_CATEGORY_STRING="cat";
-    public final String INTENT_NAME_STRING="nam";
-    public final String INTENT_COUNT_INT="count";
-    public final String INTENT_COUNT_IN_PACKET_INT="count_in_packet";
-    public final String INTENT_UNITS_STRING="units";
-    public final String INTENT_USE_BEFORE_STRING="use_before";
-    public final String INTENT_BAR_CODE_STRING ="bar_code";
+    public static final String INTENT_CATEGORY_STRING="cat";
+    public static final String INTENT_NAME_STRING="nam";
+    public static final String INTENT_COUNT_INT="count";
+    public static final String INTENT_COUNT_IN_PACKET_INT="count_in_packet";
+    public static final String INTENT_UNITS_STRING="units";
+    public static final String INTENT_USE_BEFORE_STRING="use_before";
+    public static final String INTENT_BAR_CODE_STRING ="bar_code";
 
     @Bind(R.id.food_info_icon)
     protected ImageView mFoodIcon;

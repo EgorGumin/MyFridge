@@ -46,7 +46,7 @@ public class BucketView extends View {
         canvas.drawRect(rect, paint);
 
         paint.setColor(getContext().getResources().getColor(R.color.colorPrimary));
-        rect.top=(int)(rect.bottom*mProgress);
+        rect.top=(int)(rect.bottom*(1-mProgress));
         canvas.drawRect(rect,paint);
     }
 }
