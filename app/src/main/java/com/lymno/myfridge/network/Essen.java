@@ -1,11 +1,11 @@
 package com.lymno.myfridge.network;
 
 import com.lymno.myfridge.model.ProductSearchResult;
+import com.lymno.myfridge.model.ResultChange;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.model.UserProductId;
 
 import retrofit.http.GET;
-import retrofit.http.Path;
 import retrofit.http.Query;
 
 public interface Essen {
@@ -30,4 +30,11 @@ public interface Essen {
                                 ,@Query("UnitMeasuredId") String UtilMeasuredId
                                 ,@Query("Amount") String Amount
                                 ,@Query("ExpirationDate") String ExpirationDate);
+
+
+    @GET("/products/AmountChange")
+    ResultChange change(@Query("UserProductID") String UserProductID,
+                        @Query("Amount") String Amount);
+
+
 }
