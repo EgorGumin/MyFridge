@@ -7,8 +7,19 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lymno.myfridge.R;
+import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
+import com.lymno.myfridge.fragments.FragmentInPutDataCount;
+import com.lymno.myfridge.fragments.FragmentInputProduct;
+import com.lymno.myfridge.model.ProductSearchResult;
+import com.lymno.myfridge.model.ResultChange;
+import com.lymno.myfridge.network.BaseSampleSpiceActivity;
+import com.lymno.myfridge.network.request.ChangeRequest;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,8 +27,9 @@ import butterknife.ButterKnife;
 /**
  * Created by Andre on 24.10.2015.
  */
-public class FoodInfoActivity extends AppCompatActivity {
+public class FoodInfoActivity extends BaseSampleSpiceActivity {
 
+    public static final String INTENT_PRODUCT_ID="id";
     public static final String INTENT_CATEGORY_STRING="cat";
     public static final String INTENT_NAME_STRING="nam";
     public static final String INTENT_COUNT_INT="count";
@@ -78,7 +90,7 @@ public class FoodInfoActivity extends AppCompatActivity {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+            push(progress);
         }
 
         @Override
@@ -90,5 +102,25 @@ public class FoodInfoActivity extends AppCompatActivity {
         public void onStopTrackingTouch(SeekBar seekBar) {
 
         }
+    }
+
+    private  void push(int progress){
+        ChangeRequest changeRequest=new ChangeRequest(""+getIntent().getIntExtra(INTENT_PRODUCT_ID,0),""+progress);
+        getSpiceManager().execute(changeRequest, "changeRequest",
+                DurationInMillis.ONE_MINUTE,new ListContributorRequestListener());
+    }
+
+    public final class ListContributorRequestListener implements RequestListener<ResultChange> {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Toast.makeText(FoodInfoActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onRequestSuccess(ResultChange resultChange) {
+            Toast.makeText(FoodInfoActivity.this, "success", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

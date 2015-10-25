@@ -79,6 +79,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             Intent questInfoIntent = new Intent(context, FoodInfoActivity.class);
             UserProduct product = foodsData.get(getAdapterPosition());
 
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_PRODUCT_ID,product.getId());
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_NAME_STRING,(product.getName()));
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_CATEGORY_STRING,Categories.getItem(product.getCategory()));
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_INT, product.getQuantity());
