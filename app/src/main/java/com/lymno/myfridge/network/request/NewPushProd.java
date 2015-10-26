@@ -7,9 +7,6 @@ import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
 import retrofit.http.Query;
 import roboguice.util.temp.Ln;
 
-/**
- * Created by Andre on 25.10.2015.
- */
 public class NewPushProd extends RetrofitSpiceRequest<UserProductId, Essen> {
 
     String userId;

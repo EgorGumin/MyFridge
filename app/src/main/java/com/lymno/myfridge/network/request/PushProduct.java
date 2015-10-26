@@ -11,9 +11,6 @@ import java.util.Date;
 
 import roboguice.util.temp.Ln;
 
-/**
- * Created by Andre on 25.10.2015.
- */
 public class PushProduct  extends RetrofitSpiceRequest<UserProductId, Essen> {
 
     String id;
