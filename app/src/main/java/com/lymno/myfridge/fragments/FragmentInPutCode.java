@@ -75,7 +75,7 @@ public class FragmentInPutCode extends BaseSampleSpiceFragment {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(getActivity(), "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            ((ScannerFragmentActivity)getActivity()).openFragment(FragmentInputProduct.create(mBarCode));
+//            ((ScannerFragmentActivity)getActivity()).openFragment(FragmentInputProduct.create(mBarCode));
 
         }
 
@@ -83,7 +83,7 @@ public class FragmentInPutCode extends BaseSampleSpiceFragment {
         public void onRequestSuccess(final ProductSearchResult result) {
 //            Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
             if (result != null) {
-                ((ScannerFragmentActivity)getActivity()).openFragment(FragmentInPutDataCount.create(mBarCode,result));
+//                ((ScannerFragmentActivity)getActivity()).openFragment(FragmentInPutDataCount.create(mBarCode,result));
                 updateContributors(result);
             } else {
 //                Toast.makeText(getActivity(), "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();

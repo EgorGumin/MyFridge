@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
+import com.lymno.myfridge.activity.ProductAdd;
 import com.lymno.myfridge.R;
 
 import java.util.ArrayList;
@@ -145,7 +146,15 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
     @Override
     public void handleResult(Result rawResult) {
-        ((ScannerFragmentActivity) getActivity()).handleResult(rawResult);
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
+            r.play();
+        } catch (Exception e) {}
+        //
+        Intent intent = new Intent(getContext(), ProductAdd.class);
+        intent.putExtra("barcode", rawResult.getText());
+        startActivity(intent);
         //showMessageDialog("Contents = " + rawResult.getText() + ", Format = " + rawResult.getBarcodeFormat().toString());
     }
 
@@ -195,7 +204,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
     public void setupFormats() {
         List<BarcodeFormat> formats = new ArrayList<BarcodeFormat>();
         if(mSelectedIndices == null || mSelectedIndices.isEmpty()) {
-            mSelectedIndices = new ArrayList<>();
+            mSelectedIndices = new ArrayList<Integer>();
             for(int i = 0; i < ZXingScannerView.ALL_FORMATS.size(); i++) {
                 mSelectedIndices.add(i);
             }

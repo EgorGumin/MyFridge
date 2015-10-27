@@ -3,6 +3,6 @@
 <resources>
     <item name="green" type="color">#4caf50</item>
     <item name="colorPrimaryDark" type="color">#ff0000</item>
-    <item name="textColorPrimary" type="color">#ffffff</item>
+    <item name="textColorPrimary" type="color">#000000</item>
 
 </resources>

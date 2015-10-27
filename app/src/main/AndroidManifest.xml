@@ -30,13 +30,15 @@
                 android:value="splitActionBarWhenNarrow" />
         </activity>
 
-        <activity android:name=".activity.FoodInfoActivity"></activity>
+        <activity android:name=".activity.FoodInfoActivity"/>
 
-        <activity android:name=".activity.RecipeActivity" ></activity>
+        <activity android:name=".activity.RecipeActivity" />
+
+        <activity android:name=".activity.ProductAdd" />
 
         <service
             android:name=".network.SampleRetrofitSpiceService"
-            android:enabled="true"></service>
+            android:enabled="true"/>
     </application>
 
 </manifest>

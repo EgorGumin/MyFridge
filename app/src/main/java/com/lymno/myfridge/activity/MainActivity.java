@@ -11,14 +11,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.lymno.myfridge.R;
 import com.lymno.myfridge.adapter.FoodAdapter;
 import com.lymno.myfridge.adapter.RecipeAdapter;
 import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
-import com.lymno.myfridge.R;
 import com.lymno.myfridge.database.DBHelper;
 import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.Recipe;
@@ -45,8 +43,6 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-import java.util.ArrayList;
-
 public class MainActivity extends BaseSampleSpiceActivity {
     private static final int MY_FOOD = 1;
     private static final int MY_RECIPES = 2;
@@ -66,7 +62,7 @@ public class MainActivity extends BaseSampleSpiceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-;
+        ;
 
         new DBHelper(this);
 
@@ -78,11 +74,11 @@ public class MainActivity extends BaseSampleSpiceActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(result.getCurrentSelectedPosition() == MY_FOOD){
+                if (result.getCurrentSelectedPosition() == MY_FOOD) {
                     SyncProducts sync = new SyncProducts();
                     getSpiceManager().execute(sync, "sync", DurationInMillis.ONE_MINUTE, new ProductsUpdateListener());
                 }
-                if(result.getCurrentSelectedPosition() == MY_RECIPES){
+                if (result.getCurrentSelectedPosition() == MY_RECIPES) {
                     getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
                 }
 
@@ -196,7 +192,7 @@ public class MainActivity extends BaseSampleSpiceActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(result.getCurrentSelectedPosition() == MY_FOOD){
+        if (result.getCurrentSelectedPosition() == MY_FOOD) {
             mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
             recyclerView.setAdapter(mFoodAdapter);
         }
@@ -214,12 +210,11 @@ public class MainActivity extends BaseSampleSpiceActivity {
         public void onRequestSuccess(final UserProduct.List result) {
             refreshLayout.setRefreshing(false);
 //            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
-            if (result != null){
+            if (result != null) {
                 UserProductsDatabase.recreateDataBase(result);
                 FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
                 recyclerView.setAdapter(newAdapter);
-            }
-            else{
+            } else {
                 Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
             }
 
@@ -237,12 +232,11 @@ public class MainActivity extends BaseSampleSpiceActivity {
         public void onRequestSuccess(final Recipe.List result) {
             refreshLayout.setRefreshing(false);
             //Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
-            if (result != null){
+            if (result != null) {
 
                 RecipeAdapter newAdapter = new RecipeAdapter(result);
                 recyclerView.setAdapter(newAdapter);
-            }
-            else{
+            } else {
                 Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
             }
 

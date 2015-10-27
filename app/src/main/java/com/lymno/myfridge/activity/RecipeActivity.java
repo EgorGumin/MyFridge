@@ -17,15 +17,14 @@ import com.squareup.picasso.Picasso;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by Andre on 25.10.2015.
- */
-public class RecipeActivity extends AppCompatActivity{
+
+public class RecipeActivity extends AppCompatActivity {
 
     private static Recipe mRecipe;
-    public static void open(Context context,Recipe recipe){
-        mRecipe=recipe;
-        Intent intent=new Intent(context,RecipeActivity.class);
+
+    public static void open(Context context, Recipe recipe) {
+        mRecipe = recipe;
+        Intent intent = new Intent(context, RecipeActivity.class);
         context.startActivity(intent);
     }
 
@@ -37,10 +36,6 @@ public class RecipeActivity extends AppCompatActivity{
 
     @Bind(R.id.tvRecipeDescription)
     protected TextView descrip;
-
-    @Bind(R.id.tvRecipeFoodList)
-    protected TextView list;
-
 
 
     @Override
@@ -58,7 +53,7 @@ public class RecipeActivity extends AppCompatActivity{
     }
 
 
-    private void load(){
+    private void load() {
         mTextRecipeName.setText(mRecipe.getName());
         descrip.setText(mRecipe.getDescription());
 
