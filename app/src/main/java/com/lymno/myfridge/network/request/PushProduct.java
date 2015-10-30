@@ -11,24 +11,22 @@ import java.util.Date;
 
 import roboguice.util.temp.Ln;
 
-public class PushProduct  extends RetrofitSpiceRequest<UserProductId, Essen> {
+public class PushProduct extends RetrofitSpiceRequest<UserProductId, Essen> {
+    int id;
+    int count;
+    String date;
 
-    String id;
-    String count;
-    String  date;
-
-    public PushProduct(String id,String  count,String date){
+    public PushProduct(int id, int count, String date) {
         super(UserProductId.class, Essen.class);
-        this.id=id;
-        this.count=count;
-        this.date=date;
-
+        this.id = id;
+        this.count = count;
+        this.date = date;
     }
 
 
     @Override
-    public UserProductId loadDataFromNetwork()  {
+    public UserProductId loadDataFromNetwork() {
         Ln.d("Call web service ");
-        return getService().addProd(id,count,date,"4");
+        return getService().addProd(id, count, date, "4");
     }
 }

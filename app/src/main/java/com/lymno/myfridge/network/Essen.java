@@ -20,21 +20,21 @@ public interface Essen {
     UserProduct.List syncProducts(@Query("id") String id);
 
     @GET("/products/ProductAdd")
-    UserProductId addProd(@Query("ProductID") String prodId,@Query("Amount") String amount,@Query("ExspirationDate") String expDate,
-                        @Query("UserId") String userId);
+    UserProductId addProd(@Query("ProductID") int prodId, @Query("Amount") int amount, @Query("ExspirationDate") String expDate,
+                          @Query("UserId") String userId);
 
     @GET("/recipes/GetRecipesSimple")
     Recipe.List getRecipesSimple(@Query("idUser") String idUser);
 
     @GET("/products/NewProductAdd")
     UserProductId addNewProduct(@Query("UserId") String userId
-                                ,@Query("BarCode") String barCode
-                                ,@Query("CategoryId") String categoryId
-                                ,@Query("Name") String name
-                                ,@Query("AmountDefault") String AmountDef
-                                ,@Query("UnitMeasuredId") String UtilMeasuredId
-                                ,@Query("Amount") String Amount
-                                ,@Query("ExpirationDate") String ExpirationDate);
+            , @Query("BarCode") String barCode
+            , @Query("CategoryId") String categoryId
+            , @Query("Name") String name
+            , @Query("AmountDefault") String AmountDef
+            , @Query("UnitMeasuredId") String UtilMeasuredId
+            , @Query("Amount") String Amount
+            , @Query("ExpirationDate") String ExpirationDate);
 
 
     @GET("/products/AmountChange")

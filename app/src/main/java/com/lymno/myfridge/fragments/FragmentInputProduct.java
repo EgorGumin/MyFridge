@@ -98,15 +98,15 @@ public class FragmentInputProduct  extends BaseSampleSpiceFragment {
         public void onRequestSuccess(UserProductId userProduct) {
 //            Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
 //            String date=DateFormatUtils.format(new Date(mInputDidLine.getDate()), "yyyyMMdd");
-            UserProduct userProduct1=new UserProduct(userProduct.getId(),
-                    1,userProduct.getBaseProductID(),(mInputCategory.getSelectedItemPosition()+1)
-                    ,mInputName.getText().toString()
-                    ,+mUnitMeasure.getSelectedItemPosition()+1
-                    ,Integer.valueOf(mInputCount.getText().toString())
-                    ,Integer.valueOf(mInputCountInPacket.getText().toString())
-                    ,new Date(mInputDidLine.getDate()));
-            UserProductsDatabase.addUserProduct(userProduct1);
-            getActivity().finish();
+//            UserProduct userProduct1=new UserProduct(userProduct.getId(),
+//                    1,userProduct.getBaseProductID(),(mInputCategory.getSelectedItemPosition()+1)
+//                    ,mInputName.getText().toString()
+//                    ,+mUnitMeasure.getSelectedItemPosition()+1
+//                    ,Integer.valueOf(mInputCount.getText().toString())
+//                    ,Integer.valueOf(mInputCountInPacket.getText().toString())
+//                    ,new Date(mInputDidLine.getDate()));
+//            UserProductsDatabase.addUserProduct(userProduct1);
+//            getActivity().finish();
 
 
         }
