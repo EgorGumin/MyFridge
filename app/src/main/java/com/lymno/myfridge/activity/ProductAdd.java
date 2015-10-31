@@ -1,19 +1,15 @@
 package com.lymno.myfridge.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.client.result.ProductParsedResult;
 import com.lymno.myfridge.Categories;
 import com.lymno.myfridge.DatePicker;
 import com.lymno.myfridge.Measures;
@@ -30,11 +26,8 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ProductAdd extends BaseSampleSpiceActivity implements View.OnClickListener {
@@ -104,6 +97,8 @@ public class ProductAdd extends BaseSampleSpiceActivity implements View.OnClickL
             //Toast.makeText(ProductAdd.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             progress.dismiss();
             //new activity
+            Intent intent = new Intent(ProductAdd.this, ProductAddNew.class);
+            startActivity(intent);
         }
 
         @Override

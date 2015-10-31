@@ -1,5 +1,6 @@
 package com.lymno.myfridge.network.request;
 
+import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.UserProductId;
 import com.lymno.myfridge.network.Essen;
 import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
@@ -7,27 +8,24 @@ import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
 import retrofit.http.Query;
 import roboguice.util.temp.Ln;
 
-public class NewPushProd extends RetrofitSpiceRequest<UserProductId, Essen> {
+public class NewPushProd extends RetrofitSpiceRequest<NewProductAddResult, Essen> {
 
     String userId;
     String barCode;
-    String categoryId;
+    int categoryId;
+    int fridgeID;
     String name;
-    String AmountDef;
-    String UtilMeasuredId;
-    String Amount;
+    int AmountDef;
+    int UtilMeasuredId;
+    int Amount;
     String ExpirationDate;
 
-    public NewPushProd(String barCode
-            , String categoryId
-            , String name
-            , String AmountDef
-            , String UtilMeasuredId
-            , String Amount
-            , String ExpirationDate) {
-        super(UserProductId.class, Essen.class);
+    public NewPushProd(String barCode, int categoryId, String name, int AmountDef,
+                       int UtilMeasuredId, int Amount, String ExpirationDate) {
+        super(NewProductAddResult.class, Essen.class);
 
         this.userId = "4";
+        this.fridgeID = 1;
         this.barCode = barCode;
         this.categoryId = categoryId;
         this.name = name;
@@ -40,16 +38,10 @@ public class NewPushProd extends RetrofitSpiceRequest<UserProductId, Essen> {
 
 
     @Override
-    public UserProductId loadDataFromNetwork() {
+    public NewProductAddResult loadDataFromNetwork() {
         Ln.d("Call web service ");
-        return getService().addNewProduct(userId,
-                barCode
-                , categoryId
-                , name
-                , AmountDef
-                , UtilMeasuredId
-                , Amount
-                , ExpirationDate);
+        return getService().addNewProduct(userId, fridgeID, barCode, categoryId, name,
+                AmountDef, UtilMeasuredId, Amount, ExpirationDate);
     }
 
     public String getUserId() {
@@ -60,7 +52,7 @@ public class NewPushProd extends RetrofitSpiceRequest<UserProductId, Essen> {
         return barCode;
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
@@ -68,15 +60,15 @@ public class NewPushProd extends RetrofitSpiceRequest<UserProductId, Essen> {
         return name;
     }
 
-    public String getAmountDef() {
+    public int getAmountDef() {
         return AmountDef;
     }
 
-    public String getUtilMeasuredId() {
+    public int getUtilMeasuredId() {
         return UtilMeasuredId;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return Amount;
     }
 

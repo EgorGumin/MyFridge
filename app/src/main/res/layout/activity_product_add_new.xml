@@ -22,11 +22,11 @@
                 android:text="Категория"
                 android:id="@+id/textView5" />
 
-            <TextView
+            <AutoCompleteTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/product_add_category"
+                android:id="@+id/add_new_category"
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
@@ -41,15 +41,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Название"
-                android:id="@+id/textView6" />
+                android:id="@+id/add_new_name_name" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/product_add_name"
-                android:layout_weight="1"
+                android:id="@+id/add_new_name"
                 android:layout_marginLeft="10dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -62,14 +61,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Штрих-код"
-                android:id="@+id/textView7" />
+                android:id="@+id/add_new_barcode_name" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/product_add_barcode"
-                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/add_new_barcode"
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
 
@@ -84,21 +83,22 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Кол-во"
-                android:id="@+id/textView8" />
+                android:id="@+id/add_new_quantity_name" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:ems="10"
-                android:id="@+id/product_add_quantity"
-                android:layout_marginLeft="10dp" />
+                android:id="@+id/add_new_quantity"
+                android:layout_marginLeft="10dp"
+                android:minWidth="50dp" />
 
-            <TextView
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/product_add_quantity_by_default" />
+                android:id="@+id/add_new_measure_spinner"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown" />
 
         </LinearLayout>
 
@@ -112,14 +112,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Употребить до"
-                android:id="@+id/textView9" />
+                android:id="@+id/add_new_best_before_name" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Выбрать дату..."
-                android:id="@+id/product_add_date"
+                android:id="@+id/add_new_date_add"
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
 
@@ -129,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Сохранить"
-        android:id="@+id/add_product_button_save"
+        android:id="@+id/add_new_button_save"
         android:minHeight="70dp"
         android:layout_gravity="bottom|right"
         android:maxWidth="70dp" />

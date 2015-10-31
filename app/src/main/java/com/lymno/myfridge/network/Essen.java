@@ -1,5 +1,6 @@
 package com.lymno.myfridge.network;
 
+import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.ResultChange;
 import com.lymno.myfridge.model.Recipe;
@@ -27,13 +28,14 @@ public interface Essen {
     Recipe.List getRecipesSimple(@Query("idUser") String idUser);
 
     @GET("/products/NewProductAdd")
-    UserProductId addNewProduct(@Query("UserId") String userId
-            , @Query("BarCode") String barCode
-            , @Query("CategoryId") String categoryId
+    NewProductAddResult addNewProduct(@Query("UserId") String userId
+            , @Query("FridgeID") int fridgeID
+            , @Query("Barcode") String barCode
+            , @Query("CategoryID") int categoryId
             , @Query("Name") String name
-            , @Query("AmountDefault") String AmountDef
-            , @Query("UnitMeasuredId") String UtilMeasuredId
-            , @Query("Amount") String Amount
+            , @Query("AmountDefault") int AmountDef
+            , @Query("UnitMeasureID") int UtilMeasuredId
+            , @Query("Amount") int Amount
             , @Query("ExpirationDate") String ExpirationDate);
 
 

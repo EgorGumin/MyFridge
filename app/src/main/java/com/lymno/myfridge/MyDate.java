@@ -10,11 +10,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class MyDate extends Date {
 
-    private final long MILLIS_IN_DATE = 1000 * 60 * 60 * 24;
+    private final long MILLIS_IN_DATE = 1000 * 60 * 60 * 24; //Столько миллисекунд в одном дне
 
     public MyDate(Date l) {
         this(l.getTime());
-
     }
 
     public MyDate(long l) {
@@ -33,10 +32,13 @@ public class MyDate extends Date {
         Long time = getTime();
 
         String s = "";
-        if (time < MILLIS_IN_DATE) {
+        if (time < 0) {
             s = "Продукт испортился";
             return s;
-
+        }
+        if (time < MILLIS_IN_DATE) {
+            s = "Исп. сегодня";
+            return s;
         }
         if (time < 2 * MILLIS_IN_DATE) {
             s = before + time / MILLIS_IN_DATE + " день";

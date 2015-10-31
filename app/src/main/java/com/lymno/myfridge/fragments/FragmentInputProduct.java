@@ -9,13 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.lymno.myfridge.Categories;
 import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.database.UserProductsDatabase;
-import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.model.UserProductId;
 import com.lymno.myfridge.network.BaseSampleSpiceFragment;
 import com.lymno.myfridge.network.request.NewPushProd;
@@ -33,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Andre on 25.10.2015.
  */
-public class FragmentInputProduct  extends BaseSampleSpiceFragment {
+public class FragmentInputProduct extends BaseSampleSpiceFragment {
 
     @Bind(R.id.input_count)
     protected EditText mInputCount;
@@ -56,7 +53,7 @@ public class FragmentInputProduct  extends BaseSampleSpiceFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflated=inflater.inflate(R.layout.input_product,container,false);
+        View inflated = inflater.inflate(R.layout.input_product, container, false);
         ButterKnife.bind(inflated);
         inflated.findViewById(R.id.push).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +61,12 @@ public class FragmentInputProduct  extends BaseSampleSpiceFragment {
                 push();
             }
         });
-        mInputName=(EditText)inflated.findViewById(R.id.input_name);
-        mInputCount=(EditText)inflated.findViewById(R.id.input_count);
-        mInputDidLine=(CalendarView)inflated.findViewById(R.id.input_didline);
-        mInputCategory=(Spinner)inflated.findViewById(R.id.input_category);
-        mInputCountInPacket=(EditText)inflated.findViewById(R.id.input_count_in_packet);
-        mUnitMeasure=(Spinner)inflated.findViewById(R.id.input_unit_measure);
+        mInputName = (EditText) inflated.findViewById(R.id.input_name);
+        mInputCount = (EditText) inflated.findViewById(R.id.input_count);
+        mInputDidLine = (CalendarView) inflated.findViewById(R.id.input_didline);
+        mInputCategory = (Spinner) inflated.findViewById(R.id.input_category);
+        mInputCountInPacket = (EditText) inflated.findViewById(R.id.input_count_in_packet);
+        mUnitMeasure = (Spinner) inflated.findViewById(R.id.input_unit_measure);
 
         mInputCategory.setAdapter(new ArrayAdapter<>(this.getContext(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, Categories.get()));
@@ -78,14 +75,14 @@ public class FragmentInputProduct  extends BaseSampleSpiceFragment {
         return inflated;
     }
 
-    private void push(){
-        String date= DateFormatUtils.format(new Date(mInputDidLine.getDate()), "yyyyMMdd");
+    private void push() {
+        String date = DateFormatUtils.format(new Date(mInputDidLine.getDate()), "yyyyMMdd");
         NewPushProd newPushProd;
-        newPushProd =new NewPushProd(mBarCode,""+(mInputCategory.getSelectedItemPosition()+1),
-                mInputName.getText().toString(),mInputCountInPacket.getText().toString(),
-                ""+mUnitMeasure.getSelectedItemPosition()+1,
-                mInputCount.getText().toString(),date);
-        getSpiceManager().execute(newPushProd, "addProduct", DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
+//        newPushProd = new NewPushProd(mBarCode, "" + (mInputCategory.getSelectedItemPosition() + 1),
+//                mInputName.getText().toString(), mInputCountInPacket.getText().toString(),
+//                "" + mUnitMeasure.getSelectedItemPosition() + 1,
+//                mInputCount.getText().toString(), date);
+//        getSpiceManager().execute(newPushProd, "addProduct", DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
     }
 
     public final class ListContributorRequestListener implements RequestListener<UserProductId> {
