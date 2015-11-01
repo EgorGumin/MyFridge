@@ -98,6 +98,7 @@ public class ProductAdd extends BaseSampleSpiceActivity implements View.OnClickL
             progress.dismiss();
             //new activity
             Intent intent = new Intent(ProductAdd.this, ProductAddNew.class);
+            intent.putExtra("barcode", barcode.getText().toString());
             startActivity(intent);
         }
 

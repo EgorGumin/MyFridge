@@ -63,10 +63,9 @@
                 android:text="Штрих-код"
                 android:id="@+id/add_new_barcode_name" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/add_new_barcode"
                 android:layout_marginLeft="10dp" />
