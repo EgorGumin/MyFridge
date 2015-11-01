@@ -23,8 +23,9 @@ import com.lymno.myfridge.R;
 import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.network.Api;
 import com.lymno.myfridge.network.BaseSampleSpiceActivity;
-import com.lymno.myfridge.network.request.NewPushProd;
+import com.lymno.myfridge.network.RestClient;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
@@ -33,6 +34,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnClickListener{
     private AutoCompleteTextView autoComplete;
@@ -53,6 +58,7 @@ public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnCli
     private String dateText;
     private int quantityText;
     private String code;
+    final Api api = RestClient.get();
 
 
     @Override
@@ -131,43 +137,40 @@ public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnCli
             dateText = date.getText().toString();
             quantityText = Integer.valueOf(quantity.getText().toString());
             Toast.makeText(ProductAddNew.this, measureID + " " + categoryID, Toast.LENGTH_LONG).show();
-            NewPushProd saveProduct = new NewPushProd(code, categoryID, nameText, amountDef, measureID, quantityText, dateText);
-            getSpiceManager().execute(saveProduct, "Save Product", DurationInMillis.ONE_MINUTE, new SaveNewProductRequestListener());
-        }
-    }
 
+            api.addNewProduct("4", 1, code, categoryID, nameText, amountDef, measureID, quantityText, dateText, new Callback<NewProductAddResult>() {
+                @Override
+                public void success(NewProductAddResult newProductAddResult, Response response) {
+                    Toast.makeText(ProductAddNew.this, "success", Toast.LENGTH_SHORT).show();
+                    if (newProductAddResult != null) {
+                        //добавить в базу
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+                        try {
+                            Date myDate = simpleDateFormat.parse(date.getText().toString());
+                            UserProduct userProduct = new UserProduct(newProductAddResult.getUserProductID(), 1,
+                                    newProductAddResult.getProductID(),
+                                    categoryID, nameText,
+                                    measureID, quantityText,
+                                    amountDef, myDate);
+                            UserProductsDatabase.addUserProduct(userProduct);
 
-    public final class SaveNewProductRequestListener implements RequestListener<NewProductAddResult> {
-        @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            //Пока Влад не поправил ошибку на нулл, переходим из этой ветки
-            Toast.makeText(ProductAddNew.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            //new activity
-        }
-
-        @Override
-        public void onRequestSuccess(final NewProductAddResult result) {
-            Toast.makeText(ProductAddNew.this, "success", Toast.LENGTH_SHORT).show();
-            if (result != null) {
-                //добавить в базу
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-                try {
-                    Date myDate = simpleDateFormat.parse(date.getText().toString());
-                    UserProduct userProduct = new UserProduct(result.getUserProductID(), 1, result.getProductID(),
-                            categoryID, nameText,
-                            measureID, quantityText,
-                            amountDef, myDate);
-                    UserProductsDatabase.addUserProduct(userProduct);
-
-                    Intent intent = new Intent(ProductAddNew.this, MainActivity.class);
-                    startActivity(intent);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                            Intent intent = new Intent(ProductAddNew.this, MainActivity.class);
+                            startActivity(intent);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(ProductAddNew.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
+                    }
                 }
-            } else {
-                Toast.makeText(ProductAddNew.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
-            }
 
+                @Override
+                public void failure(RetrofitError error) {
+                    //Пока Влад не поправил ошибку на нулл, переходим из этой ветки
+                    Toast.makeText(ProductAddNew.this, "Failure: " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    //new activity
+                }
+            });
         }
     }
 }

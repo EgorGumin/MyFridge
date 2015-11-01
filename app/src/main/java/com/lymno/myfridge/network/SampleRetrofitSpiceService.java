@@ -1,7 +1,5 @@
 package com.lymno.myfridge.network;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.octo.android.robospice.retrofit.RetrofitGsonSpiceService;
@@ -14,17 +12,12 @@ public class SampleRetrofitSpiceService extends RetrofitGsonSpiceService {
 
     private final static String BASE_URL = "http://s123s.azurewebsites.net/";
     private final static String USER_ID = "4";
-
-    public static String getSessionId() {
-        return SESSION_ID;
-    }
-
     private final static String SESSION_ID = "777";
 
     @Override
     public void onCreate() {
         super.onCreate();
-        addRetrofitInterface(Essen.class);
+        addRetrofitInterface(Api.class);
     }
 
     @Override
@@ -34,6 +27,10 @@ public class SampleRetrofitSpiceService extends RetrofitGsonSpiceService {
 
     public static String getUserId() {
         return USER_ID;
+    }
+
+    public static String getSessionId() {
+        return SESSION_ID;
     }
 
     //????????????

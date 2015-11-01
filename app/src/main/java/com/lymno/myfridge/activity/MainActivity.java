@@ -21,9 +21,9 @@ import com.lymno.myfridge.database.DBHelper;
 import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.Recipe;
 import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.network.Api;
 import com.lymno.myfridge.network.BaseSampleSpiceActivity;
-import com.lymno.myfridge.network.request.GetRecipesSimple;
-import com.lymno.myfridge.network.request.SyncProducts;
+import com.lymno.myfridge.network.RestClient;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -43,6 +43,12 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
+import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class MainActivity extends BaseSampleSpiceActivity {
     private static final int MY_FOOD = 1;
     private static final int MY_RECIPES = 2;
@@ -61,8 +67,8 @@ public class MainActivity extends BaseSampleSpiceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ;
+        //set up rest api
+        final Api api = RestClient.get();
 
         new DBHelper(this);
 
@@ -75,11 +81,46 @@ public class MainActivity extends BaseSampleSpiceActivity {
             @Override
             public void onRefresh() {
                 if (result.getCurrentSelectedPosition() == MY_FOOD) {
-                    SyncProducts sync = new SyncProducts();
-                    getSpiceManager().execute(sync, "sync", DurationInMillis.ONE_MINUTE, new ProductsUpdateListener());
+                    api.syncProducts("4", new Callback<ArrayList<UserProduct>>() {
+                        @Override
+                        public void success(ArrayList<UserProduct> userProducts, Response response) {
+                            refreshLayout.setRefreshing(false);
+//                          Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+                            if (userProducts != null) {
+                                UserProductsDatabase.recreateDataBase(userProducts);
+                                FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+                                recyclerView.setAdapter(newAdapter);
+                            } else {
+                                Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            refreshLayout.setRefreshing(false);
+                        }
+                    });
                 }
                 if (result.getCurrentSelectedPosition() == MY_RECIPES) {
-                    getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
+                    api.getRecipesSimple("4", new Callback<ArrayList<Recipe>>() {
+                        @Override
+                        public void success(ArrayList<Recipe> recipes, Response response) {
+                            refreshLayout.setRefreshing(false);
+                            //Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+                            if (result != null) {
+                                RecipeAdapter newAdapter = new RecipeAdapter(recipes);
+                                recyclerView.setAdapter(newAdapter);
+                            } else {
+                                Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            refreshLayout.setRefreshing(false);
+                            Toast.makeText(MainActivity.this, "Failure: " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
             }
@@ -147,7 +188,7 @@ public class MainActivity extends BaseSampleSpiceActivity {
                             recyclerView.setAdapter(newAdapter);
                         }
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_RECIPES) {
-                            getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
+                            //getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
 
                         }
 
@@ -161,8 +202,6 @@ public class MainActivity extends BaseSampleSpiceActivity {
                 .build();
 
         result.setSelection(MY_FOOD, true);
-        //ArrayList<UserProduct> foodList = Examples.getAllFood();
-        //foodList.addAll(Examples.getAllFood()); // для количества
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
@@ -195,51 +234,6 @@ public class MainActivity extends BaseSampleSpiceActivity {
         if (result.getCurrentSelectedPosition() == MY_FOOD) {
             mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
             recyclerView.setAdapter(mFoodAdapter);
-        }
-
-    }
-
-    public final class ProductsUpdateListener implements RequestListener<UserProduct.List> {
-        @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            refreshLayout.setRefreshing(false);
-//            Toast.makeText(MainActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onRequestSuccess(final UserProduct.List result) {
-            refreshLayout.setRefreshing(false);
-//            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
-            if (result != null) {
-                UserProductsDatabase.recreateDataBase(result);
-                FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
-                recyclerView.setAdapter(newAdapter);
-            } else {
-                Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
-            }
-
-        }
-    }
-
-    public final class RecipesUpdateListener implements RequestListener<Recipe.List> {
-        @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            refreshLayout.setRefreshing(false);
-            Toast.makeText(MainActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onRequestSuccess(final Recipe.List result) {
-            refreshLayout.setRefreshing(false);
-            //Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
-            if (result != null) {
-
-                RecipeAdapter newAdapter = new RecipeAdapter(result);
-                recyclerView.setAdapter(newAdapter);
-            } else {
-                Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
-            }
-
         }
     }
 }

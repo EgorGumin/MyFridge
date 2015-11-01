@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
-import com.lymno.myfridge.fragments.FragmentInPutDataCount;
-import com.lymno.myfridge.fragments.FragmentInputProduct;
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.ResultChange;
 import com.lymno.myfridge.network.BaseSampleSpiceActivity;
