@@ -38,7 +38,7 @@ public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnCli
     private AutoCompleteTextView autoComplete;
     private ArrayAdapter<String> adapter;
     private EditText name;
-    private EditText barcode;
+    private TextView barcode;
     private EditText quantity;
     private TextView date;
     private Button save;
@@ -52,15 +52,19 @@ public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnCli
     private int amountDef;
     private String dateText;
     private int quantityText;
+    private String code;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_add_new);
+        Intent intent = getIntent();
+        code = intent.getStringExtra("barcode");
 
         name = (EditText) findViewById(R.id.add_new_name);
-        barcode = (EditText) findViewById(R.id.add_new_barcode);
+        barcode = (TextView) findViewById(R.id.add_new_barcode);
+        barcode.setText(code);
         quantity = (EditText) findViewById(R.id.add_new_quantity);
         save = (Button) findViewById(R.id.add_new_button_save);
         save.setOnClickListener(this);
@@ -117,7 +121,6 @@ public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnCli
         if (v == save) {
             measureID = measure.getSelectedItemPosition() + 1;
             categoryID = categories.indexOf(autoComplete.getText().toString()) + 1;
-            barcodeText = barcode.getText().toString();
             nameText = name.getText().toString();
             if(measureID == 3){
                 amountDef = 0;
@@ -128,7 +131,7 @@ public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnCli
             dateText = date.getText().toString();
             quantityText = Integer.valueOf(quantity.getText().toString());
             Toast.makeText(ProductAddNew.this, measureID + " " + categoryID, Toast.LENGTH_LONG).show();
-            NewPushProd saveProduct = new NewPushProd(barcodeText, categoryID, nameText, amountDef, measureID, quantityText, dateText);
+            NewPushProd saveProduct = new NewPushProd(code, categoryID, nameText, amountDef, measureID, quantityText, dateText);
             getSpiceManager().execute(saveProduct, "Save Product", DurationInMillis.ONE_MINUTE, new SaveNewProductRequestListener());
         }
     }
