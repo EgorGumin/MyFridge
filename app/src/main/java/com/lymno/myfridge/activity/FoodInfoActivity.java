@@ -10,31 +10,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
-import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.ResultChange;
-import com.lymno.myfridge.network.BaseSampleSpiceActivity;
-import com.lymno.myfridge.network.request.ChangeRequest;
-import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by Andre on 24.10.2015.
- */
-public class FoodInfoActivity extends BaseSampleSpiceActivity {
+public class FoodInfoActivity extends AppCompatActivity {
 
-    public static final String INTENT_PRODUCT_ID="id";
-    public static final String INTENT_CATEGORY_STRING="cat";
-    public static final String INTENT_NAME_STRING="nam";
-    public static final String INTENT_COUNT_INT="count";
-    public static final String INTENT_COUNT_IN_PACKET_INT="count_in_packet";
-    public static final String INTENT_UNITS_STRING="units";
-    public static final String INTENT_USE_LEFT_STRING ="use_before";
-    public static final String INTENT_BAR_CODE_STRING ="bar_code";
+    public static final String INTENT_PRODUCT_ID = "id";
+    public static final String INTENT_CATEGORY_STRING = "cat";
+    public static final String INTENT_NAME_STRING = "nam";
+    public static final String INTENT_COUNT_INT = "count";
+    public static final String INTENT_COUNT_IN_PACKET_INT = "count_in_packet";
+    public static final String INTENT_UNITS_STRING = "units";
+    public static final String INTENT_USE_LEFT_STRING = "use_before";
+    public static final String INTENT_BAR_CODE_STRING = "bar_code";
 
     @Bind(R.id.food_info_icon)
     protected ImageView mFoodIcon;
@@ -47,7 +39,6 @@ public class FoodInfoActivity extends BaseSampleSpiceActivity {
 
     @Bind(R.id.food_info_progress_eat)
     protected SeekBar mEatLeft;
-
 
 
     @Override
@@ -68,9 +59,9 @@ public class FoodInfoActivity extends BaseSampleSpiceActivity {
     }
 
 
-    private void loadFromIntent(){
-        Intent loadedIntent=getIntent();
-        if (loadedIntent!=null){
+    private void loadFromIntent() {
+        Intent loadedIntent = getIntent();
+        if (loadedIntent != null) {
             mCategoryName.setText(loadedIntent.getStringExtra(INTENT_CATEGORY_STRING) + "  "
                     + loadedIntent.getStringExtra(INTENT_NAME_STRING));
 
@@ -102,10 +93,10 @@ public class FoodInfoActivity extends BaseSampleSpiceActivity {
         }
     }
 
-    private  void push(int progress){
-        ChangeRequest changeRequest=new ChangeRequest(""+getIntent().getIntExtra(INTENT_PRODUCT_ID,0),""+progress);
-        getSpiceManager().execute(changeRequest, "changeRequest",
-                DurationInMillis.ONE_MINUTE,new ListContributorRequestListener());
+    private void push(int progress) {
+//        ChangeRequest changeRequest = new ChangeRequest("" + getIntent().getIntExtra(INTENT_PRODUCT_ID, 0), "" + progress);
+//        getSpiceManager().execute(changeRequest, "changeRequest",
+//                DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
     }
 
     public final class ListContributorRequestListener implements RequestListener<ResultChange> {

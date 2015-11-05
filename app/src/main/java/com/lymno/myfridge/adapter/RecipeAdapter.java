@@ -37,7 +37,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-Context context;
+        Context context;
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
 
@@ -47,14 +47,14 @@ Context context;
         viewHolder.RecipeDescription.setText(recipeDataPos.getDescription());
         //viewHolder.RecipeFoodList.setText(recipeDataPos.getId());
 
-        Picasso.with( viewHolder.imageView.getContext()).load(recipeDataPos.getImageUrl()).error(R.drawable.rec1).into(viewHolder.imageView);
+        Picasso.with(viewHolder.imageView.getContext()).load(recipeDataPos.getImageUrl()).error(R.drawable.rec1).into(viewHolder.imageView);
 //        viewHolder.imageView.setImageResource(R.drawable.rec1);
 //        Drawable drawable=viewHolder.imageView.getContext().getResources().getDrawable(R.drawable.rec1);
 //        drawable.setBounds(0,0,viewHolder.imageView.getWidth(), viewHolder.imageView.getHeight());
 //                viewHolder.imageView.setImageDrawable(drawable);
     }
 
-    public void updateItems (ArrayList<Recipe> items) {
+    public void updateItems(ArrayList<Recipe> items) {
         this.recipeData = items;
         notifyDataSetChanged();
     }
@@ -71,14 +71,14 @@ Context context;
             super(itemLayoutView);
             RecipeName = (TextView) itemLayoutView.findViewById(R.id.tvCardRecipeName);
             RecipeDescription = (TextView) itemLayoutView.findViewById(R.id.tvRecipeDescription);
-            RecipeFoodList = (TextView)itemLayoutView.findViewById(R.id.tvRecipeFoodList);
+            RecipeFoodList = (TextView) itemLayoutView.findViewById(R.id.tvRecipeFoodList);
             imageView = (ImageView) itemLayoutView.findViewById(R.id.imageView);
             itemLayoutView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            RecipeActivity.open(view.getContext(),recipeData.get(getAdapterPosition()));
+            RecipeActivity.open(view.getContext(), recipeData.get(getAdapterPosition()));
         }
     }
 

@@ -36,7 +36,7 @@ public class MessageDialogFragment extends DialogFragment {
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                if(mListener != null) {
+                if (mListener != null) {
                     mListener.onDialogPositiveClick(MessageDialogFragment.this);
                 }
             }

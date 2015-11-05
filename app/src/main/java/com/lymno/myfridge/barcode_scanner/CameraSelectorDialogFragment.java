@@ -31,7 +31,7 @@ public class CameraSelectorDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if(mListener == null) {
+        if (mListener == null) {
             dismiss();
             return null;
         }
@@ -43,14 +43,14 @@ public class CameraSelectorDialogFragment extends DialogFragment {
         for (int i = 0; i < numberOfCameras; i++) {
             Camera.CameraInfo info = new Camera.CameraInfo();
             Camera.getCameraInfo(i, info);
-            if(info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
                 cameraNames[i] = "Front Facing";
-            } else if(info.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            } else if (info.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
                 cameraNames[i] = "Rear Facing";
             } else {
                 cameraNames[i] = "Camera ID: " + i;
             }
-            if(i == mCameraId) {
+            if (i == mCameraId) {
                 checkedIndex = i;
             }
         }

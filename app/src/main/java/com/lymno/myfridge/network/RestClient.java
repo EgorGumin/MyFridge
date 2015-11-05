@@ -6,7 +6,6 @@ import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
-import retrofit.converter.Converter;
 import retrofit.converter.GsonConverter;
 
 public class RestClient {
@@ -19,7 +18,8 @@ public class RestClient {
         setupRestClient();
     }
 
-    private RestClient() {}
+    private RestClient() {
+    }
 
     public static Api get() {
         return REST_CLIENT;
@@ -40,5 +40,13 @@ public class RestClient {
         REST_CLIENT = restAdapter.create(Api.class);
     }
 
+
+    public static String getUserId() {
+        return USER_ID;
+    }
+
+    public static String getSessionId() {
+        return SESSION_ID;
+    }
 }
 

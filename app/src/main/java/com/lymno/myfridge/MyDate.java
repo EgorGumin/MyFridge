@@ -1,9 +1,6 @@
 package com.lymno.myfridge;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Andre on 25.10.2015.
@@ -68,11 +65,11 @@ public class MyDate extends Date {
             s = before + time / (30L * MILLIS_IN_DATE) + " месяцев";
             return s;
         }
-        if (time < 359*2 * MILLIS_IN_DATE) {
+        if (time < 359 * 2 * MILLIS_IN_DATE) {
             s = before + time / (356L * MILLIS_IN_DATE) + " год";
             return s;
         }
-        if (time < 359*4 * MILLIS_IN_DATE) {
+        if (time < 359 * 4 * MILLIS_IN_DATE) {
             s = before + time / (356L * MILLIS_IN_DATE) + " года";
             return s;
         }

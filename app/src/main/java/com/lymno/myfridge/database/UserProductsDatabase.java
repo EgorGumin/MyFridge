@@ -1,7 +1,6 @@
 package com.lymno.myfridge.database;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -26,17 +25,17 @@ public class UserProductsDatabase {
     static final String DATE = "date";
 
     static private DBHelper dbHelper;
-    static  private ContentValues cv;
-    static  private SQLiteDatabase db;
-    static  private Cursor cursor;
-    static  private String[] columns;
+    static private ContentValues cv;
+    static private SQLiteDatabase db;
+    static private Cursor cursor;
+    static private String[] columns;
 
     static public ArrayList<UserProduct> getUserProducts() {
         dbHelper = DBHelper.get();
         ArrayList<UserProduct> UserProducts = new ArrayList<>();
         db = dbHelper.getReadableDatabase();
         columns = new String[]{ID, FRIDGE_ID, BASE_PRODUCT_ID, CATEGORY, USER_PRODUCT_NAME, MEASURE, QUANTITY, QUANTITY_BY_DEFAULT, DATE};
-        cursor = db.query(NAME,columns, null, null, null, null, null);
+        cursor = db.query(NAME, columns, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -50,8 +49,8 @@ public class UserProductsDatabase {
                 int quantityByDefault = cursor.getInt(cursor.getColumnIndex(QUANTITY_BY_DEFAULT));
                 Date date = new Date(cursor.getLong(cursor.getColumnIndex(DATE)));//может упасть
 
-                UserProducts.add(new UserProduct(id, fridgeID, baseProductID, category,userProductName, measure,
-                                                 quantity, quantityByDefault, date));
+                UserProducts.add(new UserProduct(id, fridgeID, baseProductID, category, userProductName, measure,
+                        quantity, quantityByDefault, date));
                 cursor.moveToNext();
             }
         }
@@ -62,7 +61,7 @@ public class UserProductsDatabase {
     }
 
     static public void addUserProduct(UserProduct userProduct) {
-        dbHelper =DBHelper.get();
+        dbHelper = DBHelper.get();
         cv = new ContentValues();
         db = dbHelper.getWritableDatabase();
 
@@ -80,11 +79,10 @@ public class UserProductsDatabase {
         dbHelper.close();
     }
 
-    static  public void recreateDataBase(ArrayList<UserProduct> userProducts) {
+    static public void recreateDataBase(ArrayList<UserProduct> userProducts) {
         deleteDataBase();
         dbHelper = DBHelper.get();
-        for (int i = 0; i < userProducts.size(); ++i)
-        {
+        for (int i = 0; i < userProducts.size(); ++i) {
             addUserProduct(userProducts.get(i));
         }
         dbHelper.close();

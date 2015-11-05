@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,12 +20,7 @@ import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.model.UserProductId;
 import com.lymno.myfridge.network.Api;
-import com.lymno.myfridge.network.BaseSampleSpiceActivity;
 import com.lymno.myfridge.network.RestClient;
-import com.lymno.myfridge.network.SampleRetrofitSpiceService;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,7 +30,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class ProductAdd extends BaseSampleSpiceActivity implements View.OnClickListener {
+public class ProductAdd extends AppCompatActivity implements View.OnClickListener {
     TextView barcode;
     TextView category;
     TextView name;
@@ -65,7 +61,7 @@ public class ProductAdd extends BaseSampleSpiceActivity implements View.OnClickL
         save.setOnClickListener(this);
         barcode.setText(code);
 
-        api.searchBarcode(code, SampleRetrofitSpiceService.getSessionId(), new Callback<ProductSearchResult>() {
+        api.searchBarcode(code, RestClient.getSessionId(), new Callback<ProductSearchResult>() {
             @Override
             public void success(ProductSearchResult productSearchResult, Response response) {
                 progress.dismiss();

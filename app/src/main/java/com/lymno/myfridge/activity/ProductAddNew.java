@@ -1,6 +1,5 @@
 package com.lymno.myfridge.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lymno.myfridge.Categories;
-import com.lymno.myfridge.DatePicker;
 import com.lymno.myfridge.DatePickerForAddNew;
 import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.R;
@@ -24,11 +22,7 @@ import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.network.Api;
-import com.lymno.myfridge.network.BaseSampleSpiceActivity;
 import com.lymno.myfridge.network.RestClient;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,7 +33,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnClickListener{
+public class ProductAddNew extends AppCompatActivity implements View.OnClickListener {
     private AutoCompleteTextView autoComplete;
     private ArrayAdapter<String> adapter;
     private EditText name;
@@ -128,10 +122,9 @@ public class ProductAddNew extends BaseSampleSpiceActivity implements View.OnCli
             measureID = measure.getSelectedItemPosition() + 1;
             categoryID = categories.indexOf(autoComplete.getText().toString()) + 1;
             nameText = name.getText().toString();
-            if(measureID == 3){
+            if (measureID == 3) {
                 amountDef = 0;
-            }
-            else {
+            } else {
                 amountDef = Integer.valueOf(quantity.getText().toString());
             }
             dateText = date.getText().toString();

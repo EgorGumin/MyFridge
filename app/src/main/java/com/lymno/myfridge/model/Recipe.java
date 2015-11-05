@@ -14,7 +14,7 @@ public class Recipe {
     private String description;
     @SerializedName("Ingredients")
     private ArrayList<Ingredient> ingredients;
-  @SerializedName("Image")
+    @SerializedName("Image")
     private String image;
 
     public Recipe(int id, String name, String description, ArrayList<Ingredient> ingredients) {

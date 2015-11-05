@@ -33,11 +33,12 @@ public class DatePicker extends DialogFragment
 
         return picker;
     }
+
     @Override
     public void onStart() {
         super.onStart();
         // добавляем кастомный текст для кнопки
-        Button nButton =  ((AlertDialog) getDialog())
+        Button nButton = ((AlertDialog) getDialog())
                 .getButton(DialogInterface.BUTTON_POSITIVE);
         nButton.setText("Готово");
 
@@ -50,16 +51,14 @@ public class DatePicker extends DialogFragment
         TextView tv = (TextView) getActivity().findViewById(R.id.product_add_date);
         String stMonth;
         String stDay;
-        if (month < 9){
+        if (month < 9) {
             stMonth = "0" + String.valueOf(month + 1);
-        }
-        else{
+        } else {
             stMonth = String.valueOf(month + 1);
         }
-        if (day < 10){
+        if (day < 10) {
             stDay = "0" + String.valueOf(day);
-        }
-        else{
+        } else {
             stDay = String.valueOf(day);
         }
         tv.setText(String.valueOf(year) + stMonth + stDay);

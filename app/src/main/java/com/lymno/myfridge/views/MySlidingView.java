@@ -1,7 +1,6 @@
 package com.lymno.myfridge.views;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -15,7 +14,7 @@ public class MySlidingView extends SlidingUpPanelLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (ev.getActionMasked()!=MotionEvent.ACTION_MOVE){
+        if (ev.getActionMasked() != MotionEvent.ACTION_MOVE) {
             return super.onTouchEvent(ev);
         }
         return false;

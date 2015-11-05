@@ -14,7 +14,6 @@ import com.lymno.myfridge.MyDate;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.activity.FoodInfoActivity;
 import com.lymno.myfridge.model.UserProduct;
-import com.lymno.myfridge.views.BucketView;
 
 import java.util.ArrayList;
 
@@ -79,9 +78,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             Intent questInfoIntent = new Intent(context, FoodInfoActivity.class);
             UserProduct product = foodsData.get(getAdapterPosition());
 
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_PRODUCT_ID,product.getId());
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_NAME_STRING,(product.getName()));
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_CATEGORY_STRING,Categories.getItem(product.getCategory()));
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_PRODUCT_ID, product.getId());
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_NAME_STRING, (product.getName()));
+            questInfoIntent.putExtra(FoodInfoActivity.INTENT_CATEGORY_STRING, Categories.getItem(product.getCategory()));
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_INT, product.getQuantity());
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_IN_PACKET_INT, product.getQuantityByDefault());
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_UNITS_STRING, Measures.getItem(product.getMeasure()));
