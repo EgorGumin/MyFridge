@@ -6,8 +6,6 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/barcode_scanner/MessageDialogFragment.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/barcode_scanner/ScannerFragment.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/barcode_scanner/ScannerFragmentActivity.java" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/network/BaseSampleSpiceActivity.java" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/lymno/myfridge/network/SampleRetrofitSpiceService.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/values-ru/ids.xml" charset="windows-1251" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

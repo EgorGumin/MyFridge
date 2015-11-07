@@ -18,8 +18,6 @@ import com.lymno.myfridge.R;
 import com.lymno.myfridge.adapter.FoodAdapter;
 import com.lymno.myfridge.adapter.RecipeAdapter;
 import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
-import com.lymno.myfridge.database.DBHelper;
-import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.Recipe;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.network.Api;
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //set up rest api
         final Api api = RestClient.get();
 
-        new DBHelper(this);
+        //new DBHelper(this);
 
         setContentView(R.layout.activity_main);
 
@@ -84,8 +82,9 @@ public class MainActivity extends AppCompatActivity {
                             refreshLayout.setRefreshing(false);
 //                          Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
                             if (userProducts != null) {
-                                UserProductsDatabase.recreateDataBase(userProducts);
-                                FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+                                //UserProductsDatabase.recreateDataBase(userProducts);
+                                UserProduct.recreate(userProducts);
+                                FoodAdapter newAdapter = new FoodAdapter(userProducts);
                                 recyclerView.setAdapter(newAdapter);
                             } else {
                                 Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
@@ -104,8 +103,9 @@ public class MainActivity extends AppCompatActivity {
                         public void success(ArrayList<Recipe> recipes, Response response) {
                             refreshLayout.setRefreshing(false);
                             //Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
-                            if (result != null) {
+                            if (recipes != null) {
                                 RecipeAdapter newAdapter = new RecipeAdapter(recipes);
+                                Recipe.recreate(recipes);
                                 recyclerView.setAdapter(newAdapter);
                             } else {
                                 Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
@@ -181,12 +181,22 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_FOOD) {
-                            FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
-                            recyclerView.setAdapter(newAdapter);
+                            ArrayList<UserProduct> userProducts = UserProduct.getAll();
+                            if (userProducts != null) {
+                                FoodAdapter newAdapter = new FoodAdapter(userProducts);
+                                recyclerView.setAdapter(newAdapter);
+                            }
+//                            FoodAdapter newAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+//                            recyclerView.setAdapter(newAdapter);
                         }
                         if (drawerItem != null && drawerItem.getIdentifier() == MY_RECIPES) {
-                            //getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
+                            ArrayList<Recipe> recipes = Recipe.getAll();
+                            if (recipes != null) {
+                                RecipeAdapter newAdapter = new RecipeAdapter(recipes);
+                                recyclerView.setAdapter(newAdapter);
+                            }
 
+                            //getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
                         }
 
                         if (drawerItem instanceof Nameable) {
@@ -201,8 +211,12 @@ public class MainActivity extends AppCompatActivity {
         result.setSelection(MY_FOOD, true);
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
-        recyclerView.setAdapter(mFoodAdapter);
+        //mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+        ArrayList<UserProduct> userProducts = UserProduct.getAll();
+        if (userProducts != null) {
+            mFoodAdapter = new FoodAdapter(userProducts);
+            recyclerView.setAdapter(mFoodAdapter);
+        }
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
@@ -229,8 +243,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (result.getCurrentSelectedPosition() == MY_FOOD) {
-            mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
-            recyclerView.setAdapter(mFoodAdapter);
+            //TODO переделать onResume
+//            mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
+//            recyclerView.setAdapter(mFoodAdapter);
         }
     }
 }

@@ -7,12 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.model.ResultChange;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -99,17 +95,17 @@ public class FoodInfoActivity extends AppCompatActivity {
 //                DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
     }
 
-    public final class ListContributorRequestListener implements RequestListener<ResultChange> {
-        @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(FoodInfoActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-        }
-
-        @Override
-        public void onRequestSuccess(ResultChange resultChange) {
-            Toast.makeText(FoodInfoActivity.this, "success", Toast.LENGTH_SHORT).show();
-        }
-
-    }
+//    public final class ListContributorRequestListener implements RequestListener<ResultChange> {
+//        @Override
+//        public void onRequestFailure(SpiceException spiceException) {
+//            Toast.makeText(FoodInfoActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//
+//        }
+//
+//        @Override
+//        public void onRequestSuccess(ResultChange resultChange) {
+//            Toast.makeText(FoodInfoActivity.this, "success", Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
 }

@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.lymno.myfridge.views.MySlidingView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bar_code_sliding_layout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="bottom"
-    sothree:umanoPanelHeight="68dp"
-     android:clickable="false"
-    sothree:umanoShadowHeight="4dp">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/container_for_fragments1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <fragment
-        android:id="@+id/scanner_fragment"
         android:name="com.lymno.myfridge.barcode_scanner.ScannerFragment"
+        android:id="@+id/scanner_fragment"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" />
+        android:layout_height="fill_parent" />
 
-    </RelativeLayout>
-   <RelativeLayout
-       android:id="@+id/container_for_fragments"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Отсканируйте штрих-код продукта"
+        android:id="@+id/textView2"
+        android:textSize="14dp" />
 
-   </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</com.lymno.myfridge.views.MySlidingView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Отмена"
+            android:id="@+id/button"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Нет кода"
+            android:id="@+id/button2"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>

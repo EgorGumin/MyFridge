@@ -28,6 +28,7 @@ public class RestClient {
     private static void setupRestClient() {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyyMMdd")
+                .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
         RestAdapter.Builder builder = new RestAdapter.Builder()
