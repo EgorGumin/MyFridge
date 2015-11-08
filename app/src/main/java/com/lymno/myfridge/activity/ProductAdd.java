@@ -15,7 +15,6 @@ import com.lymno.myfridge.Categories;
 import com.lymno.myfridge.DatePicker;
 import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.R;
-import com.lymno.myfridge.database.UserProductsDatabase;
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.model.UserProductId;
@@ -115,7 +114,7 @@ public class ProductAdd extends AppCompatActivity implements View.OnClickListene
                                     product.getProductID(), product.getCategoryID(), product.getName(),
                                     product.getUnitMeasureID(), Integer.valueOf(addQuantity.getText().toString()),
                                     product.getAmountDefault(), myDate);
-                            UserProductsDatabase.addUserProduct(userProduct);
+                            userProduct.save();
                             Intent intent = new Intent(ProductAdd.this, MainActivity.class);
                             startActivity(intent);
                         } catch (ParseException e) {
