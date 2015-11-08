@@ -89,7 +89,6 @@ public class ProductAdd extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         progress = ProgressDialog.show(this, "Поиск информации...", "Пожалуйста, подождите", true);
     }
 

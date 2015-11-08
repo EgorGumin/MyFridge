@@ -100,7 +100,7 @@ public class UserProduct extends Model {
     }
 
     //Сохраняет список рецептов и их ингредиенты
-    //TODO запилить транзакции, отрефакторить код, написать комменты, удалить старую базу
+    //TODO запилить транзакции, отрефакторить код, написать комменты
     public static void saveList(ArrayList<UserProduct> userProducts) {
         for (UserProduct userProduct : userProducts) {
             userProduct.save();

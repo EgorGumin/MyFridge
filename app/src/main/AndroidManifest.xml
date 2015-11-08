@@ -20,10 +20,13 @@
             android:value="example.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="4" />
+            android:value="5" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.lymno.myfridge.model.Recipe, com.lymno.myfridge.model.Ingredient, com.lymno.myfridge.model.UserProduct" />
+            android:value="com.lymno.myfridge.model.Recipe,
+                           com.lymno.myfridge.model.Ingredient,
+                           com.lymno.myfridge.model.UserProduct,
+                           com.lymno.myfridge.model.Category" />
         <!--ActiveAndroid-->
         <activity
             android:name=".activity.MainActivity"

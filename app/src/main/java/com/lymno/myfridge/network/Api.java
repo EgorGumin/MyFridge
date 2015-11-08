@@ -1,5 +1,6 @@
 package com.lymno.myfridge.network;
 
+import com.lymno.myfridge.model.Category;
 import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.Recipe;
@@ -31,6 +32,9 @@ public interface Api {
     //обновлен
     @GET("/recipes/GetRecipesSimple")
     void getRecipesSimple(@Query("idUser") String idUser, Callback<ArrayList<Recipe>> callback);
+
+    @GET("/sync/CategoriesSync")
+    void syncCategories(@Query("userid") String userID, Callback<ArrayList<Category>> callback);
 
 
     @GET("/products/NewProductAdd")

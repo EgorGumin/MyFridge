@@ -2,9 +2,6 @@ package com.lymno.myfridge;
 
 import java.util.ArrayList;
 
-/**
- * Created by Andre on 25.10.2015.
- */
 public class Categories extends ArrayList<String> {
     static private Categories instance;
 
