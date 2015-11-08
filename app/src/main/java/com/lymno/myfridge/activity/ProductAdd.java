@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,86 +24,89 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class ProductAdd extends AppCompatActivity implements View.OnClickListener {
+public class ProductAdd extends AppCompatActivity {
+    @Bind(R.id.product_add_barcode)
     TextView barcode;
+    @Bind(R.id.product_add_category)
     TextView category;
+    @Bind(R.id.product_add_name)
     TextView name;
-    TextView quantityByDefault;
+    @Bind(R.id.product_add_quantity)
     TextView addQuantity;
+    @Bind(R.id.product_add_date)
     TextView date;
-    ProgressDialog progress;
+    @Bind(R.id.product_add_quantity_by_default)
+    TextView quantityByDefault;
+    @Bind(R.id.add_product_button_save)
     Button save;
-    int productID;
-    ProductSearchResult product;
-    final Api api = RestClient.get();
+    ProgressDialog progress;
+
+    private int productID;
+    private ProductSearchResult product;
+    private final Api api = RestClient.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_add);
+        ButterKnife.bind(this);
         Intent intent = getIntent();
         String code = intent.getStringExtra("barcode");
-        category = (TextView) findViewById(R.id.product_add_category);
-        name = (TextView) findViewById(R.id.product_add_name);
-        barcode = (TextView) findViewById(R.id.product_add_barcode);
-        quantityByDefault = (TextView) findViewById(R.id.product_add_quantity_by_default);
-        addQuantity = (TextView) findViewById(R.id.product_add_quantity);
-        date = (TextView) findViewById(R.id.product_add_date);
-        date.setOnClickListener(this);
-        save = (Button) findViewById(R.id.add_product_button_save);
-        save.setOnClickListener(this);
         barcode.setText(code);
 
         api.searchBarcode(code, RestClient.getSessionId(), new Callback<ProductSearchResult>() {
             @Override
             public void success(ProductSearchResult productSearchResult, Response response) {
                 progress.dismiss();
-                Toast.makeText(ProductAdd.this, "success", Toast.LENGTH_SHORT).show();
                 if (productSearchResult != null) {
-                    updateContributors(productSearchResult);
+                    product = productSearchResult;
+                    productID = productSearchResult.getProductID();
+                    name.setText(productSearchResult.getName());
+                    category.setText(Categories.getItem(productSearchResult.getCategoryID()));
+                    String quantityByDefaultText = "*" + productSearchResult.getAmountDefault() +
+                            " " + Measures.getItem(productSearchResult.getUnitMeasureID());
+                    quantityByDefault.setText(quantityByDefaultText);
                 } else {
                     Intent intent = new Intent(ProductAdd.this, ProductAddNew.class);
                     intent.putExtra("barcode", barcode.getText().toString());
                     startActivity(intent);
-                    //Toast.makeText(ProductAdd.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
-                //Пока Влад не поправил ошибку на нулл, переходим из этой ветки
-                //Toast.makeText(ProductAdd.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 progress.dismiss();
-                //new activity
                 Intent intent = new Intent(ProductAdd.this, ProductAddNew.class);
                 intent.putExtra("barcode", barcode.getText().toString());
                 startActivity(intent);
             }
         });
 
-        //test = new ProductSearch(code, SampleRetrofitSpiceService.getSessionId());
-        //getSpiceManager().execute(test, "test", DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
-
-        progress = ProgressDialog.show(this, "Поиск информации...",
-                "Пожалуйста, подождите", true);
+        progress = ProgressDialog.show(this, "Поиск информации...", "Пожалуйста, подождите", true);
     }
 
-    public void onClick(View v) {
-        if (v == date) {
-            DialogFragment dateDialog = new DatePicker();
-            dateDialog.show(getSupportFragmentManager(), "datePicker");
-        }
-        if ((v == save) & (productID != 0)) {
+    @OnClick(R.id.product_add_date)
+    public void addDate() {
+        DialogFragment dateDialog = new DatePicker();
+        dateDialog.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    @OnClick(R.id.add_product_button_save)
+    public void save() {
+        if (productID != 0) {
             api.addProd(productID, Integer.valueOf(addQuantity.getText().toString()), date.getText().toString(), "4", new Callback<UserProductId>() {
                 @Override
                 public void success(UserProductId userProductId, Response response) {
                     progress.dismiss();
-                    Toast.makeText(ProductAdd.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductAdd.this, "Добавлено!", Toast.LENGTH_SHORT).show();
                     if (userProductId != null) {
                         //добавить в базу
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -127,21 +129,9 @@ public class ProductAdd extends AppCompatActivity implements View.OnClickListene
 
                 @Override
                 public void failure(RetrofitError error) {
-                    //Пока Влад не поправил ошибку на нулл, переходим из этой ветки
-                    //Toast.makeText(ProductAdd.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     progress.dismiss();
-                    //new activity
                 }
             });
         }
-    }
-
-    private void updateContributors(final ProductSearchResult result) {
-        product = result;
-        productID = result.getProductID();
-        name.setText(result.getName());
-        category.setText(Categories.getItem(result.getCategoryID()));
-        String quantityByDefaultText = "*" + result.getAmountDefault() + " " + Measures.getItem(result.getUnitMeasureID());
-        quantityByDefault.setText(quantityByDefaultText);
     }
 }
