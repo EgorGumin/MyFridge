@@ -18,6 +18,7 @@ import com.lymno.myfridge.Categories;
 import com.lymno.myfridge.DatePickerForAddNew;
 import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.R;
+import com.lymno.myfridge.model.Category;
 import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.network.Api;
@@ -74,7 +75,11 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
 
         //autocomplete
         // get the defined string-array
-        categories = Categories.get();
+        //TODO убрать -1
+        categories = new ArrayList<>();
+        for (Category c : Categories.get()) {
+            categories.add(c.getName());
+        }
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories);
 
@@ -119,7 +124,8 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
         }
         if (v == save) {
             measureID = measure.getSelectedItemPosition() + 1;
-            categoryID = categories.indexOf(autoComplete.getText().toString()) + 1;
+            //categoryID = categories.indexOf(autoComplete.getText().toString()) + 1;
+            categoryID = Categories.getID(autoComplete.getText().toString());
             nameText = name.getText().toString();
             if (measureID == 3) {
                 amountDef = 0;

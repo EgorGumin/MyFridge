@@ -43,6 +43,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         //TODO учесть ситуацию, когда quantity == quantitybydefault
         UserProduct foodData = foodsData.get(position);
         viewHolder.FoodName.setText(Categories.getItem(foodData.getCategory()) + " " + foodData.getName());
+        Categories cat = Categories.get();
         viewHolder.tvDate.setText((new MyDate(foodData.getDate())).stayedTime().presentToString(""));
 
 

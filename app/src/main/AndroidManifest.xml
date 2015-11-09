@@ -14,7 +14,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <!--ActiveAndroid-->
+
+        <!-- ActiveAndroid -->
         <meta-data
             android:name="AA_DB_NAME"
             android:value="example.db" />
@@ -24,18 +25,14 @@
         <meta-data
             android:name="AA_MODELS"
             android:value="com.lymno.myfridge.model.Recipe,
-                           com.lymno.myfridge.model.Ingredient,
-                           com.lymno.myfridge.model.UserProduct,
-                           com.lymno.myfridge.model.Category" />
-        <!--ActiveAndroid-->
+
+        com.lymno.myfridge.model.Ingredient,
+        com.lymno.myfridge.model.UserProduct,
+        com.lymno.myfridge.model.Category" />
+        <!-- ActiveAndroid -->
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".barcode_scanner.ScannerFragmentActivity"
@@ -49,9 +46,19 @@
         <activity android:name=".activity.FoodInfoActivity" />
         <activity android:name=".activity.RecipeActivity" />
         <activity android:name=".activity.ProductAdd" />
+        <activity android:name=".activity.ProductAddNew" ></activity>
+        <activity
+            android:name=".activity.CheckDataActivity"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.NoDisplay">
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-        <activity android:name=".activity.ProductAddNew" >
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.LoadDataActivity">
         </activity>
     </application>
 

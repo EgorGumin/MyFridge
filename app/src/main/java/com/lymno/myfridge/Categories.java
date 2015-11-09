@@ -1,40 +1,40 @@
 package com.lymno.myfridge;
 
+import com.lymno.myfridge.model.Category;
+
 import java.util.ArrayList;
 
-public class Categories extends ArrayList<String> {
-    static private Categories instance;
-
-    public static void create() {
-        instance = new Categories();
-//        instance.add("HARDCODE FOR GODS!!!");
-        instance.add("Сок");
-        instance.add("Йогурт");
-        instance.add("Мята");
-        instance.add("Чеснок");
-        instance.add("Масло оливковое");
-        instance.add("Соль");
-        instance.add("Черный молотый перец");
-        instance.add("Лимон");
-        instance.add("Сахар");
-        instance.add("Вода");
-        instance.add("Сыр");
-        instance.add("Мука");
-        instance.add("Яйцо");
-        instance.add("Масло");
-        instance.add("Молоко");
-        instance.add("Маслины");
-    }
+public class Categories extends ArrayList<Category> {
+    static private Categories list;
 
     public static Categories get() {
-        if (instance == null) create();
-        return instance;
+        if (list == null) {
+            ArrayList<Category> cat = Category.getAll();
+            list = new Categories();
+            //list.add(new Category(1, "SUKA"));
+            list.addAll(cat);
+        }
+        return list;
     }
 
     static public String getItem(int i) {
-//        if (i>=get().size()-rec1)
-//            i=get().size()-2;
-        return get().get(i - 1);
+        Categories cat = get();
+        for (Category c : cat) {
+            if (c.getCategoryID() == i) {
+                return c.getName();
+            }
+        }
+        return "Error";
+    }
+
+    static public int getID(String name) {
+        Categories cat = get();
+        for (Category c : cat) {
+            if (c.getName().equals(name)) {
+                return c.getCategoryID();
+            }
+        }
+        return -1;
     }
 
 }

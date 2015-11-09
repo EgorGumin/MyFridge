@@ -38,7 +38,7 @@ public class Category extends Model {
 
     public static ArrayList<Category> getAll() {
         List<Category> categories = new Select().from(Category.class).execute();
-        return new ArrayList<>(categories);
+        return new ArrayList<Category>(categories);
     }
 
     public static void recreate(ArrayList<Category> categories) {
@@ -58,5 +58,13 @@ public class Category extends Model {
         for (Category category : categories) {
             category.save();
         }
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public String getName() {
+        return name;
     }
 }
