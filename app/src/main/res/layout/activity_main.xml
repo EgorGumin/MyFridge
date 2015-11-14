@@ -37,12 +37,17 @@
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+
             android:id="@+id/myFAB"
             android:src="@drawable/ic_add_white_24dp"
-            app:layout_anchorGravity="bottom|right|end"
-            app:layout_behavior="com.lymno.myfridge.ScrollAwareFABBehavior"/>
+            app:layout_behavior="com.lymno.myfridge.ScrollAwareFABBehavior"
+            android:clickable="true"
+            app:fabSize="normal"
+            app:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            app:borderWidth="0dp" />
 
     </android.support.design.widget.CoordinatorLayout>
 

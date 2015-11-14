@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Управление Floating Action Button
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
-        myFab.setRippleColor(Color.parseColor("#4caf50"));
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ScannerFragmentActivity.class);
