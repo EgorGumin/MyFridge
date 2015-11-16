@@ -3,8 +3,10 @@ package com.lymno.myfridge.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,34 +31,39 @@ public class RecipeActivity extends AppCompatActivity {
     @Bind(R.id.imageView)
     protected ImageView mImageView;
 
-    @Bind(R.id.tvCardRecipeName)
-    protected TextView mTextRecipeName;
-
     @Bind(R.id.tvRecipeDescription)
     protected TextView descrip;
+
+    @Bind(R.id.collapsing_toolbar_recipe_layout)
+    protected CollapsingToolbarLayout toolbarLayout;
+
+    @Bind(R.id.toolbar_recipe)
+    protected Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_info);
+        setContentView(R.layout.activity_recipe_info_new);
+
         ButterKnife.bind(this);
         load();
 
-        // Handle Toolbar
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Описание рецепта");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
+        toolbarLayout.setTitle(mRecipe.getName());
     }
 
 
     private void load() {
-        mTextRecipeName.setText(mRecipe.getName());
         descrip.setText(mRecipe.getDescription());
 
         Picasso.with(mImageView.getContext()).load(mRecipe.getImageUrl()).
                 error(R.drawable.rec1).into(mImageView);
     }
-
 }

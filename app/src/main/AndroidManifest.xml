@@ -44,7 +44,9 @@
                 android:value="splitActionBarWhenNarrow" />
         </activity>
         <activity android:name=".activity.FoodInfoActivity" />
-        <activity android:name=".activity.RecipeActivity" />
+        <activity
+            android:name=".activity.RecipeActivity"
+            android:parentActivityName=".activity.MainActivity" />
         <activity android:name=".activity.ProductAdd" />
         <activity android:name=".activity.ProductAddNew" ></activity>
         <activity
