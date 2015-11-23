@@ -53,7 +53,6 @@ public class Category extends Model {
         ActiveAndroid.execSQL("delete from sqlite_sequence where name='" + tableInfo.getTableName() + "';");
     }
 
-    //Сохраняет список рецептов и их ингредиенты
     public static void saveList(ArrayList<Category> categories) {
         for (Category category : categories) {
             category.save();

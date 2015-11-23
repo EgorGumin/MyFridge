@@ -2,13 +2,15 @@
 <LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
     a:layout_width="match_parent"
     a:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     a:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        a:id="@+id/toolbar"
+        a:id="@+id/food_info_toolbar"
         a:layout_width="match_parent"
         a:layout_height="?attr/actionBarSize"
         a:background="?attr/colorPrimary"
+        app:navigationIcon="@drawable/arrow_left"
         a:elevation="4dp" />
 
     <RelativeLayout
