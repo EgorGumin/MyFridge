@@ -48,7 +48,7 @@ public class FoodInfoActivity extends AppCompatActivity {
 
 
         // Handle Toolbar
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Описание Продукта");
 

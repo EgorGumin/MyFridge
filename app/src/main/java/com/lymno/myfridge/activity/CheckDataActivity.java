@@ -15,7 +15,7 @@ public class CheckDataActivity extends Activity {
             Intent intent = new Intent(CheckDataActivity.this, LoadDataActivity.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(CheckDataActivity.this, MainActivity.class);
+            Intent intent = new Intent(CheckDataActivity.this, LoginActivity.class);
             startActivity(intent);
         }
 

@@ -5,13 +5,17 @@ import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.Recipe;
 import com.lymno.myfridge.model.ResultChange;
+import com.lymno.myfridge.model.Token;
+import com.lymno.myfridge.model.User;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.model.UserProductId;
 
 import java.util.ArrayList;
 
 import retrofit.Callback;
+import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.POST;
 import retrofit.http.Query;
 
 public interface Api {
@@ -49,6 +53,10 @@ public interface Api {
     @GET("/products/AmountChange")
     ResultChange change(@Query("UserProductID") String UserProductID,
                         @Query("Amount") String Amount);
+
+
+    @POST("/authenticate")
+    void createTask(@Body User user, Callback<Token> cb);
 
 
 }

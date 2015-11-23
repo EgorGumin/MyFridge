@@ -10,7 +10,7 @@ import retrofit.converter.GsonConverter;
 
 public class RestClient {
     private static Api REST_CLIENT;
-    private final static String ROOT = "http://s123s.azurewebsites.net/";
+    private final static String ROOT = "http://starzon45.azurewebsites.net/";
     private final static String USER_ID = "4";
     private final static String SESSION_ID = "777";
 

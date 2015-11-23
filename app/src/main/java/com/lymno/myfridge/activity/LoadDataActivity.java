@@ -24,7 +24,7 @@ public class LoadDataActivity extends AppCompatActivity {
             @Override
             public void success(ArrayList<Category> categories, Response response) {
                 Category.recreate(categories);
-                Intent intent = new Intent(LoadDataActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoadDataActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="match_parent"
+    a:layout_height="match_parent"
+    a:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        a:id="@+id/login_toolbar"
+        a:layout_width="match_parent"
+        a:layout_height="?attr/actionBarSize"
+        a:background="?attr/colorPrimary"
+        a:elevation="4dp" />
+
+    <RelativeLayout
+        a:layout_width="match_parent"
+        a:layout_height="match_parent">
+
+
+        <Button
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:text="Login"
+            a:id="@+id/login_login_btn"
+            a:layout_centerVertical="true"
+            a:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</LinearLayout>

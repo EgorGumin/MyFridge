@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Handle Toolbar
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("title");
         toolbar.setSubtitleTextColor(Color.parseColor("#ffffff"));

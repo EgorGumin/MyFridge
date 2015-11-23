@@ -5,7 +5,7 @@
     a:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        a:id="@+id/toolbar"
+        a:id="@+id/login_toolbar"
         a:layout_width="match_parent"
         a:layout_height="?attr/actionBarSize"
         a:background="?attr/colorPrimary"
