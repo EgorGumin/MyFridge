@@ -40,6 +40,8 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -51,12 +53,13 @@ public class MainActivity extends AppCompatActivity {
     private AccountHeader headerResult = null;
     private Drawer result = null;
 
-//    private UserProductsDatabase db = new UserProductsDatabase();
-
     private FoodAdapter mFoodAdapter;
     private RecipeAdapter mRecipeAdapter;
     private SwipeRefreshLayout refreshLayout;
     public RecyclerView recyclerView;
+
+    @Bind(R.id.myFAB)
+    FloatingActionButton myFAB;
 
 
     @Override
@@ -64,25 +67,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //set up rest api
         final Api api = RestClient.get();
-
-        //new DBHelper(this);
-
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        refreshLayout.setColorSchemeColors(Color.parseColor("#4caf50"));
+        refreshLayout.setColorSchemeColors(R.color.primary);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 if (result.getCurrentSelectedPosition() == MY_FOOD) {
+                    showFAB(true);
                     api.syncProducts("4", new Callback<ArrayList<UserProduct>>() {
                         @Override
                         public void success(ArrayList<UserProduct> userProducts, Response response) {
                             refreshLayout.setRefreshing(false);
 //                          Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
                             if (userProducts != null) {
-                                //UserProductsDatabase.recreateDataBase(userProducts);
                                 UserProduct.recreate(userProducts);
                                 FoodAdapter newAdapter = new FoodAdapter(userProducts);
                                 recyclerView.setAdapter(newAdapter);
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
                             }
                         }
-
                         @Override
                         public void failure(RetrofitError error) {
                             refreshLayout.setRefreshing(false);
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Failure: " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+                    showFAB(false);
                 }
 
             }
@@ -126,8 +127,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.food_list_recycler_list);
 
         // Управление Floating Action Button
-        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
-        myFab.setOnClickListener(new View.OnClickListener() {
+        myFAB.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ScannerFragmentActivity.class);
                 startActivity(intent);
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("title");
-        toolbar.setSubtitleTextColor(Color.parseColor("#ffffff"));
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
         // Добавим профиль пользователя
         final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.profile));
@@ -162,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
                 .withActivity(this)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .withToolbar(toolbar)
-                .withActionBarDrawerToggle(true)
+                .withTranslucentStatusBar(false)
+                .withActionBarDrawerToggle(false)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_food).withIcon(FontAwesome.Icon.faw_cutlery).withIdentifier(MY_FOOD),//faw_spoon
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recipes).withIcon(FontAwesome.Icon.faw_book).withIdentifier(MY_RECIPES),
@@ -245,6 +246,15 @@ public class MainActivity extends AppCompatActivity {
             //TODO переделать onResume
 //            mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
 //            recyclerView.setAdapter(mFoodAdapter);
+        }
+    }
+
+    protected void showFAB(boolean show) {
+        if (myFAB.isShown() && !show) {
+            myFAB.hide();
+        }
+        if (!myFAB.isShown() && show) {
+            myFAB.show();
         }
     }
 }

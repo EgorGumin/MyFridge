@@ -1,9 +1,11 @@
 package com.lymno.myfridge.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -36,6 +38,9 @@ public class FoodInfoActivity extends AppCompatActivity {
     @Bind(R.id.food_info_progress_eat)
     protected SeekBar mEatLeft;
 
+    @Bind(R.id.food_info_toolbar)
+    protected Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,16 @@ public class FoodInfoActivity extends AppCompatActivity {
         loadFromIntent();
         mEatLeft.setOnSeekBarChangeListener(new SeekListener());
 
-
         // Handle Toolbar
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Описание Продукта");
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
