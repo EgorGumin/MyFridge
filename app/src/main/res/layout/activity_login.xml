@@ -19,10 +19,47 @@
         <Button
             a:layout_width="wrap_content"
             a:layout_height="wrap_content"
-            a:text="Login"
+            a:text="Auto login"
             a:id="@+id/login_login_btn"
+            a:layout_marginBottom="38dp"
+            a:layout_alignParentBottom="true"
+            a:layout_alignLeft="@+id/login_password"
+            a:layout_alignStart="@+id/login_password"
+            a:layout_alignRight="@+id/login_email"
+            a:layout_alignEnd="@+id/login_email" />
+
+        <EditText
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:inputType="textEmailAddress"
+            a:ems="10"
+            a:id="@+id/login_email"
+            a:hint="Password"
             a:layout_centerVertical="true"
             a:layout_centerHorizontal="true" />
+
+        <EditText
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:inputType="textPassword"
+            a:ems="10"
+            a:id="@+id/login_password"
+            a:hint="Login"
+            a:layout_above="@+id/login_email"
+            a:layout_alignLeft="@+id/login_email"
+            a:layout_alignStart="@+id/login_email" />
+
+        <Button
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:text="Login"
+            a:id="@+id/login_login_manual_btn"
+            a:layout_below="@+id/login_email"
+            a:layout_marginTop="35dp"
+            a:layout_alignLeft="@+id/login_email"
+            a:layout_alignStart="@+id/login_email"
+            a:layout_alignRight="@+id/login_email"
+            a:layout_alignEnd="@+id/login_email" />
     </RelativeLayout>
 
 </LinearLayout>

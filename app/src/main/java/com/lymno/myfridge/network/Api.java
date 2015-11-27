@@ -55,8 +55,6 @@ public interface Api {
                         @Query("Amount") String Amount);
 
 
-    @POST("/authenticate")
-    void createTask(@Body User user, Callback<Token> cb);
-
-
+    @POST("/api/account/getToken")
+    void auth(@Body User user, Callback<Token> cb);
 }

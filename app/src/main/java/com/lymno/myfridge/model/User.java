@@ -4,9 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-    @Expose
-    @SerializedName("grant_type")
-    String grantType;
 
     @Expose
     @SerializedName("username")
@@ -16,8 +13,7 @@ public class User {
     @SerializedName("password")
     String password;
 
-    public User(String grantType, String username, String password) {
-        this.grantType = grantType;
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
