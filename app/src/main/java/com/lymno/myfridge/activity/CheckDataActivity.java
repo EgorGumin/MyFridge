@@ -11,6 +11,7 @@ public class CheckDataActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (Categories.get() == null) {
             Intent intent = new Intent(CheckDataActivity.this, LoadDataActivity.class);
             startActivity(intent);

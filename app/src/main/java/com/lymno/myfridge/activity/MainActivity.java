@@ -1,6 +1,8 @@
 package com.lymno.myfridge.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -49,6 +51,7 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity {
     private static final int MY_FOOD = 1;
     private static final int MY_RECIPES = 2;
+    private static final int LOG_OUT = 30;
 
     private AccountHeader headerResult = null;
     private Drawer result = null;
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.myFAB)
     FloatingActionButton myFAB;
 
+    SharedPreferences settings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         final Api api = RestClient.get();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        settings = this.getSharedPreferences(
+                "com.lymno.myfridge.activity", Context.MODE_PRIVATE);
 
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
@@ -151,9 +158,24 @@ public class MainActivity extends AppCompatActivity {
                 .addProfiles(
                         profile,
                         //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                        new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5)).withIdentifier(1),
-                        new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
+                        new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account")
+                                .withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5)),
+                        new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings),
+                        new ProfileSettingDrawerItem().withName("Выйти из аккаунта").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(LOG_OUT)
                 )
+                .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
+                    @Override
+                    public boolean onClick(View view, IProfile profile) {
+                        if (profile.getIdentifier() == LOG_OUT) {
+                            //log out не работает
+                            String tokenKey = "com.lymno.myfridge.activity.token";
+                            settings.edit().putString(tokenKey, "").apply();
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+                        return false;
+                    }
+                })
                 .withSavedInstance(savedInstanceState)
                 .build();
 

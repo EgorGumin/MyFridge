@@ -1,5 +1,8 @@
 package com.lymno.myfridge.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,12 +34,25 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.login_toolbar)
     Toolbar toolbar;
 
+    String tokenKey = "com.lymno.myfridge.activity.token";
+    SharedPreferences settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+
+        settings = this.getSharedPreferences(
+                "com.lymno.myfridge.activity", Context.MODE_PRIVATE);
+
+        String token = settings.getString(tokenKey, "");
+        if (!token.isEmpty()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     @OnClick(R.id.login_login_btn)
@@ -46,6 +62,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void success(Token token, Response response) {
                 Toast.makeText(LoginActivity.this, token.getAccessToken(), Toast.LENGTH_LONG).show();
+                settings.edit().putString(tokenKey, token.getAccessToken()).apply();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
             @Override
             public void failure(RetrofitError error) {
