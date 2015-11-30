@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         settings = this.getSharedPreferences(
                 "com.lymno.myfridge.activity", Context.MODE_PRIVATE);
 
-
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeColors(R.color.primary);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -166,13 +165,6 @@ public class MainActivity extends AppCompatActivity {
                 .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
                     @Override
                     public boolean onClick(View view, IProfile profile) {
-                        if (profile.getIdentifier() == LOG_OUT) {
-                            //log out не работает
-                            String tokenKey = "com.lymno.myfridge.activity.token";
-                            settings.edit().putString(tokenKey, "").apply();
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
                         return false;
                     }
                 })
@@ -196,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withEnabled(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn).withEnabled(false),
-                        new SectionDrawerItem().withName(R.string.app_version)
+                        new SectionDrawerItem().withName(R.string.app_version),
+                        new SecondaryDrawerItem().withName("Выйти из аккаунта").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(LOG_OUT)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -218,7 +211,14 @@ public class MainActivity extends AppCompatActivity {
                                 recyclerView.setAdapter(newAdapter);
                             }
 
+
                             //getSpiceManager().execute(new GetRecipesSimple(), "getR", DurationInMillis.ONE_MINUTE, new RecipesUpdateListener());
+                        }
+                        if (drawerItem != null && drawerItem.getIdentifier() == LOG_OUT) {
+                            String tokenKey = "com.lymno.myfridge.activity.token";
+                            settings.edit().putString(tokenKey, "").apply();
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
                         }
 
                         if (drawerItem instanceof Nameable) {
