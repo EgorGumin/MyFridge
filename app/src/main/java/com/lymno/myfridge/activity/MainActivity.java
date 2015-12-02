@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton myFAB;
 
     SharedPreferences settings;
+    String tokenKey = "com.lymno.myfridge.activity.token";
+    String token;
+    String tokenForServer;
 
 
     @Override
@@ -76,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         settings = this.getSharedPreferences(
                 "com.lymno.myfridge.activity", Context.MODE_PRIVATE);
+        token = settings.getString(tokenKey, "");
+        if (token.isEmpty()) {
+            Toast.makeText(MainActivity.this, "Token is empty!", Toast.LENGTH_LONG).show();
+        }
+        tokenForServer = "bearer " + token;
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeColors(R.color.primary);
@@ -84,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             public void onRefresh() {
                 if (result.getCurrentSelectedPosition() == MY_FOOD) {
                     showFAB(true);
-                    api.syncProducts("4", new Callback<ArrayList<UserProduct>>() {
+                    api.syncProducts(tokenForServer, new Callback<ArrayList<UserProduct>>() {
                         @Override
                         public void success(ArrayList<UserProduct> userProducts, Response response) {
                             refreshLayout.setRefreshing(false);
@@ -104,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
                 if (result.getCurrentSelectedPosition() == MY_RECIPES) {
-                    api.getRecipesSimple("4", new Callback<ArrayList<Recipe>>() {
+                    api.getRecipesSimple(tokenForServer, new Callback<ArrayList<Recipe>>() {
                         @Override
                         public void success(ArrayList<Recipe> recipes, Response response) {
                             refreshLayout.setRefreshing(false);

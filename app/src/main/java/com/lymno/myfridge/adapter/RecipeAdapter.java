@@ -45,13 +45,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         viewHolder.RecipeName.setText(recipeDataPos.getName());
         viewHolder.RecipeDescription.setText(recipeDataPos.getDescription());
-        //viewHolder.RecipeFoodList.setText(recipeDataPos.getId());
 
-        Picasso.with(viewHolder.imageView.getContext()).load(recipeDataPos.getImageUrl()).error(R.drawable.rec1).into(viewHolder.imageView);
-//        viewHolder.imageView.setImageResource(R.drawable.rec1);
-//        Drawable drawable=viewHolder.imageView.getContext().getResources().getDrawable(R.drawable.rec1);
-//        drawable.setBounds(0,0,viewHolder.imageView.getWidth(), viewHolder.imageView.getHeight());
-//                viewHolder.imageView.setImageDrawable(drawable);
+        Picasso.with(viewHolder.imageView.getContext()).load(recipeDataPos.getImageUrl()).error(R.drawable.no_image).into(viewHolder.imageView);
     }
 
     public void updateItems(ArrayList<Recipe> items) {

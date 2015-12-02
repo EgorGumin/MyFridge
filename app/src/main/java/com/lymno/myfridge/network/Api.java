@@ -15,27 +15,33 @@ import java.util.ArrayList;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Query;
 
 public interface Api {
+    //Получить токен по логину и паролю (вход)
+    @POST("/api/account/getToken")
+    void auth(@Body User user, Callback<Token> cb);
+
+    //Получить продукты пользователя
+    @GET("/api/userproduct/GetUserProducts")
+    void syncProducts(@Header("Authorization") String token, Callback<ArrayList<UserProduct>> callback);
+
+    //Получить рецепты, строго подходящие пользователю
+    @GET("/api/recipes/getSimpleRecipes")
+    void getRecipesSimple(@Header("Authorization") String token, Callback<ArrayList<Recipe>> callback);
 
     //ok
     @GET("/products/ProductSearch")
     void searchBarcode(@Query("barcode") String code, @Query("SessionID") String sessionID, Callback<ProductSearchResult> callback);
 
-    //обновлен
-    @GET("/products/GetUserProducts")
-    void syncProducts(@Query("id") String id, Callback<ArrayList<UserProduct>> callback);
 
     //ok
     @GET("/products/ProductAdd")
     void addProd(@Query("ProductID") int prodId, @Query("Amount") int amount, @Query("ExspirationDate") String expDate,
                  @Query("UserId") String userId, Callback<UserProductId> callback);
 
-    //обновлен
-    @GET("/recipes/GetRecipesSimple")
-    void getRecipesSimple(@Query("idUser") String idUser, Callback<ArrayList<Recipe>> callback);
 
     @GET("/sync/CategoriesSync")
     void syncCategories(@Query("userid") String userID, Callback<ArrayList<Category>> callback);
@@ -48,13 +54,8 @@ public interface Api {
                        @Query("UnitMeasureID") int UtilMeasuredId, @Query("Amount") int Amount,
                        @Query("ExpirationDate") String ExpirationDate, Callback<NewProductAddResult> callback);
 
-
     //пока не будет обновляться, ибо не нужен
     @GET("/products/AmountChange")
     ResultChange change(@Query("UserProductID") String UserProductID,
                         @Query("Amount") String Amount);
-
-
-    @POST("/api/account/getToken")
-    void auth(@Body User user, Callback<Token> cb);
 }

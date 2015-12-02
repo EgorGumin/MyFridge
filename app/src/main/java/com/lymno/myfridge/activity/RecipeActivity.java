@@ -64,6 +64,6 @@ public class RecipeActivity extends AppCompatActivity {
         descrip.setText(mRecipe.getDescription());
 
         Picasso.with(mImageView.getContext()).load(mRecipe.getImageUrl()).
-                error(R.drawable.rec1).into(mImageView);
+                error(R.drawable.no_image).into(mImageView);
     }
 }
