@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lymno.myfridge.Categories;
 import com.lymno.myfridge.DatePicker;
 import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.R;
@@ -70,7 +69,8 @@ public class ProductAdd extends AppCompatActivity {
                     product = productSearchResult;
                     productID = productSearchResult.getProductID();
                     name.setText(productSearchResult.getName());
-                    category.setText(Categories.getItem(productSearchResult.getCategoryID()));
+                    //TODO new api
+                    //category.setText(Categories.getItem(productSearchResult.getCategoryID()));
                     String quantityByDefaultText = "*" + productSearchResult.getAmountDefault() +
                             " " + Measures.getItem(productSearchResult.getUnitMeasureID());
                     quantityByDefault.setText(quantityByDefaultText);

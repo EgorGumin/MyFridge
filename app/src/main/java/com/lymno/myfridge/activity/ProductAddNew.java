@@ -125,7 +125,8 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
         if (v == save) {
             measureID = measure.getSelectedItemPosition() + 1;
             //categoryID = categories.indexOf(autoComplete.getText().toString()) + 1;
-            categoryID = Categories.getID(autoComplete.getText().toString());
+            //TODO new api
+            //categoryID = Categories.getID(autoComplete.getText().toString());
             nameText = name.getText().toString();
             if (measureID == 3) {
                 amountDef = 0;

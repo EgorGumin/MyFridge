@@ -19,6 +19,5 @@ public class CheckDataActivity extends Activity {
             Intent intent = new Intent(CheckDataActivity.this, LoginActivity.class);
             startActivity(intent);
         }
-
     }
 }

@@ -17,18 +17,12 @@ import java.util.List;
 @Table(name = "Categories", id = "_id")
 public class Category extends Model {
     @Expose
-    @SerializedName("CategoryID")
-    @Column(name = "id")
-    private int categoryID;
-
-    @Expose
     @SerializedName("Name")
     @Column(name = "name")
     private String name;
 
-    public Category(int categoryID, String name) {
+    public Category(String name) {
         super();
-        this.categoryID = categoryID;
         this.name = name;
     }
 
@@ -57,10 +51,6 @@ public class Category extends Model {
         for (Category category : categories) {
             category.save();
         }
-    }
-
-    public int getCategoryID() {
-        return categoryID;
     }
 
     public String getName() {

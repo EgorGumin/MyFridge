@@ -17,24 +17,5 @@ public class Categories extends ArrayList<Category> {
         return list;
     }
 
-    static public String getItem(int i) {
-        Categories cat = get();
-        for (Category c : cat) {
-            if (c.getCategoryID() == i) {
-                return c.getName();
-            }
-        }
-        return "Error";
-    }
-
-    static public int getID(String name) {
-        Categories cat = get();
-        for (Category c : cat) {
-            if (c.getName().equals(name)) {
-                return c.getCategoryID();
-            }
-        }
-        return -1;
-    }
 
 }

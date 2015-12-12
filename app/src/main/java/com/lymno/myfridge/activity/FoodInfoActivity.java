@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
@@ -35,9 +34,6 @@ public class FoodInfoActivity extends AppCompatActivity {
     @Bind(R.id.food_info_eat_before)
     protected TextView mEatBefore;
 
-    @Bind(R.id.food_info_progress_eat)
-    protected SeekBar mEatLeft;
-
     @Bind(R.id.food_info_toolbar)
     protected Toolbar toolbar;
 
@@ -49,7 +45,6 @@ public class FoodInfoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         loadFromIntent();
-        mEatLeft.setOnSeekBarChangeListener(new SeekListener());
 
         // Handle Toolbar
         setSupportActionBar(toolbar);
@@ -61,7 +56,6 @@ public class FoodInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
 
@@ -74,48 +68,6 @@ public class FoodInfoActivity extends AppCompatActivity {
             loadedIntent.getStringExtra(INTENT_UNITS_STRING);
             mEatBefore.setText(loadedIntent.getStringExtra(INTENT_USE_LEFT_STRING));
             loadedIntent.getStringExtra(INTENT_BAR_CODE_STRING);
-
-            mEatLeft.setMax(loadedIntent.getIntExtra(INTENT_COUNT_IN_PACKET_INT, 100));
-            mEatLeft.setProgress(loadedIntent.getIntExtra(INTENT_COUNT_INT, 100));
         }
     }
-
-
-    private class SeekListener implements SeekBar.OnSeekBarChangeListener {
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            push(progress);
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-
-        }
-    }
-
-    private void push(int progress) {
-//        ChangeRequest changeRequest = new ChangeRequest("" + getIntent().getIntExtra(INTENT_PRODUCT_ID, 0), "" + progress);
-//        getSpiceManager().execute(changeRequest, "changeRequest",
-//                DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
-    }
-
-//    public final class ListContributorRequestListener implements RequestListener<ResultChange> {
-//        @Override
-//        public void onRequestFailure(SpiceException spiceException) {
-//            Toast.makeText(FoodInfoActivity.this, "Failure: " + spiceException.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//
-//        }
-//
-//        @Override
-//        public void onRequestSuccess(ResultChange resultChange) {
-//            Toast.makeText(FoodInfoActivity.this, "success", Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
 }

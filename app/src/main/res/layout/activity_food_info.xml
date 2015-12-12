@@ -60,13 +60,6 @@
                 a:layout_marginLeft="20dp"
                 a:text="осталось : " />
 
-            <SeekBar
-                a:id="@+id/food_info_progress_eat"
-                a:layout_width="fill_parent"
-                a:layout_height="wrap_content"
-                a:layout_marginLeft="20dp"
-                a:layout_marginRight="20dp"
-                a:indeterminate="false" />
         </LinearLayout>
 
     </RelativeLayout>
