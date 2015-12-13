@@ -14,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lymno.myfridge.Categories;
 import com.lymno.myfridge.DatePickerForAddNew;
 import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.R;
@@ -74,23 +73,13 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
         date.setOnClickListener(this);
 
         //autocomplete
-        // get the defined string-array
-        //TODO убрать -1
-        categories = new ArrayList<>();
-        for (Category c : Categories.get()) {
-            categories.add(c.getName());
-        }
-
+        categories = Category.getTextArrayList();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories);
-
         autoComplete = (AutoCompleteTextView) findViewById(R.id.add_new_category);
-
         // set adapter for the auto complete fields
         autoComplete.setAdapter(adapter);
-
         // specify the minimum type of characters before drop-down list is shown
         autoComplete.setThreshold(1);
-
 
         //measure
         // адаптер

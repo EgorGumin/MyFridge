@@ -35,6 +35,15 @@ public class Category extends Model {
         return new ArrayList<Category>(categories);
     }
 
+    public static ArrayList<String> getTextArrayList() {
+        List<Category> categories = new Select().from(Category.class).execute();
+        ArrayList<String> categoriesString = new ArrayList<>();
+        for (Category cat : categories) {
+            categoriesString.add(cat.getName());
+        }
+        return categoriesString;
+    }
+
     public static void recreate(ArrayList<Category> categories) {
         truncate(Category.class);
         saveList(categories);

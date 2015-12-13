@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.lymno.myfridge.Categories;
 import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.MyDate;
 import com.lymno.myfridge.R;
@@ -41,8 +40,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         UserProduct foodData = foodsData.get(position);
+        //TODO исправить отображение продукта
         viewHolder.FoodName.setText("Test " + foodData.getName());
-        Categories cat = Categories.get();
+        //Categories cat = Categories.get();
         viewHolder.tvDate.setText((new MyDate(foodData.getDate())).stayedTime().presentToString(""));
 
 

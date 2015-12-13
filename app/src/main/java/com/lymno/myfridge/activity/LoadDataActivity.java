@@ -3,6 +3,7 @@ package com.lymno.myfridge.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.model.Category;
@@ -20,7 +21,8 @@ public class LoadDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_data);
-        RestClient.get().syncCategories(RestClient.getUserId(), new Callback<ArrayList<Category>>() {
+
+        RestClient.get().syncCategories(new Callback<ArrayList<Category>>() {
             @Override
             public void success(ArrayList<Category> categories, Response response) {
                 Category.recreate(categories);
@@ -30,7 +32,7 @@ public class LoadDataActivity extends AppCompatActivity {
 
             @Override
             public void failure(RetrofitError error) {
-
+                Toast.makeText(LoadDataActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

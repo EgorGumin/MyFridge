@@ -43,8 +43,8 @@ public interface Api {
                  @Query("UserId") String userId, Callback<UserProductId> callback);
 
 
-    @GET("api/sync/GetCategories")
-    void syncCategories(@Header("Authorization") String token, Callback<ArrayList<Category>> callback);
+    @GET("/api/sync/GetCategories")
+    void syncCategories(Callback<ArrayList<Category>> callback);
 
 
     @GET("/products/NewProductAdd")
