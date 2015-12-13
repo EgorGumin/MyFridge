@@ -41,13 +41,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         UserProduct foodData = foodsData.get(position);
         //TODO исправить отображение продукта
-        viewHolder.FoodName.setText("Test " + foodData.getName());
-        //Categories cat = Categories.get();
+        viewHolder.FoodName.setText(foodData.getCategory() + " " + foodData.getName());
         viewHolder.tvDate.setText((new MyDate(foodData.getDate())).stayedTime().presentToString(""));
-
-
-//        viewHolder.FoodEatBefore.setText(foodsDataPos.getDescription());
-        //viewHolder.imgViewIcon.setImageResource(questsData[position].getImageUrl());
     }
 
     public void updateItems(ArrayList<UserProduct> items) {

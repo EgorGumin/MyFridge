@@ -11,8 +11,8 @@ public class ProductSearchResult {
     @SerializedName("ProductID")
     private int productID;
     @Expose
-    @SerializedName("CategoryID")
-    private int categoryID;
+    @SerializedName("CategoryName")
+    private String categoryName;
 
     @Expose
     @SerializedName("Name")
@@ -30,8 +30,8 @@ public class ProductSearchResult {
         return productID;
     }
 
-    public int getCategoryID() {
-        return categoryID;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public String getName() {

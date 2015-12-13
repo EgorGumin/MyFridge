@@ -1,6 +1,8 @@
 package com.lymno.myfridge.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,13 +22,11 @@ import com.lymno.myfridge.R;
 import com.lymno.myfridge.model.Category;
 import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.model.UserProductNotExisting;
 import com.lymno.myfridge.network.Api;
 import com.lymno.myfridge.network.RestClient;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -42,7 +42,6 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
     private Button save;
     private Spinner measure;
     private ArrayList<String> categories;
-
     private int measureID;
     private int categoryID;
     private String barcodeText;
@@ -126,29 +125,29 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
             quantityText = Integer.valueOf(quantity.getText().toString());
             Toast.makeText(ProductAddNew.this, measureID + " " + categoryID, Toast.LENGTH_LONG).show();
 
-            api.addNewProduct("4", 1, code, categoryID, nameText, amountDef, measureID, quantityText, dateText, new Callback<NewProductAddResult>() {
+            final UserProductNotExisting productNE = new UserProductNotExisting(code, nameText,
+                    autoComplete.getText().toString(), quantityText, amountDef, measureID, dateText);
+
+            SharedPreferences settings = this.getSharedPreferences(
+                    "com.lymno.myfridge.activity", Context.MODE_PRIVATE);
+            String token = settings.getString(getResources().getString(R.string.token_key), "");
+
+
+            api.addNewProduct(token, productNE, new Callback<NewProductAddResult>() {
                 @Override
                 public void success(NewProductAddResult newProductAddResult, Response response) {
                     Toast.makeText(ProductAddNew.this, "success", Toast.LENGTH_SHORT).show();
                     if (newProductAddResult != null) {
                         //добавить в базу
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-                        try {
-                            Date myDate = simpleDateFormat.parse(date.getText().toString());
-                            UserProduct userProduct = new UserProduct(newProductAddResult.getUserProductID(), 1,
-                                    newProductAddResult.getProductID(),
-                                    categoryID, nameText,
-                                    measureID, quantityText,
-                                    amountDef, myDate);
-                            userProduct.save();
+                        UserProduct userProduct = new UserProduct(productNE, newProductAddResult);
+                        userProduct.save();
 
-                            Intent intent = new Intent(ProductAddNew.this, MainActivity.class);
-                            startActivity(intent);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        Intent intent = new Intent(ProductAddNew.this, MainActivity.class);
+                        startActivity(intent);
                     } else {
-                        Toast.makeText(ProductAddNew.this, "Неправильный тип кода или такого продукта еще нет в базе.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProductAddNew.this,
+                                "Неправильный тип кода или такого продукта еще нет в базе.",
+                                Toast.LENGTH_LONG).show();
                     }
                 }
 

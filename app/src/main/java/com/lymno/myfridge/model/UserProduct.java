@@ -10,6 +10,8 @@ import com.activeandroid.query.Select;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,8 +23,8 @@ public class UserProduct extends Model {
     @Column(name = "id")
     private int userProductID;
 
-    @Expose
-    @SerializedName("FridgeID")
+    //@Expose
+    //@SerializedName("FridgeID")
     @Column(name = "fridge_id")
     private int fridgeID;
 
@@ -32,9 +34,9 @@ public class UserProduct extends Model {
     private int baseProductID;
 
     @Expose
-    @SerializedName("CategoryID")
-    @Column(name = "category_id")
-    private int category;
+    @SerializedName("CategoryName")
+    @Column(name = "category_name")
+    private String category;
 
     @Expose
     @SerializedName("Name")
@@ -62,11 +64,10 @@ public class UserProduct extends Model {
     private Date date;
 
 
-    public UserProduct(int id, int fridgeID, int baseProductID, int category, String name,
+    public UserProduct(int id, int baseProductID, String category, String name,
                        int measure, int quantity, int quantityByDefault, Date date) {
         super();
         this.userProductID = id;
-        this.fridgeID = fridgeID;
         this.baseProductID = baseProductID;
         this.category = category;
         this.name = name;
@@ -74,6 +75,24 @@ public class UserProduct extends Model {
         this.quantity = quantity;
         this.quantityByDefault = quantityByDefault;
         this.date = date;
+    }
+
+    public UserProduct(UserProductNotExisting productNE, NewProductAddResult result) {
+        super();
+        this.userProductID = result.getUserProductID();
+        this.baseProductID = result.getProductID();
+        this.category = productNE.getCategory();
+        this.name = productNE.getName();
+        this.measure = productNE.getMeasureID();
+        this.quantity = productNE.getAmount();
+        this.quantityByDefault = productNE.getAmountDefault();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        try {
+            Date myDate = simpleDateFormat.parse(productNE.getDate());
+            this.date = myDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public UserProduct() {
@@ -119,7 +138,7 @@ public class UserProduct extends Model {
         return fridgeID;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 

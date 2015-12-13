@@ -1,7 +1,9 @@
 package com.lymno.myfridge.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.model.UserProductExisting;
 import com.lymno.myfridge.model.UserProductId;
 import com.lymno.myfridge.network.Api;
 import com.lymno.myfridge.network.RestClient;
@@ -50,6 +53,7 @@ public class ProductAdd extends AppCompatActivity {
     private int productID;
     private ProductSearchResult product;
     private final Api api = RestClient.get();
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +64,11 @@ public class ProductAdd extends AppCompatActivity {
         Intent intent = getIntent();
         String code = intent.getStringExtra("barcode");
         barcode.setText(code);
+        SharedPreferences settings = this.getSharedPreferences(
+                "com.lymno.myfridge.activity", Context.MODE_PRIVATE);
+        token = settings.getString(getResources().getString(R.string.token_key), "");
 
-        api.searchBarcode(code, RestClient.getSessionId(), new Callback<ProductSearchResult>() {
+        api.searchBarcode(token, code, new Callback<ProductSearchResult>() {
             @Override
             public void success(ProductSearchResult productSearchResult, Response response) {
                 progress.dismiss();
@@ -70,7 +77,7 @@ public class ProductAdd extends AppCompatActivity {
                     productID = productSearchResult.getProductID();
                     name.setText(productSearchResult.getName());
                     //TODO new api
-                    //category.setText(Categories.getItem(productSearchResult.getCategoryID()));
+                    category.setText(productSearchResult.getCategoryName());
                     String quantityByDefaultText = "*" + productSearchResult.getAmountDefault() +
                             " " + Measures.getItem(productSearchResult.getUnitMeasureID());
                     quantityByDefault.setText(quantityByDefaultText);
@@ -101,7 +108,10 @@ public class ProductAdd extends AppCompatActivity {
     @OnClick(R.id.add_product_button_save)
     public void save() {
         if (productID != 0) {
-            api.addProd(productID, Integer.valueOf(addQuantity.getText().toString()), date.getText().toString(), "4", new Callback<UserProductId>() {
+            api.addProd(token, new UserProductExisting(productID,
+                            Integer.valueOf(addQuantity.getText().toString()), date.getText().toString()),
+                    new Callback<UserProductId>() {
+
                 @Override
                 public void success(UserProductId userProductId, Response response) {
                     progress.dismiss();
@@ -111,8 +121,8 @@ public class ProductAdd extends AppCompatActivity {
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
                         try {
                             Date myDate = simpleDateFormat.parse(date.getText().toString());
-                            UserProduct userProduct = new UserProduct(userProductId.getId(), 1,
-                                    product.getProductID(), product.getCategoryID(), product.getName(),
+                            UserProduct userProduct = new UserProduct(userProductId.getId(),
+                                    product.getProductID(), product.getCategoryName(), product.getName(),
                                     product.getUnitMeasureID(), Integer.valueOf(addQuantity.getText().toString()),
                                     product.getAmountDefault(), myDate);
                             userProduct.save();
