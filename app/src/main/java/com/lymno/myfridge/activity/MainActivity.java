@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         @Override
                         public void failure(RetrofitError error) {
+                            Toast.makeText(MainActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             refreshLayout.setRefreshing(false);
                         }
                     });
