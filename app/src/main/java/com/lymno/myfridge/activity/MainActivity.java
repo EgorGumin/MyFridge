@@ -20,6 +20,7 @@ import com.lymno.myfridge.R;
 import com.lymno.myfridge.adapter.FoodAdapter;
 import com.lymno.myfridge.adapter.RecipeAdapter;
 import com.lymno.myfridge.barcode_scanner.ScannerFragmentActivity;
+import com.lymno.myfridge.model.Category;
 import com.lymno.myfridge.model.Recipe;
 import com.lymno.myfridge.model.UserProduct;
 import com.lymno.myfridge.network.Api;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_FOOD = 1;
     private static final int MY_RECIPES = 2;
     private static final int LOG_OUT = 30;
+    private static final int REFRESH_CATEGORIES = 31;
 
     private AccountHeader headerResult = null;
     private Drawer result = null;
@@ -188,12 +190,12 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recipes).withIcon(FontAwesome.Icon.faw_book).withIdentifier(MY_RECIPES),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_recommended_recipes).withIcon(FontAwesome.Icon.faw_commenting).withEnabled(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_menu).withIcon(FontAwesome.Icon.faw_calendar).withEnabled(false),
-
                         new SectionDrawerItem(),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withEnabled(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn).withEnabled(false),
                         new SectionDrawerItem().withName(R.string.app_version),
+                        new SecondaryDrawerItem().withName("Обновить категории").withIcon(GoogleMaterial.Icon.gmd_refresh).withIdentifier(REFRESH_CATEGORIES),
                         new SecondaryDrawerItem().withName("Выйти из аккаунта").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(LOG_OUT)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -224,6 +226,21 @@ public class MainActivity extends AppCompatActivity {
                             settings.edit().putString(tokenKey, "").apply();
                             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                             startActivity(intent);
+                        }
+
+                        if (drawerItem != null && drawerItem.getIdentifier() == REFRESH_CATEGORIES) {
+                            RestClient.get().syncCategories(new Callback<ArrayList<Category>>() {
+                                @Override
+                                public void success(ArrayList<Category> categories, Response response) {
+                                    Category.recreate(categories);
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    Toast.makeText(MainActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
                         }
 
                         if (drawerItem instanceof Nameable) {

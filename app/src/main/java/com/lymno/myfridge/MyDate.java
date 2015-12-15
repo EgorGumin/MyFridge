@@ -10,7 +10,11 @@ public class MyDate extends Date {
     private final long MILLIS_IN_DATE = 1000 * 60 * 60 * 24; //Столько миллисекунд в одном дне
 
     public MyDate(Date l) {
-        this(l.getTime());
+        if (l != null) {
+            super.setTime(l.getTime());
+        } else {
+            super.setTime(getTime());
+        }
     }
 
     public MyDate(long l) {

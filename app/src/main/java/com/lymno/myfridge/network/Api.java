@@ -48,7 +48,7 @@ public interface Api {
     void syncCategories(Callback<ArrayList<Category>> callback);
 
 
-    @POST("/api/userproduct/addNewCategoryProduct")
+    @POST("/api/userproduct/addNewProduct")
     void addNewProduct(@Header("Authorization") String token, @Body UserProductNotExisting product, Callback<NewProductAddResult> callback);
 
     //пока не будет обновляться, ибо не нужен
