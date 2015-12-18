@@ -1,1 +1,0 @@
-ALTER TABLE UserProducts ADD COLUMN category_name VARCHAR;
