@@ -100,7 +100,9 @@ public class Recipe extends Model {
 
 
     public List<Ingredient> getIngredientsBase() {
-        return getMany(Ingredient.class, "Recipe");
+        List<Ingredient> ingredients = getMany(Ingredient.class, "Recipe");
+        Ingredient.setUserProducts(ingredients);
+        return ingredients;
     }
 
     public int getRecipeID() {

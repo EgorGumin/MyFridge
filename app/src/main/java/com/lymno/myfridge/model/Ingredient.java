@@ -45,6 +45,8 @@ public class Ingredient extends Model {
     @Column(name = "substitutes")
     private String subsString;
 
+    private ArrayList<Integer> userProducts;
+
     public int[] getSubs() {
         Gson gson = new Gson();
         return gson.fromJson(subsString, int[].class);
@@ -62,6 +64,7 @@ public class Ingredient extends Model {
         this.importance = importance;
         this.quantity = quantity;
         this.substitutes = substitutes;
+        this.userProducts = new ArrayList<Integer>();
         setSubs(substitutes);
     }
 
@@ -77,6 +80,19 @@ public class Ingredient extends Model {
 
     public int getIngredientID() {
         return ingredientID;
+    }
+
+    //Получить
+    public static void setUserProducts(List<Ingredient> ingredients) {
+        ArrayList<UserProduct> userProducts = UserProduct.getAll();
+        for (Ingredient i : ingredients) {
+            i.userProducts = new ArrayList<>();
+            for (UserProduct up : userProducts) {
+                if (i.getCategory().equals(up.getCategory())) {
+                    i.userProducts.add(up.getUserProductID());
+                }
+            }
+        }
     }
 
     public String getCategory() {
