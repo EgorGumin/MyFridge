@@ -1,70 +1,94 @@
 package com.lymno.myfridge.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.lymno.myfridge.R;
+import com.lymno.myfridge.model.UserProduct;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FoodInfoActivity extends AppCompatActivity {
 
     public static final String INTENT_PRODUCT_ID = "id";
-    public static final String INTENT_CATEGORY_STRING = "cat";
-    public static final String INTENT_NAME_STRING = "nam";
-    public static final String INTENT_COUNT_INT = "count";
-    public static final String INTENT_COUNT_IN_PACKET_INT = "count_in_packet";
-    public static final String INTENT_UNITS_STRING = "units";
-    public static final String INTENT_USE_LEFT_STRING = "use_before";
-    public static final String INTENT_BAR_CODE_STRING = "bar_code";
 
-    @Bind(R.id.food_info_icon)
-    protected ImageView mFoodIcon;
+    private UserProduct product;
 
-    @Bind(R.id.food_info_category)
-    protected TextView mCategoryName;
+    @Bind(R.id.pr_info_tv_pr_name)
+    protected TextView tvProductName;
 
-    @Bind(R.id.food_info_eat_before)
-    protected TextView mEatBefore;
+    @Bind(R.id.pr_info_collapsing_toolbar_layout)
+    protected CollapsingToolbarLayout toolbarLayout;
 
-    @Bind(R.id.food_info_toolbar)
+    @Bind(R.id.pr_info_toolbar)
     protected Toolbar toolbar;
 
+    @Bind(R.id.pr_info_seekbar_pr)
+    protected SeekBar sbQuantity;
+
+    @Bind(R.id.pr_info_tv_pr_left_name)
+    protected TextView tvProdLeftName;
+
+    @Bind(R.id.pr_info_tv_pack_size)
+    protected TextView tvPackSize;
+
+    @Bind(R.id.pr_info_btn_cancel_changes)
+    protected Button btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
-//        ButterKnife.bind(this);
+        ButterKnife.bind(this);
 
-        //loadFromIntent();
+        product = UserProduct.getByID(getIntent().getLongExtra(INTENT_PRODUCT_ID, 0));
 
-        // Handle Toolbar
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("Описание Продукта");
-//        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+        tvProductName.setText(product.getCategory() + "  "
+                + product.getName());
+
+
+        sbQuantity.setMax(product.getQuantity());
+        sbQuantity.setProgress(product.getQuantity());
+        tvProdLeftName.setText("Осталось: " + product.getQuantity() + " " + product.getMeasure());
+        tvPackSize.setText("В упаковке: " + product.getQuantityByDefault()
+                + " " + product.getMeasure());
+
+        sbQuantity.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvProdLeftName.setText("Осталось: " + sbQuantity.getProgress() + " " + product.getMeasure());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+//    TODO добавить отображение штрих-кода
 
-
-    private void loadFromIntent() {
-        Intent loadedIntent = getIntent();
-        if (loadedIntent != null) {
-            mCategoryName.setText(loadedIntent.getStringExtra(INTENT_CATEGORY_STRING) + "  "
-                    + loadedIntent.getStringExtra(INTENT_NAME_STRING));
-
-            loadedIntent.getStringExtra(INTENT_UNITS_STRING);
-            mEatBefore.setText(loadedIntent.getStringExtra(INTENT_USE_LEFT_STRING));
-            loadedIntent.getStringExtra(INTENT_BAR_CODE_STRING);
-        }
+    @OnClick(R.id.pr_info_btn_cancel_changes)
+    public void cancel() {
+        sbQuantity.setProgress(product.getQuantity());
     }
 }

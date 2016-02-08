@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.lymno.myfridge.Measures;
 import com.lymno.myfridge.MyDate;
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.activity.FoodInfoActivity;
@@ -45,6 +44,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         viewHolder.tvDate.setText((new MyDate(foodData.getDate())).stayedTime().presentToString(""));
     }
 
+    //    TODO use this method
     public void updateItems(ArrayList<UserProduct> items) {
         this.foodsData = items;
         notifyDataSetChanged();
@@ -68,19 +68,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            //TODO insert request activity
             Context context = view.getContext();
             Intent questInfoIntent = new Intent(context, FoodInfoActivity.class);
             UserProduct product = foodsData.get(getAdapterPosition());
 
             questInfoIntent.putExtra(FoodInfoActivity.INTENT_PRODUCT_ID, product.getId());
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_NAME_STRING, (product.getName()));
-            //questInfoIntent.putExtra(FoodInfoActivity.INTENT_CATEGORY_STRING, Categories.getItem(product.getCategory()));
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_INT, product.getQuantity());
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_COUNT_IN_PACKET_INT, product.getQuantityByDefault());
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_UNITS_STRING, Measures.getItem(product.getMeasure()));
-            questInfoIntent.putExtra(FoodInfoActivity.INTENT_USE_LEFT_STRING,
-                    (new MyDate(product.getDate())).stayedTime().presentToString("сьесть за: "));
             context.startActivity(questInfoIntent);
         }
     }

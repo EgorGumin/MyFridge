@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_login_btn)
     public void login() {
-        User user = new User("Admin", "secret");
+        User user = new User("Admin", "djkool");
         RestClient.get().auth(user, new Callback<Token>() {
             @Override
             public void success(Token token, Response response) {

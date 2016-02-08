@@ -5,13 +5,13 @@
     android:background="#cecece">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_product_layout"
+        android:id="@+id/pr_info_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="192dp"
         android:background="?colorPrimary">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_product_layout"
+            android:id="@+id/pr_info_collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
@@ -25,16 +25,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/scrim" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/pr_info_tv_pr_name"
+                    android:layout_gravity="left|bottom"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:textSize="28sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse" />
 
             </FrameLayout>
 
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_product"
+                android:id="@+id/pr_info_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -70,21 +76,24 @@
                 android:padding="4dp">
 
                 <TextView
-                    android:id="@+id/textView10"
+                    android:id="@+id/pr_info_tv_pr_left_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Product left:" />
+                    android:text="Product left:"
+                    style="@style/Base.TextAppearance.AppCompat.Headline" />
 
                 <SeekBar
-                    android:id="@+id/seekBar"
+                    android:id="@+id/pr_info_seekbar_pr"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:indeterminate="false" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/pr_info_tv_pack_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pack size: " />
+                    android:text="В упаковке: "
+                    style="@style/Base.TextAppearance.AppCompat.Large" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -93,14 +102,19 @@
                     android:baselineAligned="false"
                     android:contextClickable="true">
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
                     <Button
-                        android:id="@+id/button5"
+                        android:id="@+id/pr_info_btn_cancel_changes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cancel" />
 
                     <Button
-                        android:id="@+id/button6"
+                        android:id="@+id/pr_info_btn_save_changes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Save" />
@@ -118,25 +132,28 @@
                 android:paddingTop="4dp">
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/pr_info_tv_use_before_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Use before:"
-                    android:layout_marginLeft="4dp" />
+                    android:layout_marginLeft="4dp"
+                    style="@style/Base.TextAppearance.AppCompat.Headline" />
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/pr_info_tv_use_before_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="some date... "
-                    android:layout_marginLeft="4dp" />
+                    android:layout_marginLeft="4dp"
+                    style="@style/Base.TextAppearance.AppCompat.Large" />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/pr_info_tv_use_berore_days_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="some days left... "
-                    android:layout_marginLeft="4dp" />
+                    android:layout_marginLeft="4dp"
+                    style="@style/Base.TextAppearance.AppCompat.Large" />
 
                 <View
                     android:layout_width="match_parent"
@@ -147,9 +164,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Edit"
-                    android:id="@+id/button3"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp" />
+                    android:id="@+id/pr_info_btn_edit_date"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless" />
             </LinearLayout>
 
             <LinearLayout
@@ -157,14 +173,19 @@
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:elevation="2dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                android:paddingTop="4dp">
+                android:padding="0dp">
 
                 <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:text="Invalid info"
-                    android:id="@+id/button4" />
+                    android:id="@+id/pr_info_btn_invalid_info"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_margin="0dp"
+                    android:enabled="false"
+                    android:clickable="false" />
             </LinearLayout>
 
 

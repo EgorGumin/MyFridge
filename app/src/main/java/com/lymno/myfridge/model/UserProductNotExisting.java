@@ -24,15 +24,16 @@ public class UserProductNotExisting {
     @SerializedName("AmountDefault")
     private int amountDefault;
 
+    //    может вызвать падение
     @Expose
     @SerializedName("UnitMeasureID")
-    private int measureID;
+    private String measureID;
 
     @Expose
     @SerializedName("ExpirationDate")
     private String date;
 
-    public UserProductNotExisting(String barcode, String name, String category, int amount, int amountDefault, int measureID, String date) {
+    public UserProductNotExisting(String barcode, String name, String category, int amount, int amountDefault, String measureID, String date) {
         this.barcode = barcode;
         this.name = name;
         this.category = category;
@@ -62,7 +63,7 @@ public class UserProductNotExisting {
         return amountDefault;
     }
 
-    public int getMeasureID() {
+    public String getMeasureID() {
         return measureID;
     }
 

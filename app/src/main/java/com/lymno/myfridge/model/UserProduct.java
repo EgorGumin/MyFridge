@@ -44,9 +44,9 @@ public class UserProduct extends Model {
     private String name;
 
     @Expose
-    @SerializedName("UnitMeasureID")
+    @SerializedName("Measure")
     @Column(name = "measure")
-    private int measure;
+    private String measure;
 
     @Expose
     @SerializedName("Amount")
@@ -65,7 +65,7 @@ public class UserProduct extends Model {
 
 
     public UserProduct(int id, int baseProductID, String category, String name,
-                       int measure, int quantity, int quantityByDefault, Date date) {
+                       String measure, int quantity, int quantityByDefault, Date date) {
         super();
         this.userProductID = id;
         this.baseProductID = baseProductID;
@@ -118,12 +118,19 @@ public class UserProduct extends Model {
         ActiveAndroid.execSQL("delete from sqlite_sequence where name='" + tableInfo.getTableName() + "';");
     }
 
-    //Сохраняет список рецептов и их ингредиенты
+    //Сохраняет список продуктов
     //TODO запилить транзакции, отрефакторить код, написать комменты
     public static void saveList(ArrayList<UserProduct> userProducts) {
         for (UserProduct userProduct : userProducts) {
             userProduct.save();
         }
+    }
+
+    public static UserProduct getByID(long id) {
+        return new Select()
+                .from(UserProduct.class)
+                .where("_id = ?", id)
+                .executeSingle();
     }
 
     public int getUserProductID() {
@@ -146,7 +153,7 @@ public class UserProduct extends Model {
         return name;
     }
 
-    public int getMeasure() {
+    public String getMeasure() {
         return measure;
     }
 

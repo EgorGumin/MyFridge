@@ -42,7 +42,7 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
     private Button save;
     private Spinner measure;
     private ArrayList<String> categories;
-    private int measureID;
+    private String measureID;
     private int categoryID;
     private String barcodeText;
     private String nameText;
@@ -51,6 +51,7 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
     private int quantityText;
     private String code;
     final Api api = RestClient.get();
+    private ArrayList<String> measures;
 
 
     @Override
@@ -82,7 +83,7 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
 
         //measure
         // адаптер
-        ArrayList<String> measures = Measures.get();
+        measures = Measures.get();
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, measures);
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -110,17 +111,18 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
             DialogFragment dateDialog = new DatePickerForAddNew();
             dateDialog.show(getSupportFragmentManager(), "datePicker");
         }
+        //todo все это нужно переписывать, господи =(((((((((((((((((((((
         if (v == save) {
-            measureID = measure.getSelectedItemPosition() + 1;
+            measureID = measures.get(measure.getSelectedItemPosition());
             //categoryID = categories.indexOf(autoComplete.getText().toString()) + 1;
-            //TODO new api
             //categoryID = Categories.getID(autoComplete.getText().toString());
             nameText = name.getText().toString();
-            if (measureID == 3) {
-                amountDef = 0;
-            } else {
-                amountDef = Integer.valueOf(quantity.getText().toString());
-            }
+//            if (measureID == 3) {
+//                amountDef = 0;
+//            } else {
+//                amountDef = Integer.valueOf(quantity.getText().toString());
+//            }
+            amountDef = Integer.valueOf(quantity.getText().toString());
             dateText = date.getText().toString();
             quantityText = Integer.valueOf(quantity.getText().toString());
             Toast.makeText(ProductAddNew.this, measureID + " " + categoryID, Toast.LENGTH_LONG).show();

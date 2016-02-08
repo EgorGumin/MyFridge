@@ -22,9 +22,10 @@ public class ProductSearchResult {
     @SerializedName("AmountDefault")
     private int amountDefault;
 
+    //    может вызвать ошибку
     @Expose
     @SerializedName("UnitMeasureID")
-    private int unitMeasureID;
+    private String unitMeasureID;
 
     public int getProductID() {
         return productID;
@@ -42,7 +43,7 @@ public class ProductSearchResult {
         return amountDefault;
     }
 
-    public int getUnitMeasureID() {
+    public String getUnitMeasureID() {
         return unitMeasureID;
     }
 
