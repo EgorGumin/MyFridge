@@ -73,7 +73,8 @@
                 android:background="#ffffff"
                 android:elevation="2dp"
                 android:orientation="vertical"
-                android:padding="4dp">
+                android:padding="4dp"
+                android:id="@+id/pr_info_amount_change_layout">
 
                 <TextView
                     android:id="@+id/pr_info_tv_pr_left_name"
@@ -135,7 +136,7 @@
                     android:id="@+id/pr_info_tv_use_before_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Use before:"
+                    android:text="Использовать до:"
                     android:layout_marginLeft="4dp"
                     style="@style/Base.TextAppearance.AppCompat.Headline" />
 

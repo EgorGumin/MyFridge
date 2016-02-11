@@ -1,10 +1,10 @@
 package com.lymno.myfridge.network;
 
 import com.lymno.myfridge.model.Category;
+import com.lymno.myfridge.model.NewAmount;
 import com.lymno.myfridge.model.NewProductAddResult;
 import com.lymno.myfridge.model.ProductSearchResult;
 import com.lymno.myfridge.model.Recipe;
-import com.lymno.myfridge.model.ResultChange;
 import com.lymno.myfridge.model.Token;
 import com.lymno.myfridge.model.User;
 import com.lymno.myfridge.model.UserProduct;
@@ -19,6 +19,7 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Query;
 
 public interface Api {
@@ -51,8 +52,7 @@ public interface Api {
     @POST("/api/userproduct/addNewProduct")
     void addNewProduct(@Header("Authorization") String token, @Body UserProductNotExisting product, Callback<NewProductAddResult> callback);
 
-    //пока не будет обновляться, ибо не нужен
-    @GET("/products/AmountChange")
-    ResultChange change(@Query("UserProductID") String UserProductID,
-                        @Query("Amount") String Amount);
+    //обновляется
+    @PUT("/api/userproduct/AmountChange")
+    void changeAmount(@Header("Authorization") String token, @Body NewAmount amount, Callback<Void> callback);
 }

@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.myFAB)
     FloatingActionButton myFAB;
 
-    SharedPreferences settings;
-    String tokenKey = "com.lymno.myfridge.activity.token";
-    String token;
+    private SharedPreferences settings;
+    private String tokenKey = "com.lymno.myfridge.activity.token";
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
         final Api api = RestClient.get();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        settings = this.getSharedPreferences(
-                "com.lymno.myfridge.activity", Context.MODE_PRIVATE);
+        settings = this.getSharedPreferences("com.lymno.myfridge.activity", Context.MODE_PRIVATE);
         token = settings.getString(tokenKey, "");
         if (token.isEmpty()) {
             Toast.makeText(MainActivity.this, "Token is empty!", Toast.LENGTH_LONG).show();
