@@ -288,8 +288,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (result.getCurrentSelectedPosition() == MY_FOOD) {
             //TODO переделать onResume
-//            mFoodAdapter = new FoodAdapter(UserProductsDatabase.getUserProducts());
-//            recyclerView.setAdapter(mFoodAdapter);
+            mFoodAdapter = new FoodAdapter(UserProduct.getAll());
+            recyclerView.setAdapter(mFoodAdapter);
         }
     }
 

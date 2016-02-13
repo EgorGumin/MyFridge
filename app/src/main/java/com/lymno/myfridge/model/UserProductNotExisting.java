@@ -26,7 +26,7 @@ public class UserProductNotExisting {
 
     //    может вызвать падение
     @Expose
-    @SerializedName("UnitMeasureID")
+    @SerializedName("Measure")
     private String measureID;
 
     @Expose

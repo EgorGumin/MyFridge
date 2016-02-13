@@ -64,9 +64,6 @@ public class FoodInfoActivity extends AppCompatActivity {
     @Bind(R.id.pr_info_btn_save_changes)
     protected Button btnSave;
 
-    @Bind(R.id.pr_info_amount_change_layout)
-    protected View amountChangeLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,8 +134,9 @@ public class FoodInfoActivity extends AppCompatActivity {
                 public void success(Void aVoid, Response response) {
                     if (progress == 0) {
 //                        // TODO: 12.02.2016 Проверить перезагрузку MainActivity после закрытия этой, дописать исчезновение контролов и подсказки
-                        amountChangeLayout.setVisibility(View.GONE);
                         product.delete();
+                        Toast.makeText(FoodInfoActivity.this, "Продукт удален", Toast.LENGTH_SHORT).show();
+                        FoodInfoActivity.this.finish();
                     } else {
                         product.setQuantity(progress);
                         product.save();
