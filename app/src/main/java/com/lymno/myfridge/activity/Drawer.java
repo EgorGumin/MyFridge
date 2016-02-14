@@ -13,10 +13,12 @@ import android.view.MenuItem;
 
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.fragment.DrawerProducts;
+import com.lymno.myfridge.fragment.DrawerRecipes;
 
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerProducts drawerProductsFragment;
+    private DrawerRecipes drawerRecipesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,13 @@ public class Drawer extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         drawerProductsFragment = new DrawerProducts();
+        drawerRecipesFragment = new DrawerRecipes();
+
+        //TODO: 14.02.2016 найти способ поумнее поставить дефолтный фрагмент
+        navigationView.setCheckedItem(R.id.nav_camera);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.drawer_fragments_container, drawerProductsFragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -79,14 +88,11 @@ public class Drawer extends AppCompatActivity
 
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
             fragmentTransaction.replace(R.id.drawer_fragments_container, drawerProductsFragment);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_gallery) {
+            fragmentTransaction.replace(R.id.drawer_fragments_container, drawerRecipesFragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

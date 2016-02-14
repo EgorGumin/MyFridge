@@ -287,7 +287,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (result.getCurrentSelectedPosition() == MY_FOOD) {
-            //TODO переделать onResume
             mFoodAdapter = new FoodAdapter(UserProduct.getAll());
             recyclerView.setAdapter(mFoodAdapter);
         }
