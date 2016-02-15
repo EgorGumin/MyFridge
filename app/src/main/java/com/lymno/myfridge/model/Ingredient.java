@@ -48,6 +48,7 @@ public class Ingredient extends Model {
     private ArrayList<Integer> userProducts;
 
     public int[] getSubs() {
+        // TODO: 15.02.2016 не используется, может вызвать ошибку
         Gson gson = new Gson();
         return gson.fromJson(subsString, int[].class);
     }

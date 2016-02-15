@@ -8,8 +8,10 @@ import com.activeandroid.TableInfo;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,20 +34,34 @@ public class Recipe extends Model {
     private String description;
 
     @Expose
-    @SerializedName("Image")
-    @Column(name = "image")
-    private String image;
+    @SerializedName("Images")
+    private ArrayList<String> images;
+
+    @Column(name = "images")
+    private String storedImages;
+
+    public void loadImages() {
+        Gson gson = new Gson();
+        images = gson.fromJson(storedImages, new TypeToken<ArrayList<String>>() {
+        }.getType());
+    }
+
+    private void saveImages() {
+        Gson gson = new Gson();
+        this.storedImages = gson.toJson(images);
+    }
 
     @Expose
     @SerializedName("Ingredients")
     private ArrayList<Ingredient> ingredients;
 
-    public Recipe(int recipeID, String name, String description, ArrayList<Ingredient> ingredients) {
+    public Recipe(int recipeID, String name, String description, ArrayList<Ingredient> ingredients, ArrayList<String> images) {
         super();
         this.recipeID = recipeID;
         this.name = name;
         this.description = description;
         this.ingredients = ingredients;
+        this.images = images;
     }
 
     public Recipe() {
@@ -53,17 +69,12 @@ public class Recipe extends Model {
     }
 
 
-    public static Recipe getRandom() {
-        Recipe recipe = new Select().from(Recipe.class).orderBy("RANDOM()").executeSingle();
-        recipe.setIngredients(new ArrayList<Ingredient>(recipe.getIngredientsBase()));
-        return recipe;
-    }
-
     public static ArrayList<Recipe> getAll() {
-        List<Recipe> recipes = new Select().from(Recipe.class).orderBy("RANDOM()").execute();
+        List<Recipe> recipes = new Select().from(Recipe.class).execute();
         ArrayList<Recipe> recipesWithIngredients = new ArrayList<>();
         for (Recipe recipe : recipes) {
             recipe.setIngredients(new ArrayList<Ingredient>(recipe.getIngredientsBase()));
+            recipe.loadImages();
             recipesWithIngredients.add(recipe);
         }
         return recipesWithIngredients;
@@ -71,6 +82,7 @@ public class Recipe extends Model {
 
     //Сохраняет рецепт и ингредиенты
     public void saveAll() {
+        saveImages();
         save();
         for (Ingredient i : ingredients) {
             i.recipe = this;
@@ -81,7 +93,7 @@ public class Recipe extends Model {
     public static void recreate(ArrayList<Recipe> recipes) {
         truncate(Recipe.class);
         truncate(Ingredient.class); //возможно, это лишнее
-        saveList(recipes);
+        save(recipes);
     }
 
     public static void truncate(Class<? extends Model> type) {
@@ -92,7 +104,7 @@ public class Recipe extends Model {
     }
 
     //Сохраняет список рецептов и их ингредиенты
-    public static void saveList(ArrayList<Recipe> recipes) {
+    public static void save(ArrayList<Recipe> recipes) {
         for (Recipe recipe : recipes) {
             recipe.saveAll();
         }
@@ -113,8 +125,8 @@ public class Recipe extends Model {
         return name;
     }
 
-    public String getImageUrl() {
-        return image;
+    public String getMainImage() {
+        return images.get(0);
     }
 
     public String getDescription() {

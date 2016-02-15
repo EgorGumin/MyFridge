@@ -49,7 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
         String token = settings.getString(tokenKey, "");
         if (!token.isEmpty()) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, Drawer.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
 
@@ -63,7 +64,8 @@ public class LoginActivity extends AppCompatActivity {
             public void success(Token token, Response response) {
                 Toast.makeText(LoginActivity.this, token.getAccessToken(), Toast.LENGTH_LONG).show();
                 settings.edit().putString(tokenKey, token.getAccessToken()).apply();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, Drawer.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
             @Override

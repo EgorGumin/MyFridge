@@ -125,7 +125,8 @@ public class ProductAdd extends AppCompatActivity {
                                     product.getUnitMeasureID(), Integer.valueOf(addQuantity.getText().toString()),
                                     product.getAmountDefault(), myDate);
                             userProduct.save();
-                            Intent intent = new Intent(ProductAdd.this, MainActivity.class);
+                            Intent intent = new Intent(ProductAdd.this, Drawer.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         } catch (ParseException e) {
                             e.printStackTrace();

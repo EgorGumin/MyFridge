@@ -46,7 +46,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         viewHolder.RecipeName.setText(recipeDataPos.getName());
         viewHolder.RecipeDescription.setText(recipeDataPos.getDescription());
 
-        Picasso.with(viewHolder.imageView.getContext()).load(recipeDataPos.getImageUrl()).error(R.drawable.no_image).into(viewHolder.imageView);
+        Picasso.with(viewHolder.imageView.getContext()).load(recipeDataPos.getMainImage()).error(R.drawable.no_image).into(viewHolder.imageView);
     }
 
     public void updateItems(ArrayList<Recipe> items) {

@@ -41,7 +41,7 @@ public class Drawer extends AppCompatActivity
         drawerRecipesFragment = new DrawerRecipes();
 
         //TODO: 14.02.2016 найти способ поумнее поставить дефолтный фрагмент
-        navigationView.setCheckedItem(R.id.nav_camera);
+        navigationView.setCheckedItem(R.id.drawer_menu_products);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.drawer_fragments_container, drawerProductsFragment);
         fragmentTransaction.commit();
@@ -86,11 +86,10 @@ public class Drawer extends AppCompatActivity
         int id = item.getItemId();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-
-        if (id == R.id.nav_camera) {
+        if (id == R.id.drawer_menu_products) {
             fragmentTransaction.replace(R.id.drawer_fragments_container, drawerProductsFragment);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.drawer_menu_recipes) {
             fragmentTransaction.replace(R.id.drawer_fragments_container, drawerRecipesFragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_share) {
