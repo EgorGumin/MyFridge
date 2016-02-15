@@ -76,7 +76,7 @@ public class DrawerRecipes extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         settings = getActivity().getSharedPreferences("com.lymno.myfridge.activity", Context.MODE_PRIVATE);
         token = settings.getString(tokenKey, "");
-        refreshLayout.setColorSchemeColors(R.color.primary);
+        //refreshLayout.setColorSchemeColors(R.color.primary);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -144,7 +144,8 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
                         UserProduct userProduct = new UserProduct(productNE, newProductAddResult);
                         userProduct.save();
 
-                        Intent intent = new Intent(ProductAddNew.this, MainActivity.class);
+                        Intent intent = new Intent(ProductAddNew.this, Drawer.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else {
                         Toast.makeText(ProductAddNew.this,
