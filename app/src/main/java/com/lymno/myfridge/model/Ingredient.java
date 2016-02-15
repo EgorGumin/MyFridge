@@ -65,7 +65,7 @@ public class Ingredient extends Model {
         this.importance = importance;
         this.quantity = quantity;
         this.substitutes = substitutes;
-        this.userProducts = new ArrayList<Integer>();
+        this.userProducts = new ArrayList<>();
         setSubs(substitutes);
     }
 

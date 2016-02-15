@@ -88,8 +88,7 @@ public class UserProduct extends Model {
         this.quantityByDefault = productNE.getAmountDefault();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         try {
-            Date myDate = simpleDateFormat.parse(productNE.getDate());
-            this.date = myDate;
+            this.date = simpleDateFormat.parse(productNE.getDate());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -103,7 +102,7 @@ public class UserProduct extends Model {
 
     public static ArrayList<UserProduct> getAll() {
         java.util.List<UserProduct> userProducts = new Select().from(UserProduct.class).execute(); //order by?
-        return new ArrayList<UserProduct>(userProducts);
+        return new ArrayList<>(userProducts);
     }
 
     public static void recreate(ArrayList<UserProduct> userProducts) {

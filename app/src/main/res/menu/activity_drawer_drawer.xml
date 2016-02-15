@@ -5,23 +5,23 @@
         <item
             android:id="@+id/drawer_menu_products"
             android:icon="@drawable/menu_products"
-            android:title="Продукты" />
+            android:title="@string/drawer_menu_products" />
         <item
             android:id="@+id/drawer_menu_recipes"
             android:icon="@drawable/menu_recipes"
-            android:title="Рецепты" />
+            android:title="@string/drawer_menu_recipes" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/action_settings">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/drawer_menu_refresh_categories"
+                android:icon="@drawable/menu_refresh_categories"
+                android:title="@string/drawer_menu_refresh_categories" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/drawer_menu_log_out"
+                android:icon="@drawable/menu_log_out"
+                android:title="@string/drawer_menu_log_out" />
         </menu>
     </item>
 

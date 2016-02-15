@@ -74,7 +74,7 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
 
         //autocomplete
         categories = Category.getTextArrayList();
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, categories);
         autoComplete = (AutoCompleteTextView) findViewById(R.id.add_new_category);
         // set adapter for the auto complete fields
         autoComplete.setAdapter(adapter);
@@ -84,7 +84,7 @@ public class ProductAddNew extends AppCompatActivity implements View.OnClickList
         //measure
         // адаптер
         measures = Measures.get();
-        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, measures);
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, measures);
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         measure.setAdapter(adapterSpinner);

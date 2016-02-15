@@ -73,7 +73,7 @@ public class Recipe extends Model {
         List<Recipe> recipes = new Select().from(Recipe.class).execute();
         ArrayList<Recipe> recipesWithIngredients = new ArrayList<>();
         for (Recipe recipe : recipes) {
-            recipe.setIngredients(new ArrayList<Ingredient>(recipe.getIngredientsBase()));
+            recipe.setIngredients(new ArrayList<>(recipe.getIngredientsBase()));
             recipe.loadImages();
             recipesWithIngredients.add(recipe);
         }

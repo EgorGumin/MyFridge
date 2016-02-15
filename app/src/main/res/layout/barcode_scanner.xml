@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Отсканируйте штрих-код продукта"
         android:id="@+id/textView2"
-        android:textSize="14dp" />
+        android:textSize="14sp" />
 
     <LinearLayout
         android:orientation="horizontal"

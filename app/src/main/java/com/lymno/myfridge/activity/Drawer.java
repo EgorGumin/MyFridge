@@ -92,9 +92,9 @@ public class Drawer extends AppCompatActivity
         } else if (id == R.id.drawer_menu_recipes) {
             fragmentTransaction.replace(R.id.drawer_fragments_container, drawerRecipesFragment);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.drawer_menu_refresh_categories) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.drawer_menu_log_out) {
 
         }
 

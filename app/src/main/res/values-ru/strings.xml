@@ -9,4 +9,8 @@
     <string name="hello_world">Приветик!</string>
     <string name="action_settings">Настройки</string>
     <string name="drawer_item_recommended_recipes">Рекомендованные рецепты</string>
+    <string name="drawer_menu_refresh_categories">Обновить категории</string>
+    <string name="drawer_menu_log_out">Выйти из аккаунта</string>
+    <string name="drawer_menu_recipes">Рецепты</string>
+    <string name="drawer_menu_products">Продукты</string>
 </resources>

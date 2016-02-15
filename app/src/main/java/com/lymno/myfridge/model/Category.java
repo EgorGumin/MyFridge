@@ -32,7 +32,7 @@ public class Category extends Model {
 
     public static ArrayList<Category> getAll() {
         List<Category> categories = new Select().from(Category.class).execute();
-        return new ArrayList<Category>(categories);
+        return new ArrayList<>(categories);
     }
 
     public static ArrayList<String> getTextArrayList() {
