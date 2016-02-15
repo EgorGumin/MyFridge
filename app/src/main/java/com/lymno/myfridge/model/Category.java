@@ -1,10 +1,6 @@
 package com.lymno.myfridge.model;
 
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Cache;
-import com.activeandroid.Model;
-import com.activeandroid.TableInfo;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
@@ -15,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "Categories", id = "_id")
-public class Category extends Model {
+public class Category extends MyModel {
     @Expose
     @SerializedName("Name")
     @Column(name = "name")
@@ -49,12 +45,6 @@ public class Category extends Model {
         saveList(categories);
     }
 
-    public static void truncate(Class<? extends Model> type) {
-        TableInfo tableInfo = Cache.getTableInfo(type);
-        // Not the cleanest way, but...
-        ActiveAndroid.execSQL("delete from " + tableInfo.getTableName() + ";");
-        ActiveAndroid.execSQL("delete from sqlite_sequence where name='" + tableInfo.getTableName() + "';");
-    }
 
     public static void saveList(ArrayList<Category> categories) {
         for (Category category : categories) {

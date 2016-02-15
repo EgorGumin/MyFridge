@@ -1,9 +1,5 @@
 package com.lymno.myfridge.model;
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Cache;
-import com.activeandroid.Model;
-import com.activeandroid.TableInfo;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
@@ -16,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Table(name = "UserProducts", id = "_id")
-public class UserProduct extends Model {
+public class UserProduct extends MyModel {
 
     @Expose
     @SerializedName("UserProductID")
@@ -110,12 +106,6 @@ public class UserProduct extends Model {
         saveList(userProducts);
     }
 
-    public static void truncate(Class<? extends Model> type) {
-        TableInfo tableInfo = Cache.getTableInfo(type);
-        // Not the cleanest way, but...
-        ActiveAndroid.execSQL("delete from " + tableInfo.getTableName() + ";");
-        ActiveAndroid.execSQL("delete from sqlite_sequence where name='" + tableInfo.getTableName() + "';");
-    }
 
     //Сохраняет список продуктов
     //TODO запилить транзакции, отрефакторить код, написать комменты

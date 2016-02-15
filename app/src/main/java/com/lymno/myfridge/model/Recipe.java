@@ -1,10 +1,6 @@
 package com.lymno.myfridge.model;
 
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Cache;
-import com.activeandroid.Model;
-import com.activeandroid.TableInfo;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
@@ -17,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "Recipes", id = "_id")
-public class Recipe extends Model {
+public class Recipe extends MyModel {
     @Expose
     @SerializedName("RecipeID")
     @Column(name = "id")
@@ -94,13 +90,6 @@ public class Recipe extends Model {
         truncate(Recipe.class);
         truncate(Ingredient.class); //возможно, это лишнее
         save(recipes);
-    }
-
-    public static void truncate(Class<? extends Model> type) {
-        TableInfo tableInfo = Cache.getTableInfo(type);
-        // Not the cleanest way, but...
-        ActiveAndroid.execSQL("delete from " + tableInfo.getTableName() + ";");
-        ActiveAndroid.execSQL("delete from sqlite_sequence where name='" + tableInfo.getTableName() + "';");
     }
 
     //Сохраняет список рецептов и их ингредиенты

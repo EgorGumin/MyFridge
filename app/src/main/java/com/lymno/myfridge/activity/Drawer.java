@@ -1,5 +1,8 @@
 package com.lymno.myfridge.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -10,10 +13,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.lymno.myfridge.R;
 import com.lymno.myfridge.fragment.DrawerProducts;
 import com.lymno.myfridge.fragment.DrawerRecipes;
+import com.lymno.myfridge.model.Category;
+import com.lymno.myfridge.model.Ingredient;
+import com.lymno.myfridge.model.MyModel;
+import com.lymno.myfridge.model.Recipe;
+import com.lymno.myfridge.model.UserProduct;
+import com.lymno.myfridge.network.RestClient;
+
+import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -93,9 +109,32 @@ public class Drawer extends AppCompatActivity
             fragmentTransaction.replace(R.id.drawer_fragments_container, drawerRecipesFragment);
             fragmentTransaction.commit();
         } else if (id == R.id.drawer_menu_refresh_categories) {
+            RestClient.get().syncCategories(new Callback<ArrayList<Category>>() {
+                @Override
+                public void success(ArrayList<Category> categories, Response response) {
+                    Category.recreate(categories);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(Drawer.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
 
         } else if (id == R.id.drawer_menu_log_out) {
+//          Удаляем сохраненный токен
+            String tokenKey = "com.lymno.myfridge.activity.token";
+            SharedPreferences settings = this.getSharedPreferences("com.lymno.myfridge.activity",
+                    Context.MODE_PRIVATE);
+            settings.edit().putString(tokenKey, "").apply();
+//          Очищаем БД
+            MyModel.truncate(Recipe.class);
+            MyModel.truncate(Ingredient.class);
+            MyModel.truncate(UserProduct.class);
 
+            Intent intent = new Intent(Drawer.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
